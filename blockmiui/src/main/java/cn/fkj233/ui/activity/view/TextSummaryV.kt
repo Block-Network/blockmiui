@@ -85,13 +85,14 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
                 ImageView(context).also {
                     it.background = context.getDrawable(R.drawable.ic_right_arrow)
                     it.visibility = if (showArrow) View.VISIBLE else View.GONE
+                    it.setPadding(0, 0, 100, 0)
                 },
                 LinearLayout.LayoutParams(
                     dp2px(context, 25f),
                     dp2px(context, 25f)
                 ).also {
                     if (tips != null || tipsId != null) {
-                        it.setMargins(0, dp2px(context, 5f), 0, 0)
+                        it.setMargins(dp2px(context, 5f), dp2px(context, 5f), 0, 0)
                     }
                 }
             )

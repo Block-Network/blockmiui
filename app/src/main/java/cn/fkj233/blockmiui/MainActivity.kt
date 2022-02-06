@@ -39,6 +39,7 @@ class MainActivity : MIUIActivity() {
                     show()
                 }
             }))
+            add(TextSummaryV("test", tips = "summary"))
             add(AuthorV(getDrawable(R.mipmap.ic_launcher)!!, "Test", "Test123"))
             add(TextWithSwitchV(TextV("test"), SwitchV("test")))
             add(TextWithSpinnerV(TextV("Spinner"), SpinnerV(arrayListOf<MIUIPopupData>().apply {

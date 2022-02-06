@@ -67,7 +67,9 @@ class SpinnerV(val arrayList: ArrayList<MIUIPopupData>, var currentValue: String
                     LinearLayout.LayoutParams(
                         dp2px(context, 20f),
                         dp2px(context, 20f)
-                    )
+                    ).also {
+                        it.setMargins(0, 0, dp2px(context, -3f), 0)
+                    }
                 )
             ),
             descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS,
