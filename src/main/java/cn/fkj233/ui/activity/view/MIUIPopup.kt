@@ -113,16 +113,17 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
                         addView(TextView(context).apply {
                             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
                             descendantFocusability = LinearContainerV.FOCUS_BLOCK_DESCENDANTS
-                            setTextColor(context.getColor(R.color.whiteText))
                             textSize = sp2px(context, 6f)
                             setPadding(dp2px(context, 25f), dp2px(context, 25f), 0, dp2px(context, 25f))
                             isSingleLine = true
                             text = thisText
+                            paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                            if (currentValue == thisText) setTextColor(context.getColor(R.color.popup_select_text)) else setTextColor(context.getColor(R.color.whiteText))
                         })
                         addView(ImageView(context).apply {
                             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                                 it.gravity = Gravity.CENTER_VERTICAL
-                                it.setMargins(0, dp2px(context, 2f), dp2px(context, 25f), 0)
+                                it.setMargins(0, 0, dp2px(context, 25f), 0)
                             }
                             background = context.getDrawable(R.drawable.ic_popup_select)
                             if (currentValue != thisText) visibility = View.GONE
