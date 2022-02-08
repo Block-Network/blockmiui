@@ -46,7 +46,7 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
                 LinearContainerV(LinearContainerV.VERTICAL, arrayOf(
                     LayoutPair(
                         TextView(context).also { view ->
-                            view.textSize = sp2px(context, if (text == null && textId == null) 7f else 6f)
+                            view.textSize = sp2px(context, if (text == null && textId == null) 7.5f else 7f)
                             view.setTextColor(context.getColor(R.color.whiteText))
                             text?.let { it1 -> view.text = it1 }
                             textId?.let { it1 -> view.setText(it1) }

@@ -91,7 +91,7 @@ open class MIUIActivity : Activity() {
                 it.weight = 1f
             }
             setTextColor(getColor(R.color.whiteText))
-            textSize = sp2px(activity, 10f)
+            textSize = sp2px(activity, 13f)
         }
     }
 

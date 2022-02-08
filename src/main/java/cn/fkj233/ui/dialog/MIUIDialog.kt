@@ -24,9 +24,6 @@ package cn.fkj233.ui.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Paint
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.RoundRectShape
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
@@ -42,9 +39,9 @@ class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
     private val title by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
-                it.setMargins(0, dp2px(context, 5f), 0, 0)
+                it.setMargins(0, dp2px(context, 20f), 0, 0)
             }
-            textView.textSize = sp2px(context, 7f)
+            textView.textSize = sp2px(context, 8.5f)
             textView.setTextColor(context.getColor(R.color.whiteText))
             textView.gravity = Gravity.CENTER
             textView.setPadding(0, dp2px(context, 10f), 0, 0)
@@ -54,9 +51,9 @@ class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
     private val message by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
-                it.setMargins(dp2px(context, 10f), dp2px(context, 3f), dp2px(context, 10f), 0)
+                it.setMargins(dp2px(context, 10f), dp2px(context, 10f), dp2px(context, 10f), 0)
             }
-            textView.textSize = sp2px(context, 5f)
+            textView.textSize = sp2px(context, 6f)
             textView.setTextColor(context.getColor(R.color.whiteText))
             textView.gravity = Gravity.CENTER
             textView.setPadding(0, dp2px(context, 3f), 0, 0)
@@ -82,7 +79,7 @@ class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
     private val rButton by lazy {
         Button(context).also { buttonView ->
             buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 60f), 1f).also {
-                it.setMargins(dp2px(context, 20f), 0, dp2px(context, 20f), 0)
+                it.setMargins(dp2px(context, 25f), 0, dp2px(context, 25f), 0)
                 it.gravity = Gravity.CENTER
             }
             buttonView.setTextColor(context.getColor(R.color.white))
@@ -96,7 +93,7 @@ class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
     private val lButton by lazy {
         Button(context).also { buttonView ->
             buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 60f), 1f).also {
-                it.setMargins(dp2px(context, 20f), 0, dp2px(context, 20f), 0)
+                it.setMargins(dp2px(context, 25f), 0, dp2px(context, 25f), 0)
                 it.gravity = Gravity.CENTER
             }
             buttonView.setTextColor(context.getColor(R.color.whiteText))
