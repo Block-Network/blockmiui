@@ -23,6 +23,7 @@
 package cn.fkj233.ui.activity.view
 
 import android.content.Context
+import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
 import android.view.Gravity
