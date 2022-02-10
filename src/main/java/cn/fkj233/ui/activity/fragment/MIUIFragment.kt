@@ -39,12 +39,14 @@ import cn.fkj233.ui.activity.dp2px
 @SuppressLint("ValidFragment")
 class MIUIFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        ScrollView(context).apply { // 滑动布局
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val scrollView = ScrollView(context)
+        scrollView.apply { // 滑动布局
             val dataBinding: DataBinding = (activity as MIUIActivity).getDataBinding()
             val callBacks: (() -> Unit)? = (activity as MIUIActivity).getAllCallBacks()
             val itemList: List<BaseView> = (activity as MIUIActivity).getThisItems()
-            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT)
+            layoutParams =
+                ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT)
             addView(
                 LinearLayout(context).apply { // 总布局
                     layoutParams = ViewGroup.LayoutParams(
@@ -158,4 +160,7 @@ class MIUIFragment : Fragment() {
             )
             dataBinding.initAll()
         }
+        scrollView.isVerticalScrollBarEnabled = false
+        return scrollView
+    }
 }

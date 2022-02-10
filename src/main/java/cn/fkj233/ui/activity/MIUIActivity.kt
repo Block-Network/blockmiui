@@ -111,7 +111,7 @@ open class MIUIActivity : Activity() {
     /**
      *  返回到最后一页直接退出(不保留后台) / Return to the last page and exit directly (without retaining the background)
      */
-    var isExit = false
+    private var isExit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
