@@ -44,7 +44,7 @@ class TextV(val text: String? = null, private val resId: Int? = null, val textSi
             text?.let { view.text = it }
             resId?.let { view.setText(it) }
             if (textSize == null)
-                view.textSize = sp2px(context, 7f)
+                view.textSize = sp2px(context, 6f)
             else
                 view.textSize = textSize
             view.setTextColor(context.getColor(R.color.whiteText))
