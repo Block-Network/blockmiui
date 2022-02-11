@@ -22,7 +22,9 @@
 
 package cn.fkj233.ui.activity
 
+import android.app.UiModeManager
 import android.content.Context
+import android.content.res.Configuration
 import android.util.TypedValue
 import android.view.Display
 import android.view.WindowManager

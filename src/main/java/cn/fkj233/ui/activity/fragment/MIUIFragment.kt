@@ -26,7 +26,10 @@ package cn.fkj233.ui.activity.fragment
 
 import android.annotation.SuppressLint
 import android.app.Fragment
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
+import android.util.TypedValue
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -43,6 +46,17 @@ class MIUIFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val scrollView = ScrollView(context)
+        scrollView.setOnScrollChangeListener { _, _, _, _, _ ->
+            var y = scrollView.scrollY * 2
+            val left = 145f
+            if (y >= dp2px(context, left)) {
+                y = dp2px(context, left)
+                (activity as MIUIActivity).getTitleV().setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+            } else {
+                (activity as MIUIActivity).getTitleV().setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f - (y / dp2px(context, 40f)).toFloat())
+            }
+            (activity as MIUIActivity).getTitleV().setPadding(y, 0, 0, 0)
+        }
         scrollView.apply { // 滑动布局
             val dataBinding: DataBinding = (activity as MIUIActivity).getDataBinding()
             val callBacks: (() -> Unit)? = (activity as MIUIActivity).getAllCallBacks()

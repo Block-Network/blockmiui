@@ -88,9 +88,8 @@ open class MIUIActivity : Activity() {
 
     private val titleView by lazy {
         TextView(activity).apply {
-            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also {
                 it.gravity = Gravity.CENTER_VERTICAL
-                it.weight = 1f
             }
             setTextColor(getColor(R.color.whiteText))
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
@@ -152,6 +151,10 @@ open class MIUIActivity : Activity() {
 
     override fun setTitle(title: CharSequence?) {
         titleView.text = title
+    }
+
+    fun getTitleV(): TextView {
+        return titleView
     }
 
     /**
