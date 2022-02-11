@@ -30,11 +30,13 @@ import android.os.Bundle
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import android.widget.Toast
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.view.*
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.getDispaly
 
 @SuppressLint("ValidFragment")
 class MIUIFragment : Fragment() {
@@ -136,6 +138,17 @@ class MIUIFragment : Fragment() {
                                                 },
                                                 item.spinnerV.arrayList
                                             )
+                                            popup.apply {
+                                                anchorView?.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+                                                anchorView?.measuredHeight?.let { popup.height = it * (item.spinnerV.arrayList.size + 1) - dp2px(context, 26.2f) }
+                                                getDispaly(context)?.height?.let {
+                                                    verticalOffset = if (motionEvent.rawY >= it / 2) {
+                                                        (height / 1.7).toInt()
+                                                    } else {
+                                                        -(height / 1.7).toInt()
+                                                    }
+                                                }
+                                            }
                                             if (view.width / 2 >= motionEvent.x) {
                                                 popup.apply {
                                                     horizontalOffset = dp2px(context, 24F)
