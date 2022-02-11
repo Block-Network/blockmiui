@@ -25,6 +25,7 @@ package cn.fkj233.ui.activity.view
 
 import android.content.Context
 import android.graphics.Typeface
+import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -32,7 +33,6 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.Padding
 import cn.fkj233.ui.activity.dp2px
-import cn.fkj233.ui.activity.sp2px
 
 class TextV(val text: String? = null, private val resId: Int? = null, val textSize: Float? = null, private val textColor: Int? = null, private val padding: Padding? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
 
@@ -44,9 +44,9 @@ class TextV(val text: String? = null, private val resId: Int? = null, val textSi
             text?.let { view.text = it }
             resId?.let { view.setText(it) }
             if (textSize == null)
-                view.textSize = sp2px(context, 6f)
+                view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
             else
-                view.textSize = textSize
+                view.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
             view.setTextColor(context.getColor(R.color.whiteText))
             textColor?.let { view.setTextColor(it) }
             if (textColor != null)

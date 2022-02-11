@@ -39,10 +39,7 @@ class TextWithSpinnerV(private val textV: TextV, val spinnerV: SpinnerV, private
             LinearContainerV.HORIZONTAL,
             arrayOf(
                 LayoutPair(textV.create(context, callBacks), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)),
-                LayoutPair(spinnerV.create(context, callBacks), LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
-                    it.gravity = Gravity.CENTER_VERTICAL
-                    it.setMargins(0, dp2px(context, 7f), dp2px(context, 10f), 0)
-                })
+                LayoutPair(spinnerV.create(context, callBacks), LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL })
             ),
             descendantFocusability = LinearContainerV.FOCUS_BLOCK_DESCENDANTS,
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)

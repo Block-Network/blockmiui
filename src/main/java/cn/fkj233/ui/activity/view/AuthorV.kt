@@ -23,7 +23,10 @@
 package cn.fkj233.ui.activity.view
 
 import android.content.Context
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -32,7 +35,6 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
-import cn.fkj233.ui.activity.sp2px
 
 class AuthorV(private val authorHead: Drawable, private val authorName: String, private val authorTips: String? = null, private val round: Float = 30f, val onClick: (() -> Unit)? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView() {
 
@@ -58,9 +60,10 @@ class AuthorV(private val authorHead: Drawable, private val authorName: String, 
                     LayoutPair(
                         TextView(context).also {
                             it.setPadding(dp2px(context, 15f), dp2px(context, if (authorTips == null) 17f else 5f), 0, 0)
-                            it.textSize = sp2px(context, 7f)
+                            it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
                             it.setTextColor(context.getColor(R.color.whiteText))
                             it.text = authorName
+                            it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
                         },
                         LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -70,13 +73,14 @@ class AuthorV(private val authorHead: Drawable, private val authorName: String, 
                     LayoutPair(
                         TextView(context).also {
                             it.setPadding(dp2px(context, 16f), 0, 0, 0)
-                            it.textSize = sp2px(context, 5f)
+                            it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
                             it.setTextColor(context.getColor(R.color.author_tips))
                             if (authorTips == null) {
                                 it.visibility = View.GONE
                             } else {
                                 it.text = authorTips
                             }
+                            it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
                         },
                         LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -94,12 +98,7 @@ class AuthorV(private val authorHead: Drawable, private val authorName: String, 
                 ImageView(context).also {
                     it.background = context.getDrawable(R.drawable.ic_right_arrow)
                 },
-                LinearLayout.LayoutParams(
-                    dp2px(context, 25f),
-                    dp2px(context, 25f)
-                ).also {
-                    it.setMargins(0, dp2px(context, 18f), dp2px(context, 5f), 0)
-                }
+                LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL }
             )
         ), layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,

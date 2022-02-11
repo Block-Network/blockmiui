@@ -26,13 +26,13 @@ import android.app.Dialog
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
-import cn.fkj233.ui.activity.sp2px
 
 
 class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
@@ -41,7 +41,7 @@ class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                 it.setMargins(0, dp2px(context, 20f), 0, 0)
             }
-            textView.textSize = sp2px(context, 8.5f)
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
             textView.setTextColor(context.getColor(R.color.whiteText))
             textView.gravity = Gravity.CENTER
             textView.setPadding(0, dp2px(context, 10f), 0, 0)
@@ -53,10 +53,9 @@ class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                 it.setMargins(dp2px(context, 10f), dp2px(context, 10f), dp2px(context, 10f), 0)
             }
-            textView.textSize = sp2px(context, 6f)
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
             textView.setTextColor(context.getColor(R.color.whiteText))
             textView.gravity = Gravity.CENTER
-            textView.setPadding(0, dp2px(context, 3f), 0, 0)
             textView.visibility = View.GONE
             textView.setPadding(dp2px(context, 10f), 0, dp2px(context, 10f), 0)
         }
@@ -67,7 +66,7 @@ class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
             editText.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 55f)).also {
                 it.setMargins(dp2px(context, 25f), dp2px(context, 10f), dp2px(context, 25f), 0)
             }
-            editText.textSize = sp2px(context, 7f)
+            editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
             editText.setTextColor(context.getColor(R.color.whiteText))
             editText.gravity = Gravity.CENTER
             editText.setPadding(dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 8f))
@@ -83,7 +82,7 @@ class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
                 it.gravity = Gravity.CENTER
             }
             buttonView.setTextColor(context.getColor(R.color.white))
-            buttonView.textSize = sp2px(context, 7f)
+            buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
             buttonView.stateListAnimator = null
             buttonView.background = context.getDrawable(R.drawable.r_button_background)
             buttonView.visibility = View.GONE
@@ -97,7 +96,7 @@ class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
                 it.gravity = Gravity.CENTER
             }
             buttonView.setTextColor(context.getColor(R.color.whiteText))
-            buttonView.textSize = sp2px(context, 7f)
+            buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
             buttonView.stateListAnimator = null
             buttonView.visibility = View.GONE
             buttonView.background = context.getDrawable(R.drawable.l_button_background)

@@ -24,11 +24,16 @@ package cn.fkj233.ui.activity
 
 import android.content.Context
 import android.util.TypedValue
+import android.view.Display
+import android.view.WindowManager
+
+
+
 
 
 fun dp2px(context: Context, dpValue: Float): Int =
     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.resources.displayMetrics).toInt()
 
-//fun dp2px(context: Context, dpValue: Float): Int = (dpValue * context.resources.displayMetrics.density + 0.5f).toInt()
-//
-fun sp2px(context: Context, spValue: Float): Float = (spValue * context.resources.displayMetrics.scaledDensity + 0.5f)
+fun getDispaly(context: Context): Display? {
+    return (context.applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+}

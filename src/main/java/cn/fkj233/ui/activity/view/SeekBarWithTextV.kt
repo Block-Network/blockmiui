@@ -34,7 +34,6 @@ import cn.fkj233.ui.activity.OwnSP
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
-import cn.fkj233.ui.activity.sp2px
 
 class SeekBarWithTextV(val key: String = "", private val min: Int, private val max: Int, val defaultProgress: Int = 0, val divide: Int = 1, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
 
@@ -43,9 +42,9 @@ class SeekBarWithTextV(val key: String = "", private val min: Int, private val m
     override fun getType(): BaseView = this
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
-        val minText = TextV(min.toString(), textSize = sp2px(context, 4.5f)).create(context, callBacks)
-        val maxText = TextV(max.toString(), textSize = sp2px(context, 4.5f)).create(context, callBacks)
-        val mutableText = TextV("", textSize = sp2px(context, 4.5f)).create(context, callBacks)
+        val minText = TextV(min.toString(), textSize = 15f).create(context, callBacks)
+        val maxText = TextV(max.toString(), textSize = 15f).create(context, callBacks)
+        val mutableText = TextV("", textSize = 15f).create(context, callBacks)
         val seekBar = SeekBar(context).also { view ->
             view.thumb = null
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

@@ -27,7 +27,9 @@ package cn.fkj233.ui.activity
 import android.app.Activity
 import android.app.FragmentManager
 import android.content.SharedPreferences
+import android.graphics.Typeface
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -91,7 +93,8 @@ open class MIUIActivity : Activity() {
                 it.weight = 1f
             }
             setTextColor(getColor(R.color.whiteText))
-            textSize = sp2px(activity, 10f)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
+            paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         }
     }
 

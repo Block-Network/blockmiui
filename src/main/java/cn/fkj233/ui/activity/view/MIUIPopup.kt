@@ -26,6 +26,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,6 @@ import android.widget.*
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.MIUIPopupData
 import cn.fkj233.ui.activity.dp2px
-import cn.fkj233.ui.activity.sp2px
 
 
 class MIUIPopup(private val context: Context, view: View, private val currentValue: String, private val dataBacks: (String) -> Unit, private val arrayList: ArrayList<MIUIPopupData>): ListPopupWindow(context) {
@@ -114,7 +114,7 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
                         addView(TextView(context).apply {
                             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
                             descendantFocusability = LinearContainerV.FOCUS_BLOCK_DESCENDANTS
-                            textSize = sp2px(context, 6f)
+                            setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
                             setPadding(dp2px(context, 25f), dp2px(context, 25f), 0, dp2px(context, 25f))
                             isSingleLine = true
                             text = thisText

@@ -23,6 +23,8 @@
 package cn.fkj233.ui.activity.view
 
 import android.content.Context
+import android.graphics.Typeface
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +36,6 @@ import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.data.MIUIPopupData
 import cn.fkj233.ui.activity.dp2px
-import cn.fkj233.ui.activity.sp2px
 
 class SpinnerV(val arrayList: ArrayList<MIUIPopupData>, var currentValue: String, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView() {
     private lateinit var context: Context
@@ -50,11 +51,14 @@ class SpinnerV(val arrayList: ArrayList<MIUIPopupData>, var currentValue: String
             arrayOf(
                 LayoutPair(
                     TextView(context).also {
-                        it.setPadding(0, 0, 0, dp2px(context, 15f))
-                        it.textSize = sp2px(context, 5f)
+                        it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+                        it.gravity = Gravity.CENTER_VERTICAL
                         it.text = currentValue
-                        it.setTextColor(context.getColor(R.color.whiteText))
+                        it.setTextColor(context.getColor(R.color.spinner))
                         select = it
+                        it.setPadding(dp2px(context, 30f), 0, dp2px(context, 5f), 0)
+                        it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                        it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
                     },
                     LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also {
                         it.gravity = Gravity.CENTER_VERTICAL + Gravity.RIGHT
@@ -64,16 +68,11 @@ class SpinnerV(val arrayList: ArrayList<MIUIPopupData>, var currentValue: String
                     ImageView(context).also {
                         it.background = context.getDrawable(R.drawable.ic_up_down)
                     },
-                    LinearLayout.LayoutParams(
-                        dp2px(context, 20f),
-                        dp2px(context, 20f)
-                    ).also {
-                        it.setMargins(0, 0, dp2px(context, -3f), 0)
-                    }
+                    LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL }
                 )
             ),
             descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS,
-            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also { it.gravity = Gravity.CENTER_VERTICAL }
         ).create(context, callBacks).also {
             dataBindingRecv?.setView(it)
         }

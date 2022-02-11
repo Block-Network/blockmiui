@@ -27,7 +27,6 @@ import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import cn.fkj233.ui.activity.data.DataBinding
-import cn.fkj233.ui.activity.sp2px
 
 class TitleTextV(val text: String? = null, private val resId: Int? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val onClickListener: (() -> Unit)? = null): BaseView() {
 
@@ -36,7 +35,7 @@ class TitleTextV(val text: String? = null, private val resId: Int? = null, priva
     }
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
-        return TextV(text, resId, sp2px(context,4.5f), onClickListener = onClickListener).create(context, callBacks).also {
+        return TextV(text, resId, 12f, onClickListener = onClickListener).create(context, callBacks).also {
             (it as TextView).setTextColor(Color.parseColor("#9399b3"))
             dataBindingRecv?.setView(it)
         }

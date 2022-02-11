@@ -24,6 +24,8 @@ package cn.fkj233.ui.activity.view
 
 import android.content.Context
 import android.graphics.Typeface
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -32,7 +34,6 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
-import cn.fkj233.ui.activity.sp2px
 
 class TextSummaryV(private val text: String? = null, private val textId: Int? = null, private val tips: String? = null, private val tipsId: Int? = null, private val showArrow: Boolean = true, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
 
@@ -46,7 +47,7 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
                 LinearContainerV(LinearContainerV.VERTICAL, arrayOf(
                     LayoutPair(
                         TextView(context).also { view ->
-                            view.textSize = sp2px(context, if (text == null && textId == null) 7f else 6f)
+                            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (text == null && textId == null) 15f else 18f)
                             view.setTextColor(context.getColor(R.color.whiteText))
                             text?.let { it1 -> view.text = it1 }
                             textId?.let { it1 -> view.setText(it1) }
@@ -59,7 +60,7 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
                     ),
                     LayoutPair(
                         TextView(context).also {
-                            it.textSize = sp2px(context, 4f)
+                            it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
                             it.setTextColor(context.getColor(R.color.author_tips))
                             if (tips == null && tipsId == null) {
                                 it.visibility = View.GONE
@@ -85,22 +86,14 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
                 ImageView(context).also {
                     it.background = context.getDrawable(R.drawable.ic_right_arrow)
                     it.visibility = if (showArrow) View.VISIBLE else View.GONE
-                    it.setPadding(0, 0, 100, 0)
                 },
-                LinearLayout.LayoutParams(
-                    dp2px(context, 25f),
-                    dp2px(context, 25f)
-                ).also {
-                    if (tips != null || tipsId != null) {
-                        it.setMargins(dp2px(context, 5f), dp2px(context, 5f), 0, 0)
-                    }
-                }
+                LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL }
             )
         ), layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         ).also {
-            it.setMargins(0, dp2px(context, 15f), dp2px(context, 5f), dp2px(context, 15f))
+            it.setMargins(0, dp2px(context, 15f),0, dp2px(context, 15f))
         }).create(context, callBacks).also {
             dataBindingRecv?.setView(it)
         }
