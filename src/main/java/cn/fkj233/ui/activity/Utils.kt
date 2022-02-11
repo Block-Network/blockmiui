@@ -22,16 +22,10 @@
 
 package cn.fkj233.ui.activity
 
-import android.app.UiModeManager
 import android.content.Context
-import android.content.res.Configuration
 import android.util.TypedValue
 import android.view.Display
 import android.view.WindowManager
-
-
-
-
 
 fun dp2px(context: Context, dpValue: Float): Int =
     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.resources.displayMetrics).toInt()

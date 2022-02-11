@@ -26,20 +26,17 @@ package cn.fkj233.ui.activity.fragment
 
 import android.annotation.SuppressLint
 import android.app.Fragment
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import android.widget.Toast
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.DataBinding
-import cn.fkj233.ui.activity.view.*
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.getDispaly
+import cn.fkj233.ui.activity.view.*
 
 @SuppressLint("ValidFragment")
 class MIUIFragment : Fragment() {
