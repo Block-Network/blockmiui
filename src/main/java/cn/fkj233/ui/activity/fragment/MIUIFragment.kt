@@ -43,16 +43,23 @@ class MIUIFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val scrollView = ScrollView(context)
+        val titleView = (activity as MIUIActivity).titleView
+        titleView.setPadding(0, 0, 0, 0)
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
         scrollView.setOnScrollChangeListener { _, _, _, _, _ ->
             var y = scrollView.scrollY * 2
-            val left = 145f
+            val left = if ((activity as MIUIActivity).backButton.visibility == View.GONE) {
+                titleView.paint.measureText(titleView.text.toString()) / 2 + dp2px(context, 20f)
+            } else {
+                titleView.paint.measureText(titleView.text.toString()) / 2 + dp2px(context, 15f)
+            }
             if (y >= dp2px(context, left)) {
                 y = dp2px(context, left)
-                (activity as MIUIActivity).getTitleV().setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+                titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
             } else {
-                (activity as MIUIActivity).getTitleV().setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f - (y / dp2px(context, 40f)).toFloat())
+                titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f - (y / dp2px(context, 30f)).toFloat())
             }
-            (activity as MIUIActivity).getTitleV().setPadding(y, 0, 0, 0)
+            titleView.setPadding(y, 0, 0, 0)
         }
         scrollView.apply { // 滑动布局
             val dataBinding: DataBinding = (activity as MIUIActivity).getDataBinding()

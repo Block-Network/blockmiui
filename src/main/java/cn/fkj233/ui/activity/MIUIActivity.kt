@@ -62,11 +62,13 @@ open class MIUIActivity : Activity() {
 
     private var thisName: ArrayList<String> = arrayListOf()
 
-    private val backButton by lazy {
+    val backButton by lazy {
         ImageView(activity).apply {
-            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL }
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
+                it.gravity = Gravity.CENTER_VERTICAL
+                it.setMargins(0, 0, dp2px(activity, 5f),0)
+            }
             background = getDrawable(R.drawable.abc_ic_ab_back_material)
-            setPadding(0, 0, dp2px(activity, 25f),0)
             visibility = View.GONE
             setOnClickListener {
                 this@MIUIActivity.onBackPressed()
@@ -86,7 +88,7 @@ open class MIUIActivity : Activity() {
         }
     }
 
-    private val titleView by lazy {
+    val titleView by lazy {
         TextView(activity).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also {
                 it.gravity = Gravity.CENTER_VERTICAL
@@ -119,12 +121,12 @@ open class MIUIActivity : Activity() {
         super.onCreate(savedInstanceState)
         actionBar?.hide()
         setContentView(LinearLayout(activity).apply {
-            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
             background = getDrawable(R.color.foreground)
             orientation = LinearLayout.VERTICAL
             addView(LinearLayout(activity).apply {
-                layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                setPadding(dp2px(activity, 25f), dp2px(activity, 30f), dp2px(activity, 25f), dp2px(activity, 15f))
+                layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                setPadding(dp2px(activity, 25f), dp2px(activity, 20f), dp2px(activity, 25f), dp2px(activity, 15f))
                 orientation = LinearLayout.HORIZONTAL
                 addView(backButton)
                 addView(titleView)
@@ -151,10 +153,6 @@ open class MIUIActivity : Activity() {
 
     override fun setTitle(title: CharSequence?) {
         titleView.text = title
-    }
-
-    fun getTitleV(): TextView {
-        return titleView
     }
 
     /**
@@ -265,6 +263,8 @@ open class MIUIActivity : Activity() {
             }
             titleView.text = fragmentManager.getBackStackEntryAt(fragmentManager.backStackEntryCount - 2).name
             fragmentManager.popBackStack()
+            titleView.setPadding(0, 0, 0, 0)
+            titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
         }
     }
 
