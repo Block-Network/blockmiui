@@ -49,9 +49,9 @@ class MIUIFragment : Fragment() {
         scrollView.setOnScrollChangeListener { _, _, _, _, _ ->
             var y = scrollView.scrollY * 2
             val left = if ((activity as MIUIActivity).backButton.visibility == View.GONE) {
-                titleView.paint.measureText(titleView.text.toString()) / 2 + dp2px(context, 20f)
+                (titleView.height / 2 + dp2px(context, 30f)).toFloat()
             } else {
-                titleView.paint.measureText(titleView.text.toString()) / 2 + dp2px(context, 15f)
+                (titleView.height / 2 + dp2px(context, 25f)).toFloat()
             }
             if (y >= dp2px(context, left)) {
                 y = dp2px(context, left)
