@@ -31,6 +31,7 @@ import android.util.TypedValue
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import android.widget.TextView
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.DataBinding
@@ -43,24 +44,6 @@ class MIUIFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val scrollView = ScrollView(context)
-        val titleView = (activity as MIUIActivity).titleView
-        titleView.setPadding(0, 0, 0, 0)
-        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
-        scrollView.setOnScrollChangeListener { _, _, _, _, _ ->
-            var y = scrollView.scrollY * 2
-            val left = if ((activity as MIUIActivity).backButton.visibility == View.GONE) {
-                (titleView.height / 2 + dp2px(context, 30f)).toFloat()
-            } else {
-                (titleView.height / 2 + dp2px(context, 25f)).toFloat()
-            }
-            if (y >= dp2px(context, left)) {
-                y = dp2px(context, left)
-                titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-            } else {
-                titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f - (y / dp2px(context, 30f)).toFloat())
-            }
-            titleView.setPadding(y, 0, 0, 0)
-        }
         scrollView.apply { // 滑动布局
             val dataBinding: DataBinding = (activity as MIUIActivity).getDataBinding()
             val callBacks: (() -> Unit)? = (activity as MIUIActivity).getAllCallBacks()
@@ -156,17 +139,6 @@ class MIUIFragment : Fragment() {
                                                 },
                                                 item.spinnerV.arrayList
                                             )
-                                            popup.apply {
-                                                anchorView?.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-                                                anchorView?.measuredHeight?.let { popup.height = it * (item.spinnerV.arrayList.size + 1) - dp2px(context, 26.2f) }
-                                                getDispaly(context)?.height?.let {
-                                                    verticalOffset = if (motionEvent.rawY >= it / 2) {
-                                                        (height / 1.7).toInt()
-                                                    } else {
-                                                        -(height / 1.7).toInt()
-                                                    }
-                                                }
-                                            }
                                             if (view.width / 2 >= motionEvent.x) {
                                                 popup.apply {
                                                     horizontalOffset = dp2px(context, 24F)
