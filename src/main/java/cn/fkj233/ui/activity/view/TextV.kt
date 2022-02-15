@@ -34,7 +34,7 @@ import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.Padding
 import cn.fkj233.ui.activity.dp2px
 
-class TextV(val text: String? = null, private val resId: Int? = null, val textSize: Float? = null, private val textColor: Int? = R.color.whiteText, private val padding: Padding? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
+class TextV(val text: String? = null, private val resId: Int? = null, val textSize: Float? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val padding: Padding? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
 
     override fun getType(): BaseView = this
 
@@ -47,7 +47,11 @@ class TextV(val text: String? = null, private val resId: Int? = null, val textSi
                 view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
             else
                 view.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-            view.setTextColor(context.getColor(textColor!!))
+            colorInt?.let { view.setTextColor(colorInt) }
+            colorId?.let { view.setTextColor(context.getColor(colorId)) }
+            if (colorId == null && colorInt == null) {
+                view.setTextColor(context.getColor(R.color.whiteText))
+            }
             view.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
             view.setPadding(0, dp2px(context, 20f), dp2px(context, 5f), dp2px(context, 20f))
             padding?.let { view.setPadding(it.left, it.top, it.right, it.bottom) }

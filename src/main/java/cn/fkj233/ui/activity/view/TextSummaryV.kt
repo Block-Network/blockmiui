@@ -35,7 +35,7 @@ import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 
-class TextSummaryV(private val text: String? = null, private val textId: Int? = null, private val tips: String? = null, private val textColor: Int? = R.color.whiteText, private val tipsId: Int? = null, private val showArrow: Boolean = true, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
+class TextSummaryV(private val text: String? = null, private val textId: Int? = null, private val tips: String? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val tipsId: Int? = null, private val showArrow: Boolean = true, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
 
     override fun getType(): BaseView {
         return this
@@ -48,7 +48,11 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
                     LayoutPair(
                         TextView(context).also { view ->
                             view.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (text == null && textId == null) 15f else 18f)
-                            view.setTextColor(context.getColor(textColor!!))
+                            colorInt?.let { view.setTextColor(colorInt) }
+                            colorId?.let { view.setTextColor(context.getColor(colorId)) }
+                            if (colorId == null && colorInt == null) {
+                                view.setTextColor(context.getColor(R.color.whiteText))
+                            }
                             text?.let { it1 -> view.text = it1 }
                             textId?.let { it1 -> view.setText(it1) }
                             view.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)

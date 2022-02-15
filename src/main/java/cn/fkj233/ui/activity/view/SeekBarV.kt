@@ -33,7 +33,7 @@ import cn.fkj233.ui.activity.OwnSP
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.dp2px
 
-class SeekBarV(val key: String = "", val min: Int, val max: Int, val divide: Int = 1, private val defaultProgress: Int, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
+class SeekBarV(val key: String = "", val min: Int, val max: Int, val divide: Int = 1, private val defaultProgress: Int, private val dataSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
 
     override var outside = true
 
@@ -65,6 +65,7 @@ class SeekBarV(val key: String = "", val min: Int, val max: Int, val divide: Int
             view.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                     callBacks?.let { it() }
+                    dataSend?.send(p1 / divide)
                     OwnSP.ownSP.edit().run {
                         putInt(key, p1 / divide)
                         apply()
