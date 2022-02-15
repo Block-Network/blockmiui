@@ -38,13 +38,7 @@ class MIUIHookActivity(private val moduleClassLoader: ClassLoader, private val h
             runCatching {
                 return mBootstrap.loadClass(name)
             }
-
-            runCatching {
-                if ("androidx.lifecycle.ReportFragment" == name) {
-                    return mHostClassLoader.loadClass(name)
-                }
-            }
-
+            
             return try {
                 mModuleClassLoader.loadClass(name)
             } catch (e: Exception) {
