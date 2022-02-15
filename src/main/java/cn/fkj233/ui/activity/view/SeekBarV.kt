@@ -35,8 +35,6 @@ import cn.fkj233.ui.activity.dp2px
 
 class SeekBarV(val key: String = "", val min: Int, val max: Int, val divide: Int = 1, private val defaultProgress: Int, private val dataSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
 
-    override var outside = true
-
     override fun getType(): BaseView = this
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
