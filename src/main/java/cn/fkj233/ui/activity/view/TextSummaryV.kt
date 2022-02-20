@@ -24,6 +24,7 @@ package cn.fkj233.ui.activity.view
 
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Build
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -55,7 +56,11 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
                             }
                             text?.let { it1 -> view.text = it1 }
                             textId?.let { it1 -> view.setText(it1) }
-                            view.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                                view.paint.typeface = Typeface.create(null, 500,false)
+                            } else {
+                                view.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                            }
                         },
                         LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -72,7 +77,11 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
                                 tips?.let { it1 -> it.text = it1 }
                                 tipsId?.let { it1 -> it.setText(it1) }
                             }
-                            it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                                it.paint.typeface = Typeface.create(null, 400,false)
+                            } else {
+                                it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                            }
                         },
                         LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,

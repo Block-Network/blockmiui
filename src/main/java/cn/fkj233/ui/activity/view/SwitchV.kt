@@ -25,17 +25,17 @@ package cn.fkj233.ui.activity.view
 
 import android.content.Context
 import android.view.View
-import android.widget.Switch
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.OwnSP
 import cn.fkj233.ui.activity.data.DataBinding
+import cn.fkj233.ui.switch.MIUISwitch
 
-class SwitchV(val key: String, private val defValue: Boolean = false, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, private val customOnCheckedChangeListener: ((Boolean) -> Unit)? = null): BaseView() {
+class SwitchV(private val key: String, private val defValue: Boolean = false, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, private val customOnCheckedChangeListener: ((Boolean) -> Unit)? = null): BaseView() {
 
     override fun getType(): BaseView = this
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
-        return Switch(context).also {
+        return MIUISwitch(context).also {
             dataBindingRecv?.setView(it)
             it.background = null
             it.setThumbResource(R.drawable.switch_thumb)

@@ -24,6 +24,7 @@ package cn.fkj233.ui.activity.view
 
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Build
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -57,7 +58,11 @@ class SpinnerV(val arrayList: ArrayList<MIUIPopupData>, var currentValue: String
                         it.setTextColor(context.getColor(R.color.spinner))
                         select = it
                         it.setPadding(dp2px(context, 30f), 0, dp2px(context, 5f), 0)
-                        it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                            it.paint.typeface = Typeface.create(null, 400, false)
+                        } else {
+                            it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                        }
                         it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
                     },
                     LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also {
