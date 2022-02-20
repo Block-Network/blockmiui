@@ -22,7 +22,9 @@
 
 package cn.fkj233.ui.activity.view
 
+import android.annotation.TargetApi
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
@@ -35,14 +37,15 @@ import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 
-class SeekBarWithTextV(val key: String = "", private val min: Int, private val max: Int, val defaultProgress: Int = 0, val divide: Int = 1, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
+class SeekBarWithTextV(val key: String = "", private val min: Int, private val max: Int, private val defaultProgress: Int = 0, val divide: Int = 1, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
 
     override fun getType(): BaseView = this
 
+    @TargetApi(Build.VERSION_CODES.P)
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
-        val minText = TextV(min.toString(), textSize = 15f).create(context, callBacks)
-        val maxText = TextV(max.toString(), textSize = 15f).create(context, callBacks)
-        val mutableText = TextV("", textSize = 15f).create(context, callBacks)
+        val minText = TextV(min.toString(), textSize = 13f, colorId = R.color.author_tips, typeface = Typeface.create(null, 400, false)).create(context, callBacks)
+        val maxText = TextV(max.toString(), textSize = 13f, colorId = R.color.author_tips, typeface = Typeface.create(null, 400, false)).create(context, callBacks)
+        val mutableText = TextV("", textSize = 13f, colorId = R.color.author_tips, typeface = Typeface.create(null, 400, false)).create(context, callBacks)
         val seekBar = SeekBar(context).also { view ->
             view.thumb = null
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -85,9 +88,14 @@ class SeekBarWithTextV(val key: String = "", private val min: Int, private val m
         return LinearContainerV(
             LinearContainerV.VERTICAL,
             arrayOf(
-                LayoutPair(seekBar, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)),
-                LayoutPair(LinearContainerV(LinearContainerV.HORIZONTAL, arrayOf(LayoutPair(minText, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)), LayoutPair(mutableText.also { it.textAlignment = TextView.TEXT_ALIGNMENT_CENTER }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)), LayoutPair(maxText.also { it.textAlignment = TextView.TEXT_ALIGNMENT_VIEW_END }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)))).create(context, callBacks).also { it.setPadding(
-                    dp2px(context, 25f), 0, dp2px(context, 25f), 0) }, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+                LayoutPair(seekBar.also { it.setPadding(0, 0, 0, 0) }, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)),
+                LayoutPair(LinearContainerV(
+                    LinearContainerV.HORIZONTAL,
+                    arrayOf(
+                        LayoutPair(minText.also { it.setPadding(0,  dp2px(context, 8f), 0, dp2px(context, 16f)) }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)),
+                        LayoutPair(mutableText.also { it.textAlignment = TextView.TEXT_ALIGNMENT_CENTER; it.setPadding(0,  dp2px(context, 8f), 0, dp2px(context, 16f)) }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)),
+                        LayoutPair(maxText.also { it.textAlignment = TextView.TEXT_ALIGNMENT_VIEW_END; it.setPadding(0,  dp2px(context, 8f), 0, dp2px(context, 16f)) }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)))).create(context, callBacks).also { it.setPadding(0, 0, 0, 0) },
+                    LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
             )
         ).create(context, callBacks).also {
             dataBindingRecv?.setView(it)

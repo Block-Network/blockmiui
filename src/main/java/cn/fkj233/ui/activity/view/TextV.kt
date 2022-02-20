@@ -25,6 +25,7 @@ package cn.fkj233.ui.activity.view
 
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
@@ -34,7 +35,7 @@ import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.Padding
 import cn.fkj233.ui.activity.dp2px
 
-class TextV(val text: String? = null, private val resId: Int? = null, val textSize: Float? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val padding: Padding? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
+class TextV(val text: String? = null, private val resId: Int? = null, val textSize: Float? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val padding: Padding? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val typeface: Typeface? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
 
     override fun getType(): BaseView = this
 
@@ -52,7 +53,19 @@ class TextV(val text: String? = null, private val resId: Int? = null, val textSi
             if (colorId == null && colorInt == null) {
                 view.setTextColor(context.getColor(R.color.whiteText))
             }
-            view.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            if (typeface == null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    view.paint.typeface = Typeface.create(null, 500, false)
+                } else {
+                    view.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                }
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    view.paint.typeface = typeface
+                } else {
+                    view.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                }
+            }
             view.setPadding(0, dp2px(context, 20f), dp2px(context, 5f), dp2px(context, 20f))
             padding?.let { view.setPadding(it.left, it.top, it.right, it.bottom) }
             dataBindingRecv?.setView(view)

@@ -34,7 +34,6 @@ import android.widget.*
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
 
-
 class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
     private val title by lazy {
         TextView(context).also { textView ->

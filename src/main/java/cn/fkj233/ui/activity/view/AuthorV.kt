@@ -25,6 +25,7 @@ package cn.fkj233.ui.activity.view
 import android.content.Context
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -63,7 +64,11 @@ class AuthorV(private val authorHead: Drawable, private val authorName: String, 
                             it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
                             it.setTextColor(context.getColor(R.color.whiteText))
                             it.text = authorName
-                            it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                                it.paint.typeface = Typeface.create(null, 500,false)
+                            } else {
+                                it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                            }
                         },
                         LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -80,7 +85,11 @@ class AuthorV(private val authorHead: Drawable, private val authorName: String, 
                             } else {
                                 it.text = authorTips
                             }
-                            it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                                it.paint.typeface = Typeface.create(null, 400,false)
+                            } else {
+                                it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                            }
                         },
                         LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
