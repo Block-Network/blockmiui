@@ -37,7 +37,7 @@ import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 
-class SeekBarWithTextV(val key: String = "", private val min: Int, private val max: Int, private val defaultProgress: Int = 0, val divide: Int = 1, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
+class SeekBarWithTextV(val key: String = "", private val min: Int, private val max: Int, private val defaultProgress: Int = 0, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
 
     override fun getType(): BaseView = this
 
@@ -76,7 +76,7 @@ class SeekBarWithTextV(val key: String = "", private val min: Int, private val m
                     dataBindingSend?.send(p1)
                     OwnSP.ownSP.edit().run {
                         (mutableText as TextView).text = p1.toString()
-                        putInt(key, p1 / divide)
+                        putInt(key, p1)
                         apply()
                     }
                 }
