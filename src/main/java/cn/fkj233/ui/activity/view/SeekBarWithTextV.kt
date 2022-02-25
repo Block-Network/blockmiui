@@ -57,7 +57,6 @@ class SeekBarWithTextV(val key: String = "", private val min: Int, private val m
             view.indeterminateDrawable = context.getDrawable(R.color.colorAccent)
             view.min = min
             view.max = max
-            view.progress = defaultProgress
             view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             if (OwnSP.ownSP.all.containsKey(key)) {
                 OwnSP.ownSP.getInt(key, defaultProgress).let {
@@ -65,8 +64,9 @@ class SeekBarWithTextV(val key: String = "", private val min: Int, private val m
                     (mutableText as TextView).text = it.toString()
                 }
             } else {
+                view.progress = defaultProgress
                 (mutableText as TextView).text = defaultProgress.toString()
-                    OwnSP.ownSP.edit().run {
+                OwnSP.ownSP.edit().run {
                     putInt(key, defaultProgress)
                     apply()
                 }

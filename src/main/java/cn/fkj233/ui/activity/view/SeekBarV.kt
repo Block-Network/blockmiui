@@ -55,7 +55,8 @@ class SeekBarV(val key: String = "", val min: Int, val max: Int, val divide: Int
                     view.progress = it
                 }
             } else {
-                OwnSP.ownSP.edit().run {
+                view.progress = defaultProgress
+                    OwnSP.ownSP.edit().run {
                     putInt(key, defaultProgress)
                     apply()
                 }
