@@ -96,7 +96,13 @@ class MIUIFragment : Fragment() {
                                     }
                                 }
                                 is SwitchV -> addView(item.create(context, callBacks)) // 开关
-                                is TextWithSwitchV -> addView(item.create(context, callBacks)) // 带文本的开关
+                                is TextWithSwitchV -> {
+                                    addView(item.create(context, callBacks)) // 带文本的开关
+                                    setOnClickListener {
+                                        item.switchV.click()
+                                        callBacks?.let { it1 -> it1() }
+                                    }
+                                }
                                 is TitleTextV -> addView(item.create(context, callBacks)) // 标题文字
                                 is LineV -> addView(item.create(context, callBacks)) // 分割线
                                 is LinearContainerV -> addView(item.create(context, callBacks)) // 布局创建

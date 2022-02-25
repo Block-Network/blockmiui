@@ -32,10 +32,13 @@ import cn.fkj233.ui.switch.MIUISwitch
 
 class SwitchV(private val key: String, private val defValue: Boolean = false, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, private val customOnCheckedChangeListener: ((Boolean) -> Unit)? = null): BaseView() {
 
+    lateinit var switch: MIUISwitch
+
     override fun getType(): BaseView = this
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
         return MIUISwitch(context).also {
+            switch = it
             dataBindingRecv?.setView(it)
             it.background = null
             it.setThumbResource(R.drawable.switch_thumb)
@@ -58,6 +61,18 @@ class SwitchV(private val key: String, private val defValue: Boolean = false, pr
                     apply()
                 }
             }
+        }
+    }
+
+    fun click() {
+        switch.isChecked = !switch.isChecked
+        dataBindingSend?.let { send ->
+            send.send(switch.isChecked)
+        }
+        customOnCheckedChangeListener?.let { it(switch.isChecked) }
+        OwnSP.ownSP.edit().run {
+            putBoolean(key, switch.isChecked)
+            apply()
         }
     }
 }
