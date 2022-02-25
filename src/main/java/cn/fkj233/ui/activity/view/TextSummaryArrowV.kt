@@ -39,6 +39,7 @@ class TextSummaryArrowV(val textSummaryV: TextSummaryV, private val dataBindingR
     }
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
+        textSummaryV.notShowMargins(true)
         return LinearContainerV(LinearContainerV.HORIZONTAL, arrayOf(
             LayoutPair(
                 textSummaryV.create(context, callBacks),

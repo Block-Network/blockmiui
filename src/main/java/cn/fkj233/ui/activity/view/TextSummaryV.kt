@@ -26,9 +26,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import cn.fkj233.miui.R
@@ -38,8 +36,14 @@ import cn.fkj233.ui.activity.dp2px
 
 class TextSummaryV(private val text: String? = null, private val textId: Int? = null, private val tips: String? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val tipsId: Int? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
 
+    var showMargins = false
+
     override fun getType(): BaseView {
         return this
+    }
+
+    fun notShowMargins(boolean: Boolean) {
+        showMargins = boolean
     }
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
@@ -89,7 +93,9 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
         ), layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
-        )).create(context, callBacks).also {
+        ).also {
+            if (!showMargins) it.setMargins(0, dp2px(context, 15f),0, dp2px(context, 15f))
+        }).create(context, callBacks).also {
             dataBindingRecv?.setView(it)
         }
     }

@@ -35,6 +35,7 @@ class TextSummaryWithSwitchV(private val textV: TextSummaryV, val switchV: Switc
     override fun getType(): BaseView = this
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
+        textV.notShowMargins(true)
         return LinearContainerV(
             LinearContainerV.HORIZONTAL,
             arrayOf(
