@@ -154,6 +154,15 @@ class MIUIFragment : Fragment() {
                                         false
                                     }
                                 }
+                                is TextSummaryArrowV -> {
+                                    addView(item.create(context, callBacks))
+                                    setOnScrollChangeListener { _, _, _, _, _ ->
+                                        item.textSummaryV.onClickListener?.let { it() }
+                                    }
+                                }
+                                is TextSummaryWithSwitchV -> {
+                                    addView(item.create(context, callBacks))
+                                }
                             }
                         })
                     }

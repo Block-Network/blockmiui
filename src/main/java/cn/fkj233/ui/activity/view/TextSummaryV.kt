@@ -43,64 +43,48 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
     }
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
-        return LinearContainerV(LinearContainerV.HORIZONTAL, arrayOf(
+        return LinearContainerV(LinearContainerV.VERTICAL, arrayOf(
             LayoutPair(
-                LinearContainerV(LinearContainerV.VERTICAL, arrayOf(
-                    LayoutPair(
-                        TextView(context).also { view ->
-                            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (text == null && textId == null) 15f else 18f)
-                            colorInt?.let { view.setTextColor(colorInt) }
-                            colorId?.let { view.setTextColor(context.getColor(colorId)) }
-                            if (colorId == null && colorInt == null) {
-                                view.setTextColor(context.getColor(R.color.whiteText))
-                            }
-                            text?.let { it1 -> view.text = it1 }
-                            textId?.let { it1 -> view.setText(it1) }
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                                view.paint.typeface = Typeface.create(null, 500,false)
-                            } else {
-                                view.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-                            }
-                        },
-                        LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.MATCH_PARENT
-                        )
-                    ),
-                    LayoutPair(
-                        TextView(context).also {
-                            it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
-                            it.setTextColor(context.getColor(R.color.author_tips))
-                            if (tips == null && tipsId == null) {
-                                it.visibility = View.GONE
-                            } else {
-                                tips?.let { it1 -> it.text = it1 }
-                                tipsId?.let { it1 -> it.setText(it1) }
-                            }
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                                it.paint.typeface = Typeface.create(null, 400,false)
-                            } else {
-                                it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-                            }
-                        },
-                        LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.MATCH_PARENT
-                        )
-                    )
-                )).create(context, callBacks),
+                TextView(context).also { view ->
+                    view.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (text == null && textId == null) 15f else 18f)
+                    colorInt?.let { view.setTextColor(colorInt) }
+                    colorId?.let { view.setTextColor(context.getColor(colorId)) }
+                    if (colorId == null && colorInt == null) {
+                        view.setTextColor(context.getColor(R.color.whiteText))
+                    }
+                    text?.let { it1 -> view.text = it1 }
+                    textId?.let { it1 -> view.setText(it1) }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        view.paint.typeface = Typeface.create(null, 500,false)
+                    } else {
+                        view.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                    }
+                },
                 LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    1f
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
                 )
             ),
             LayoutPair(
-                ImageView(context).also {
-                    it.background = context.getDrawable(R.drawable.ic_right_arrow)
-                    it.visibility = if (showArrow) View.VISIBLE else View.GONE
+                TextView(context).also {
+                    it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+                    it.setTextColor(context.getColor(R.color.author_tips))
+                    if (tips == null && tipsId == null) {
+                        it.visibility = View.GONE
+                    } else {
+                        tips?.let { it1 -> it.text = it1 }
+                        tipsId?.let { it1 -> it.setText(it1) }
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        it.paint.typeface = Typeface.create(null, 400,false)
+                    } else {
+                        it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                    }
                 },
-                LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL }
+                LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+                )
             )
         ), layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
