@@ -32,13 +32,14 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.DataBinding
+import cn.fkj233.ui.activity.data.InitView
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.view.BaseView
 import kotlin.system.exitProcess
@@ -62,6 +63,10 @@ open class MIUIActivity : Activity() {
 
     private var thisName: ArrayList<String> = arrayListOf()
 
+    private lateinit var viewData: InitView
+
+    private val dataList: HashMap<String, InitView.ItemData> = hashMapOf()
+
     val backButton by lazy {
         ImageView(activity).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
@@ -81,9 +86,8 @@ open class MIUIActivity : Activity() {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL }
             background = getDrawable(R.drawable.abc_ic_menu_overflow_material)
             setPadding(0, 0, dp2px(activity, 25f),0)
-            if (menuItems().size == 0) visibility = View.GONE
             setOnClickListener {
-                if (menuItems().size != 0) showFragment(menuName())
+                showFragment("Menu")
             }
         }
     }
@@ -142,13 +146,17 @@ open class MIUIActivity : Activity() {
             }
             if (list.size == 1) {
                 backButton.visibility = View.GONE
-                if (menuItems().size == 0) menuButton.visibility = View.GONE else menuButton.visibility = View.VISIBLE
+                if (viewData.isMenu) menuButton.visibility = View.GONE else menuButton.visibility = View.VISIBLE
             }
         } else {
-            if (isLoad) showFragment(mainName())
-            if (menuItems().size == 0) menuButton.visibility = View.GONE else menuButton.visibility = View.VISIBLE
+            if (isLoad) showFragment("Main")
             backButton.visibility = View.GONE
         }
+    }
+
+    fun initView(iView: InitView.() -> Unit) {
+        viewData = InitView(dataList).apply(iView)
+        if (viewData.isMenu) menuButton.visibility = View.VISIBLE else menuButton.visibility = View.GONE
     }
 
     override fun setTitle(title: CharSequence?) {
@@ -163,41 +171,6 @@ open class MIUIActivity : Activity() {
      */
     fun getDataBinding(defValue: Any, recvCallBacks: (View, Int, Any) -> Unit): DataBinding.BindingData {
         return dataBinding.get(defValue, recvCallBacks)
-    }
-
-
-    /**
-     *  获取主页内容, 需要重写 / Get homepage items, need override
-     *  @return: ArrayList<BaseView>
-     */
-    open fun mainItems(): ArrayList<BaseView> {
-        return ArrayList()
-    }
-
-
-    /**
-     *  获取主页标题, 需要重写 / Get homepage title, need override
-     *  @return: String
-     */
-    open fun mainName(): String {
-        return ""
-    }
-
-
-    /**
-     *  获取菜单内容, 需要重写 / Get menu items, need override
-     *  @return: String
-     */
-    open fun menuItems(): ArrayList<BaseView> {
-        return ArrayList()
-    }
-
-    /**
-     *  获取菜单标题, 需要重写 / Get menu title, need override
-     *  @return: String
-     */
-    open fun menuName(): String {
-        return ""
     }
 
     /**
@@ -216,23 +189,23 @@ open class MIUIActivity : Activity() {
         return OwnSP.ownSP
     }
 
-    fun showFragment(keyOfTitle: String) {
-        this.title = keyOfTitle
-        thisName.add(keyOfTitle)
+    fun showFragment(key: String) {
+        title = dataList[key]?.title
+        thisName.add(key)
         fragmentManager.beginTransaction().setCustomAnimations(
             R.animator.slide_right_in,
             R.animator.slide_left_out,
             R.animator.slide_left_in,
             R.animator.slide_right_out
-        ).replace(frameLayoutId, MIUIFragment()).addToBackStack(keyOfTitle).commit()
+        ).replace(frameLayoutId, MIUIFragment()).addToBackStack(key).commit()
         if (fragmentManager.backStackEntryCount != 0) {
             backButton.visibility = View.VISIBLE
-            if (menuItems().size != 0) menuButton.visibility = View.GONE
+            menuButton.visibility = View.GONE
         }
     }
 
     fun getThisItems(): List<BaseView> {
-        return getItems(thisName[thisName.lastSize()])
+        return dataList[thisName[thisName.lastSize()]]?.itemList ?: arrayListOf()
     }
 
     fun getAllCallBacks(): (() -> Unit)? {
@@ -259,7 +232,7 @@ open class MIUIActivity : Activity() {
             thisName.removeAt(thisName.lastSize())
             if (fragmentManager.backStackEntryCount <= 2) {
                 backButton.visibility = View.GONE
-                if (menuItems().size != 0) menuButton.visibility = View.VISIBLE
+                if (viewData.isMenu) menuButton.visibility = View.VISIBLE
             }
             titleView.text = fragmentManager.getBackStackEntryAt(fragmentManager.backStackEntryCount - 2).name
             fragmentManager.popBackStack()
@@ -273,15 +246,6 @@ open class MIUIActivity : Activity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putStringArrayList("this", thisName)
-    }
-
-    /**
-     * 获取其他页面 / Get other pages
-     * @param: ItemOfTitle
-     * @return: ArrayList<BaseView>
-     */
-    open fun getItems(item: String): ArrayList<BaseView> {
-        return mainItems()
     }
 
 }

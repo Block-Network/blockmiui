@@ -34,7 +34,7 @@ import android.widget.*
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
 
-class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
+class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit): Dialog(context, R.style.CustomDialog) {
     private val title by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
@@ -195,6 +195,7 @@ class MIUIDialog(context: Context): Dialog(context, R.style.CustomDialog) {
     fun getLButton(): TextView = lButton
 
     override fun show() {
+        build()
         window!!.setWindowAnimations(R.style.DialogAnim)
         if (rButton.visibility == View.VISIBLE && lButton.visibility == View.VISIBLE) {
             (rButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 5f), 0, dp2px(context, 20f), 0)
