@@ -26,8 +26,8 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
             itemList.add(SeekBarV(key, min, max, divide, defaultProgress, dataSend, dataBindingRecv, callBacks))
         }
 
-        fun Switch(key: String, defValue: Boolean = false, dataBindingRecv: DataBinding.Binding.Recv? = null, dataBindingSend: DataBinding.Binding.Send? = null, customOnCheckedChangeListener: ((Boolean) -> Unit)? = null) {
-            itemList.add(SwitchV(key, defValue, dataBindingRecv, dataBindingSend, customOnCheckedChangeListener))
+        fun TextSummaryWithSpinner(textV: TextSummaryV, spinnerV: SpinnerV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+            itemList.add(TextSummaryWithSpinnerV(textV, spinnerV, dataBindingRecv))
         }
 
         fun Text(text: String? = null, resId: Int? = null, textSize: Float? = null, colorInt: Int? = null, colorId: Int? = null, padding: Padding? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, typeface: Typeface? = null, onClickListener: (() -> Unit)? = null) {

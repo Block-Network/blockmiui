@@ -127,6 +127,39 @@ class MIUIFragment : Fragment() {
                                 is SpinnerV -> { // 下拉选择框
                                     addView(item.create(context, callBacks))
                                 }
+                                is TextSummaryWithSpinnerV -> {
+                                    addView(item.create(context, callBacks))
+                                    setOnClickListener {}
+                                    setOnTouchListener { view, motionEvent ->
+                                        if (motionEvent.action == MotionEvent.ACTION_UP) {
+                                            val popup = MIUIPopup(
+                                                context,
+                                                view,
+                                                item.spinnerV.currentValue,
+                                                {
+                                                    item.spinnerV.select.text = it
+                                                    item.spinnerV.currentValue = it
+                                                    callBacks?.let { it1 -> it1() }
+                                                },
+                                                item.spinnerV.arrayList
+                                            )
+                                            if (view.width / 2 >= motionEvent.x) {
+                                                popup.apply {
+                                                    horizontalOffset = dp2px(context, 24F)
+                                                    setDropDownGravity(Gravity.LEFT)
+                                                    show()
+                                                }
+                                            } else {
+                                                popup.apply {
+                                                    horizontalOffset = -dp2px(context, 24F)
+                                                    setDropDownGravity(Gravity.RIGHT)
+                                                    show()
+                                                }
+                                            }
+                                        }
+                                        false
+                                    }
+                                }
                                 is TextWithSpinnerV -> { // 带文本的下拉选择框
                                     addView(item.create(context, callBacks))
                                     setOnClickListener {}
