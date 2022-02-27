@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package cn.fkj233.ui.activity.data
 
 import android.graphics.Typeface
@@ -5,7 +7,7 @@ import android.graphics.drawable.Drawable
 import android.widget.TextView
 import cn.fkj233.ui.activity.view.*
 
-class InitView(val datalist: HashMap<String, ItemData>) {
+class InitView(private val datalist: HashMap<String, ItemData>) {
     var isMenu = false
 
     inner class ItemData(val title: String) {
