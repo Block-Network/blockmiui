@@ -140,6 +140,8 @@ open class MIUIActivity : Activity() {
             addView(frameLayout)
         })
         if (savedInstanceState != null) {
+            viewData = InitView(dataList).apply(initViewData)
+            if (viewData.isMenu) menuButton.visibility = View.VISIBLE else menuButton.visibility = View.GONE
             val list = savedInstanceState.getStringArrayList("this")!!
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             for (name: String in list) {
