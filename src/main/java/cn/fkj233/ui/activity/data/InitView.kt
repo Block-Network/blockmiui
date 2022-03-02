@@ -58,7 +58,6 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
             itemList.add(TextWithSpinnerV(textV, spinnerV, dataBindingRecv))
         }
 
-
     }
 
     fun registerMain(title: String, itemData: ItemData.() -> Unit) {

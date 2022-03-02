@@ -70,14 +70,14 @@ class DataBinding {
         }
 
         inner class Recv(private val flags: Int) {
-            lateinit var mView: View
+            private var mView: View? = null
 
             fun setView(view: View) {
                 mView = view
             }
 
             fun recv(any: Any) {
-                recvCallbacks(mView, flags, any)
+                mView?.let { recvCallbacks(it, flags, any) }
             }
         }
     }

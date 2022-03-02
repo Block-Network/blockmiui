@@ -36,7 +36,6 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.InitView
@@ -66,6 +65,8 @@ open class MIUIActivity : Activity() {
     private lateinit var viewData: InitView
 
     private val dataList: HashMap<String, InitView.ItemData> = hashMapOf()
+
+    private lateinit var initViewData: InitView.() -> Unit
 
     val backButton by lazy {
         ImageView(activity).apply {
@@ -149,14 +150,17 @@ open class MIUIActivity : Activity() {
                 if (viewData.isMenu) menuButton.visibility = View.GONE else menuButton.visibility = View.VISIBLE
             }
         } else {
-            if (isLoad) showFragment("Main")
+            if (isLoad) {
+                viewData = InitView(dataList).apply(initViewData)
+                if (viewData.isMenu) menuButton.visibility = View.VISIBLE else menuButton.visibility = View.GONE
+                showFragment("Main")
+            }
             backButton.visibility = View.GONE
         }
     }
 
     fun initView(iView: InitView.() -> Unit) {
-        viewData = InitView(dataList).apply(iView)
-        if (viewData.isMenu) menuButton.visibility = View.VISIBLE else menuButton.visibility = View.GONE
+        initViewData = iView
     }
 
     override fun setTitle(title: CharSequence?) {
@@ -234,7 +238,7 @@ open class MIUIActivity : Activity() {
                 backButton.visibility = View.GONE
                 if (viewData.isMenu) menuButton.visibility = View.VISIBLE
             }
-            titleView.text = fragmentManager.getBackStackEntryAt(fragmentManager.backStackEntryCount - 2).name
+            titleView.text = dataList[fragmentManager.getBackStackEntryAt(fragmentManager.backStackEntryCount - 2).name]?.title
             fragmentManager.popBackStack()
             titleView.setPadding(0, 0, 0, 0)
             titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
