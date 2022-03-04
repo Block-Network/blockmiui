@@ -209,6 +209,9 @@ class MIUIFragment : Fragment() {
                                         callBacks?.let { it1 -> it1() }
                                     }
                                 }
+                                is CustomViewV -> {
+                                    addView(item.create(context, callBacks))
+                                }
                             }
                         })
                     }
@@ -216,7 +219,6 @@ class MIUIFragment : Fragment() {
             )
             dataBinding.initAll()
         }
-//        android.R.color.transparent
         return scrollView
     }
 }

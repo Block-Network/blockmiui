@@ -4,6 +4,7 @@ package cn.fkj233.ui.activity.data
 
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.TextView
 import cn.fkj233.ui.activity.view.*
 
@@ -56,6 +57,10 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
 
         fun TextWithSpinner(textV: TextV, spinnerV: SpinnerV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
             itemList.add(TextWithSpinnerV(textV, spinnerV, dataBindingRecv))
+        }
+
+        fun CustomView(view: View, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+            itemList.add(CustomViewV(view, dataBindingRecv))
         }
 
     }
