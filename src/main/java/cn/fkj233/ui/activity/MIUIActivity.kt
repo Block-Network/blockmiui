@@ -58,8 +58,6 @@ open class MIUIActivity : Activity() {
 
     private var callbacks: (() -> Unit)? = null
 
-    private val dataBinding: DataBinding = DataBinding()
-
     private var thisName: ArrayList<String> = arrayListOf()
 
     private lateinit var viewData: InitView
@@ -170,16 +168,6 @@ open class MIUIActivity : Activity() {
     }
 
     /**
-     *  获取数据绑定 / Get data-binding
-     *  @param: defValue
-     *  @param: CallBacks(View, Int, Any)
-     *  @return: BindingData
-     */
-    fun getDataBinding(defValue: Any, recvCallBacks: (View, Int, Any) -> Unit): DataBinding.BindingData {
-        return dataBinding.get(defValue, recvCallBacks)
-    }
-
-    /**
      *  设置 SharedPreferences / Set SharedPreferences
      *  @param: SharedPreferences
      */
@@ -218,8 +206,8 @@ open class MIUIActivity : Activity() {
         return callbacks
     }
 
-    fun getDataBinding(): DataBinding {
-        return dataBinding
+    fun getDataBinding(): ArrayList<DataBinding.BindingData> {
+        return dataList[thisName[thisName.lastSize()]]?.bindingData ?: arrayListOf()
     }
 
     /**

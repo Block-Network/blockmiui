@@ -43,7 +43,7 @@ class MIUIFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val scrollView = ScrollView(context)
         scrollView.apply { // 滑动布局
-            val dataBinding: DataBinding = (activity as MIUIActivity).getDataBinding()
+            val dataBinding: ArrayList<DataBinding.BindingData> = (activity as MIUIActivity).getDataBinding()
             val callBacks: (() -> Unit)? = (activity as MIUIActivity).getAllCallBacks()
             val itemList: List<BaseView> = (activity as MIUIActivity).getThisItems()
             layoutParams =
@@ -217,7 +217,7 @@ class MIUIFragment : Fragment() {
                     }
                 }
             )
-            dataBinding.initAll()
+            DataBinding.initAll(dataBinding)
         }
         return scrollView
     }

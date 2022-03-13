@@ -14,6 +14,11 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
     inner class ItemData(val title: String) {
 
         val itemList: ArrayList<BaseView> = arrayListOf()
+        var bindingData = arrayListOf<DataBinding.BindingData>()
+
+        fun GetDataBinding(defValue: Any, recvCallbacks: (View, Int, Any) -> Unit): DataBinding.BindingData {
+            return DataBinding.get(bindingData, defValue, recvCallbacks)
+        }
 
         fun Author(authorHead: Drawable, authorName: String, authorTips: String? = null, round: Float = 30f, onClick: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
             itemList.add(AuthorV(authorHead, authorName, authorTips, round, onClick, dataBindingRecv))

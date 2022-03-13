@@ -24,16 +24,14 @@ package cn.fkj233.ui.activity.data
 
 import android.view.View
 
-class DataBinding {
+object DataBinding {
 
-    private var bindingData = arrayListOf<BindingData>()
-
-    fun get(defValue: Any, recvCallbacks: (View, Int, Any) -> Unit): BindingData {
+    fun get(bindingData: ArrayList<BindingData>, defValue: Any, recvCallbacks: (View, Int, Any) -> Unit): BindingData {
         val binding = Binding(recvCallbacks)
         return BindingData(defValue, binding, binding.getSend(), recvCallbacks).also { bindingData.add(it) }
     }
 
-    fun initAll() {
+    fun initAll(bindingData: ArrayList<BindingData>) {
         for (binding in bindingData) {
             binding.bindingSend.send(binding.defValue)
         }
@@ -44,9 +42,9 @@ class DataBinding {
         val binding: Binding,
         val bindingSend: Binding.Send,
         val recvCallbacks: (View, Int, Any) -> Unit
-        )
+    )
 
-    inner class Binding(val recvCallbacks: (View, Int, Any) -> Unit) {
+    class Binding(val recvCallbacks: (View, Int, Any) -> Unit) {
         var data: ArrayList<Recv> = arrayListOf()
 
         inner class Send {
@@ -65,19 +63,27 @@ class DataBinding {
             return Send()
         }
 
+        /**
+         * Get data reception / 获取数据接收
+         */
         fun getRecv(flags: Int): Recv {
             return Recv(flags).also { add(it) }
         }
 
+        /**
+         * Please do not use it directly. / 请不要直接使用.
+         * <p>
+         * Please use {@link cn.fkj233.ui.activity.data.DataBinding.Binding#getRecv(int)}
+         */
         inner class Recv(private val flags: Int) {
-            private var mView: View? = null
+            private lateinit var mView: View
 
             fun setView(view: View) {
                 mView = view
             }
 
             fun recv(any: Any) {
-                mView?.let { recvCallbacks(it, flags, any) }
+                recvCallbacks(mView, flags, any)
             }
         }
     }
