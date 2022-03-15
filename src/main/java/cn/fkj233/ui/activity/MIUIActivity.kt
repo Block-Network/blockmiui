@@ -76,7 +76,7 @@ open class MIUIActivity : Activity() {
         }
     }
 
-    private val menuButton by lazy {
+    val menuButton by lazy {
         ImageView(activity).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL }
             background = getDrawable(R.drawable.abc_ic_menu_overflow_material)
