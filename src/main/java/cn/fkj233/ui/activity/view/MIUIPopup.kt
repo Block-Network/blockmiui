@@ -96,53 +96,53 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
 
             override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
                 val thisText = arrayList[p0].getName()
-                return p1
-                    ?: LinearLayout(context).apply {
-                        var radius = floatArrayOf(0f, 0f, 0f, 0f)
-                        val radiusFloat = dp2px(context, 20f).toFloat()
-                        when (p0) {
-                            0 -> {
-                                radius = floatArrayOf(radiusFloat, radiusFloat, 0f, 0f)
-                            }
-                            arrayList.size - 1 -> {
-                                radius = floatArrayOf(0f, 0f, radiusFloat, radiusFloat)
-                            }
+                return (p1 as? LinearLayout ?: LinearLayout(context)).apply {
+                    var radius = floatArrayOf(0f, 0f, 0f, 0f)
+                    val radiusFloat = dp2px(context, 20f).toFloat()
+                    when (p0) {
+                        0 -> {
+                            radius = floatArrayOf(radiusFloat, radiusFloat, 0f, 0f)
                         }
-                        val pressedDrawable = createRectangleDrawable(context.getColor(if (currentValue == thisText) R.color.popup_select_click else R.color.popup_background_click), 0, 0, radius)
-                        val normalDrawable = createRectangleDrawable(context.getColor(if (currentValue == thisText) R.color.popup_select else R.color.popup_background), 0, 0, radius)
-                        background = createStateListDrawable(pressedDrawable, normalDrawable)
-                        addView(TextView(context).apply {
-                            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-                            descendantFocusability = LinearContainerV.FOCUS_BLOCK_DESCENDANTS
-                            setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-                            setPadding(dp2px(context, 25f), dp2px(context, 25f), 0, dp2px(context, 25f))
-                            isSingleLine = true
-                            text = thisText
-                            paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-                            if (currentValue == thisText) setTextColor(context.getColor(R.color.popup_select_text)) else setTextColor(context.getColor(R.color.whiteText))
-                        })
-                        addView(ImageView(context).apply {
-                            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
-                                it.gravity = Gravity.CENTER_VERTICAL
-                                it.setMargins(0, 0, dp2px(context, 25f), 0)
-                            }
-                            background = context.getDrawable(R.drawable.ic_popup_select)
-                            if (currentValue != thisText) visibility = View.GONE
-                        })
-                        setOnClickListener {
-                            (it as ViewGroup).apply {
-                                for (i in 0 until childCount) {
-                                    val mView = getChildAt(i)
-                                    if (mView is TextView) {
-                                        dataBacks(mView.text.toString())
-                                        break
-                                    }
-                                }
-                            }
-                            arrayList[p0].getCallBacks()()
-                            dismiss()
+                        arrayList.size - 1 -> {
+                            radius = floatArrayOf(0f, 0f, radiusFloat, radiusFloat)
                         }
                     }
+                    val pressedDrawable = createRectangleDrawable(context.getColor(if (currentValue == thisText) R.color.popup_select_click else R.color.popup_background_click), 0, 0, radius)
+                    val normalDrawable = createRectangleDrawable(context.getColor(if (currentValue == thisText) R.color.popup_select else R.color.popup_background), 0, 0, radius)
+                    background = createStateListDrawable(pressedDrawable, normalDrawable)
+                    removeAllViews()
+                    addView(TextView(context).apply {
+                        layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+                        descendantFocusability = LinearContainerV.FOCUS_BLOCK_DESCENDANTS
+                        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+                        setPadding(dp2px(context, 25f), dp2px(context, 25f), 0, dp2px(context, 25f))
+                        isSingleLine = true
+                        text = thisText
+                        paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                        if (currentValue == thisText) setTextColor(context.getColor(R.color.popup_select_text)) else setTextColor(context.getColor(R.color.whiteText))
+                    })
+                    addView(ImageView(context).apply {
+                        layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
+                            it.gravity = Gravity.CENTER_VERTICAL
+                            it.setMargins(0, 0, dp2px(context, 25f), 0)
+                        }
+                        background = context.getDrawable(R.drawable.ic_popup_select)
+                        if (currentValue != thisText) visibility = View.GONE
+                    })
+                    setOnClickListener {
+                        (it as ViewGroup).apply {
+                            for (i in 0 until childCount) {
+                                val mView = getChildAt(i)
+                                if (mView is TextView) {
+                                    dataBacks(mView.text.toString())
+                                    break
+                                }
+                            }
+                        }
+                        arrayList[p0].getCallBacks()()
+                        dismiss()
+                    }
+                }
             }
         })
     }
