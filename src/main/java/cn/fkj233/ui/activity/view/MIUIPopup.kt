@@ -23,9 +23,11 @@
 package cn.fkj233.ui.activity.view
 
 import android.content.Context
+import android.graphics.Rect
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
+import android.text.TextUtils
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -111,13 +113,27 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
                     val normalDrawable = createRectangleDrawable(context.getColor(if (currentValue == thisText) R.color.popup_select else R.color.popup_background), 0, 0, radius)
                     background = createStateListDrawable(pressedDrawable, normalDrawable)
                     removeAllViews()
-                    addView(TextView(context).apply {
-                        layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+                    addView((object : TextView(context) {
+                       init {
+                           isFocusable = true
+                       }
+
+                        override fun isFocused(): Boolean {
+                            return true
+                        }
+
+                        override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
+                            super.onFocusChanged(focused, direction, previouslyFocusedRect)
+                        }
+                    }).apply {
+                        layoutParams = LinearLayout.LayoutParams(dp2px(context, 115f), LinearLayout.LayoutParams.WRAP_CONTENT)
                         descendantFocusability = LinearContainerV.FOCUS_BLOCK_DESCENDANTS
                         setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-                        setPadding(dp2px(context, 25f), dp2px(context, 25f), 0, dp2px(context, 25f))
+                        setPadding(dp2px(context, 25f), dp2px(context, 25f), dp2px(context, 10f), dp2px(context, 25f))
+                        width = dp2px(context, 105f)
                         isSingleLine = true
                         text = thisText
+                        ellipsize = TextUtils.TruncateAt.MARQUEE
                         paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
                         if (currentValue == thisText) setTextColor(context.getColor(R.color.popup_select_text)) else setTextColor(context.getColor(R.color.whiteText))
                     })

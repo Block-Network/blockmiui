@@ -53,10 +53,11 @@ class SpinnerV(val arrayList: ArrayList<MIUIPopupData>, var currentValue: String
                 LayoutPair(
                     TextView(context).also {
                         it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-                        it.gravity = Gravity.CENTER_VERTICAL
+                        it.gravity = Gravity.CENTER_VERTICAL + Gravity.RIGHT
                         it.text = currentValue
                         it.setTextColor(context.getColor(R.color.spinner))
                         select = it
+                        it.width = dp2px(context, 150f)
                         it.setPadding(dp2px(context, 30f), 0, dp2px(context, 5f), 0)
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                             it.paint.typeface = Typeface.create(null, 400, false)
