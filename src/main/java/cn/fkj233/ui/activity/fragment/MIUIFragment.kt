@@ -43,7 +43,6 @@ class MIUIFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val scrollView = ScrollView(context)
         scrollView.apply { // 滑动布局
-            val dataBinding: ArrayList<DataBinding.BindingData> = (activity as MIUIActivity).getDataBinding()
             val callBacks: (() -> Unit)? = (activity as MIUIActivity).getAllCallBacks()
             val itemList: List<BaseView> = (activity as MIUIActivity).getThisItems()
             layoutParams =
@@ -98,9 +97,19 @@ class MIUIFragment : Fragment() {
                                 is SwitchV -> addView(item.create(context, callBacks)) // 开关
                                 is TextWithSwitchV -> {
                                     addView(item.create(context, callBacks)) // 带文本的开关
-                                    setOnClickListener {
-                                        item.switchV.click()
-                                        callBacks?.let { it1 -> it1() }
+                                    setOnTouchListener { _, motionEvent ->
+                                        when (motionEvent.action) {
+                                            MotionEvent.ACTION_DOWN -> if (item.switchV.switch.isEnabled) background = context.getDrawable(R.drawable.ic_main_down_bg)
+                                            MotionEvent.ACTION_UP -> {
+                                                if (item.switchV.switch.isEnabled) {
+                                                    item.switchV.click()
+                                                    callBacks?.let { it1 -> it1() }
+                                                    background = context.getDrawable(R.drawable.ic_main_bg)
+                                                }
+                                            }
+                                            else -> background = context.getDrawable(R.drawable.ic_main_bg)
+                                        }
+                                        true
                                     }
                                 }
                                 is TitleTextV -> addView(item.create(context, callBacks)) // 标题文字
@@ -217,7 +226,7 @@ class MIUIFragment : Fragment() {
                     }
                 }
             )
-            DataBinding.initAll(dataBinding)
+            DataBinding.initAll((activity as MIUIActivity).getDataBinding())
         }
         return scrollView
     }
