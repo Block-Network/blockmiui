@@ -155,10 +155,10 @@ open class MIUIActivity : Activity() {
         } else {
             if (isLoad) {
                 viewData = InitView(dataList).apply(initViewData)
+                if (!viewData.mainShowBack) backButton.visibility = View.GONE
                 if (viewData.isMenu) menuButton.visibility = View.VISIBLE else menuButton.visibility = View.GONE
                 showFragment("Main")
             }
-            if (!viewData.mainShowBack) backButton.visibility = View.GONE
         }
     }
 
