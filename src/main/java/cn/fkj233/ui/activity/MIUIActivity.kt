@@ -29,10 +29,8 @@ import android.app.FragmentManager
 import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
-import android.os.Handler
 import android.util.TypedValue
 import android.view.Gravity
-import android.view.Gravity.apply
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -40,7 +38,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.AsyncInit
-import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.InitView
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.view.BaseView
@@ -69,7 +66,7 @@ open class MIUIActivity : Activity() {
 
     private lateinit var initViewData: InitView.() -> Unit
 
-    val backButton by lazy {
+    private val backButton by lazy {
         ImageView(activity).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                 it.gravity = Gravity.CENTER_VERTICAL
@@ -94,7 +91,7 @@ open class MIUIActivity : Activity() {
         }
     }
 
-    val titleView by lazy {
+    private val titleView by lazy {
         TextView(activity).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also {
                 it.gravity = Gravity.CENTER_VERTICAL
@@ -118,6 +115,7 @@ open class MIUIActivity : Activity() {
     /**
      *  是否继续加载 / Continue loading
      */
+    @Suppress("MemberVisibilityCanBePrivate")
     var isLoad = true
 
     /**
@@ -151,7 +149,7 @@ open class MIUIActivity : Activity() {
                 showFragment(name)
             }
             if (list.size == 1) {
-                backButton.visibility = View.GONE
+                if (!viewData.mainShowBack) backButton.visibility = View.GONE
                 if (viewData.isMenu) menuButton.visibility = View.GONE else menuButton.visibility = View.VISIBLE
             }
         } else {
@@ -160,7 +158,7 @@ open class MIUIActivity : Activity() {
                 if (viewData.isMenu) menuButton.visibility = View.VISIBLE else menuButton.visibility = View.GONE
                 showFragment("Main")
             }
-            backButton.visibility = View.GONE
+            if (!viewData.mainShowBack) backButton.visibility = View.GONE
         }
     }
 
@@ -184,6 +182,7 @@ open class MIUIActivity : Activity() {
      *  获取 SharedPreferences / Get SharedPreferences
      *  @return: SharedPreferences
      */
+    @Suppress("unused")
     fun getSP(): SharedPreferences {
         return OwnSP.ownSP
     }
@@ -204,8 +203,9 @@ open class MIUIActivity : Activity() {
                 R.animator.slide_right_out
             ).replace(frameLayoutId, frame).addToBackStack(key).commit()
             backButton.visibility = View.VISIBLE
-            menuButton.visibility = View.GONE
+            if (dataList[key]?.hideMenu == true) menuButton.visibility = View.GONE
         } else {
+            if (viewData.mainShowBack) backButton.visibility = View.VISIBLE
             fragmentManager.beginTransaction().replace(frameLayoutId, frame).addToBackStack(key).commit()
         }
     }
@@ -222,14 +222,11 @@ open class MIUIActivity : Activity() {
         return callbacks
     }
 
-    fun getDataBinding(key: String): ArrayList<DataBinding.BindingData> {
-        return dataList[key]?.bindingData ?: arrayListOf()
-    }
-
     /**
      * 设置全局返回调用 / Set global return call methods
      * @param: Unit
      */
+    @Suppress("unused")
     fun setAllCallBacks(callbacks: () -> Unit) {
         this.callbacks = callbacks
     }
@@ -241,7 +238,7 @@ open class MIUIActivity : Activity() {
         } else {
             thisName.removeAt(thisName.lastSize())
             if (fragmentManager.backStackEntryCount <= 2) {
-                backButton.visibility = View.GONE
+                if (!viewData.mainShowBack) backButton.visibility = View.GONE
                 if (viewData.isMenu) menuButton.visibility = View.VISIBLE
             }
             titleView.text = dataList[fragmentManager.getBackStackEntryAt(fragmentManager.backStackEntryCount - 2).name]?.title

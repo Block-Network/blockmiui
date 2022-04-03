@@ -29,6 +29,7 @@ import android.app.Dialog
 import android.app.Fragment
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.view.animation.AnimationSet
@@ -45,17 +46,17 @@ import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.view.*
 
 
+@Suppress("MemberVisibilityCanBePrivate")
 @SuppressLint("ValidFragment")
 class MIUIFragment(private val key: String) : Fragment() {
     private lateinit var scrollView: ScrollView
     private lateinit var itemView: LinearLayout
     val callBacks: (() -> Unit)? by lazy { (activity as MIUIActivity).getAllCallBacks() }
     private val async: AsyncInit? by lazy { (activity as MIUIActivity).getThisAsync(key) }
-    var dialog: Dialog? = null
-    private lateinit var handler: Handler
+    private var dialog: Dialog? = null
+    val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        handler = Handler()
         scrollView = ScrollView(context).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
             isFillViewport = true
@@ -84,6 +85,9 @@ class MIUIFragment(private val key: String) : Fragment() {
         }
     }
 
+    /**
+     *  Show loading dialog / 显示加载 Dialog
+     */
     fun showLoading() {
         Log.e("showLoading", "show")
         handler.post {
@@ -109,10 +113,16 @@ class MIUIFragment(private val key: String) : Fragment() {
         }
     }
 
+    /**
+     *  Close loading dialog / 关闭加载 Dialog
+     */
     fun closeLoading() {
         handler.post { dialog?.dismiss() }
     }
 
+    /**
+     *  Add view / 添加控件
+     */
     @SuppressLint("ClickableViewAccessibility")
     fun addItem(item: BaseView) {
         handler.post {

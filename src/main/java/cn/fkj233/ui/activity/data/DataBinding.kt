@@ -38,7 +38,7 @@ object DataBinding {
         val recvCallbacks: (View, Int, Any) -> Unit
     )
 
-    class Binding(val defValue: Any, val recvCallbacks: (View, Int, Any) -> Unit) {
+    class Binding(private val defValue: Any, val recvCallbacks: (View, Int, Any) -> Unit) {
         var data: ArrayList<Recv> = arrayListOf()
 
         inner class Send {

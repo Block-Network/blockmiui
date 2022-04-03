@@ -10,8 +10,9 @@ import cn.fkj233.ui.activity.view.*
 
 class InitView(private val datalist: HashMap<String, ItemData>) {
     var isMenu = false
+    var mainShowBack = false
 
-    inner class ItemData(val title: String) {
+    inner class ItemData(val title: String, val hideMenu: Boolean) {
         val itemList: ArrayList<BaseView> = arrayListOf()
         var bindingData = arrayListOf<DataBinding.BindingData>()
         var async: AsyncInit? = null
@@ -69,16 +70,17 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
         }
     }
 
-    fun registerMain(title: String, itemData: ItemData.() -> Unit) {
-        datalist["Main"] = ItemData(title).apply(itemData)
+    fun registerMain(title: String, showBack: Boolean, itemData: ItemData.() -> Unit) {
+        datalist["Main"] = ItemData(title, false).apply(itemData)
+        mainShowBack = showBack
     }
 
     fun registerMenu(title: String, itemData: ItemData.() -> Unit) {
-        datalist["Menu"] = ItemData(title).apply(itemData)
+        datalist["Menu"] = ItemData(title, true).apply(itemData)
         isMenu = true
     }
 
-    fun register(key: String, title: String, itemData: ItemData.() -> Unit){
-        datalist[key] = ItemData(title).apply(itemData)
+    fun register(key: String, title: String, hideMenu: Boolean, itemData: ItemData.() -> Unit){
+        datalist[key] = ItemData(title, hideMenu).apply(itemData)
     }
 }
