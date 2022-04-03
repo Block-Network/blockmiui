@@ -149,8 +149,7 @@ open class MIUIActivity : Activity() {
                 showFragment(name)
             }
             if (list.size == 1) {
-                if (!viewData.mainShowBack) backButton.visibility = View.GONE
-                if (viewData.isMenu) menuButton.visibility = View.GONE else menuButton.visibility = View.VISIBLE
+                if (viewData.mainShowBack) backButton.visibility = View.VISIBLE else backButton.visibility = View.GONE
             }
         } else {
             if (isLoad) {
@@ -195,7 +194,7 @@ open class MIUIActivity : Activity() {
         title = dataList[key]?.title
         thisName.add(key)
         val frame = MIUIFragment(key)
-        if (fragmentManager.backStackEntryCount != 0) {
+        if (key != "Main" && fragmentManager.backStackEntryCount != 0) {
             fragmentManager.beginTransaction().setCustomAnimations(
                 R.animator.slide_right_in,
                 R.animator.slide_left_out,

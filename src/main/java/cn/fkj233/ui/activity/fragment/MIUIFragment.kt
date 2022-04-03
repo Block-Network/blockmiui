@@ -48,13 +48,18 @@ import cn.fkj233.ui.activity.view.*
 
 @Suppress("MemberVisibilityCanBePrivate")
 @SuppressLint("ValidFragment")
-class MIUIFragment(private val key: String) : Fragment() {
+class MIUIFragment() : Fragment() {
+    private var key = ""
     private lateinit var scrollView: ScrollView
     private lateinit var itemView: LinearLayout
     val callBacks: (() -> Unit)? by lazy { (activity as MIUIActivity).getAllCallBacks() }
     private val async: AsyncInit? by lazy { (activity as MIUIActivity).getThisAsync(key) }
     private var dialog: Dialog? = null
     val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
+
+    constructor(keys: String): this() {
+        key = keys
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         scrollView = ScrollView(context).apply {

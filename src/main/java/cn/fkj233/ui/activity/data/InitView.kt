@@ -81,6 +81,7 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
     }
 
     fun register(key: String, title: String, hideMenu: Boolean, itemData: ItemData.() -> Unit){
+        if (key in arrayOf("Main", "Menu")) throw Throwable("[$key] This is reserved and cannot be used!")
         datalist[key] = ItemData(title, hideMenu).apply(itemData)
     }
 }
