@@ -12,9 +12,9 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
     var isMenu = false
 
     inner class ItemData(val title: String) {
-
         val itemList: ArrayList<BaseView> = arrayListOf()
         var bindingData = arrayListOf<DataBinding.BindingData>()
+        var async: AsyncInit? = null
 
         fun GetDataBinding(defValue: Any, recvCallbacks: (View, Int, Any) -> Unit): DataBinding.BindingData {
             return DataBinding.get(bindingData, defValue, recvCallbacks)
@@ -67,7 +67,6 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
         fun CustomView(view: View, dataBindingRecv: DataBinding.Binding.Recv? = null) {
             itemList.add(CustomViewV(view, dataBindingRecv))
         }
-
     }
 
     fun registerMain(title: String, itemData: ItemData.() -> Unit) {

@@ -38,7 +38,16 @@ import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.data.MIUIPopupData
 import cn.fkj233.ui.activity.dp2px
 
-class SpinnerV(val arrayList: ArrayList<MIUIPopupData>, var currentValue: String, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView() {
+class SpinnerV(var currentValue: String, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val data: SpinnerData.() -> Unit): BaseView() {
+
+    class SpinnerData {
+        val arrayList: ArrayList<MIUIPopupData> = arrayListOf()
+
+        fun add(name: String,  callBacks: () -> Unit) {
+            arrayList.add(MIUIPopupData(name, callBacks))
+        }
+    }
+
     private lateinit var context: Context
 
     lateinit var select: TextView

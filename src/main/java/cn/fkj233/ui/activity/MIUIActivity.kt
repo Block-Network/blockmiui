@@ -29,14 +29,17 @@ import android.app.FragmentManager
 import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.Gravity.apply
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import cn.fkj233.miui.R
+import cn.fkj233.ui.activity.data.AsyncInit
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.InitView
 import cn.fkj233.ui.activity.fragment.MIUIFragment
@@ -104,7 +107,9 @@ open class MIUIActivity : Activity() {
 
     private var frameLayoutId: Int = -1
     private val frameLayout by lazy {
-        val mFrameLayout = FrameLayout(activity)
+        val mFrameLayout = FrameLayout(activity).apply {
+            layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+        }
         frameLayoutId = View.generateViewId()
         mFrameLayout.id = frameLayoutId
         mFrameLayout
@@ -183,31 +188,42 @@ open class MIUIActivity : Activity() {
         return OwnSP.ownSP
     }
 
+    /**
+     *  显示 Fragment / Show fragment
+     *  @param: key 注册的key / Register key
+     */
     fun showFragment(key: String) {
         title = dataList[key]?.title
         thisName.add(key)
-        fragmentManager.beginTransaction().setCustomAnimations(
-            R.animator.slide_right_in,
-            R.animator.slide_left_out,
-            R.animator.slide_left_in,
-            R.animator.slide_right_out
-        ).replace(frameLayoutId, MIUIFragment()).addToBackStack(key).commit()
+        val frame = MIUIFragment(key)
         if (fragmentManager.backStackEntryCount != 0) {
+            fragmentManager.beginTransaction().setCustomAnimations(
+                R.animator.slide_right_in,
+                R.animator.slide_left_out,
+                R.animator.slide_left_in,
+                R.animator.slide_right_out
+            ).replace(frameLayoutId, frame).addToBackStack(key).commit()
             backButton.visibility = View.VISIBLE
             menuButton.visibility = View.GONE
+        } else {
+            fragmentManager.beginTransaction().replace(frameLayoutId, frame).addToBackStack(key).commit()
         }
     }
 
-    fun getThisItems(): List<BaseView> {
-        return dataList[thisName[thisName.lastSize()]]?.itemList ?: arrayListOf()
+    fun getThisItems(key: String): List<BaseView> {
+        return dataList[key]?.itemList ?: arrayListOf()
+    }
+
+    fun getThisAsync(key: String): AsyncInit? {
+        return dataList[key]?.async
     }
 
     fun getAllCallBacks(): (() -> Unit)? {
         return callbacks
     }
 
-    fun getDataBinding(): ArrayList<DataBinding.BindingData> {
-        return dataList[thisName[thisName.lastSize()]]?.bindingData ?: arrayListOf()
+    fun getDataBinding(key: String): ArrayList<DataBinding.BindingData> {
+        return dataList[key]?.bindingData ?: arrayListOf()
     }
 
     /**

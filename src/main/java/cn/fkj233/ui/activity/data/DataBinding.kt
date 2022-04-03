@@ -27,14 +27,8 @@ import android.view.View
 object DataBinding {
 
     fun get(bindingData: ArrayList<BindingData>, defValue: Any, recvCallbacks: (View, Int, Any) -> Unit): BindingData {
-        val binding = Binding(recvCallbacks)
+        val binding = Binding(defValue, recvCallbacks)
         return BindingData(defValue, binding, binding.getSend(), recvCallbacks).also { bindingData.add(it) }
-    }
-
-    fun initAll(bindingData: ArrayList<BindingData>) {
-        for (binding in bindingData) {
-            binding.bindingSend.send(binding.defValue)
-        }
     }
 
     data class BindingData(
@@ -44,7 +38,7 @@ object DataBinding {
         val recvCallbacks: (View, Int, Any) -> Unit
     )
 
-    class Binding(val recvCallbacks: (View, Int, Any) -> Unit) {
+    class Binding(val defValue: Any, val recvCallbacks: (View, Int, Any) -> Unit) {
         var data: ArrayList<Recv> = arrayListOf()
 
         inner class Send {
@@ -67,7 +61,7 @@ object DataBinding {
          * Get data reception / 获取数据接收
          */
         fun getRecv(flags: Int): Recv {
-            return Recv(flags).also { add(it) }
+            return Recv(flags, defValue).also { add(it) }
         }
 
         /**
@@ -75,11 +69,12 @@ object DataBinding {
          * <p>
          * Please use {@link cn.fkj233.ui.activity.data.DataBinding.Binding#getRecv(int)}
          */
-        inner class Recv(private val flags: Int) {
+        inner class Recv(private val flags: Int, private val defValue: Any) {
             private lateinit var mView: View
 
             fun setView(view: View) {
                 mView = view
+                recv(defValue)
             }
 
             fun recv(any: Any) {
