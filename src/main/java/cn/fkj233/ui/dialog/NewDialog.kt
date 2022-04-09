@@ -29,10 +29,12 @@ import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.*
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.getDisplay
 
 class NewDialog(context: Context, val build: NewDialog.() -> Unit): Dialog(context, R.style.CustomDialog) {
     private val title by lazy {
@@ -71,6 +73,42 @@ class NewDialog(context: Context, val build: NewDialog.() -> Unit): Dialog(conte
             editText.setPadding(dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 8f))
             editText.visibility = View.GONE
             editText.background = context.getDrawable(R.drawable.editview_background)
+            val mHeight = dp2px(context, 55f)
+            val maxHeight = getDisplay(context).height / 2
+            editText.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    editText.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    val params = editText.layoutParams as LinearLayout.LayoutParams
+                    if (editText.lineCount <= 1) {
+                        params.height = mHeight
+                    } else {
+                        var tempHeight = mHeight
+                        for (i in 0..editText.lineCount) {
+                            tempHeight += mHeight / 2 - 20
+                        }
+                        params.height = if (tempHeight >= maxHeight) maxHeight else tempHeight
+                    }
+                    editText.layoutParams = params
+                }
+            })
+            editText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun afterTextChanged(p0: Editable?) {}
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    val params = editText.layoutParams as LinearLayout.LayoutParams
+                    if (editText.lineCount <= 1) {
+                        params.height = mHeight
+                    } else {
+                        var tempHeight = mHeight
+                        for (i in 0..editText.lineCount) {
+                            tempHeight += mHeight / 2 - 20
+                        }
+                        params.height = if (tempHeight >= maxHeight) maxHeight else tempHeight
+                    }
+                    editText.layoutParams = params
+                }
+            })
         }
     }
 

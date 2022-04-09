@@ -57,19 +57,17 @@ class MIUIFragment() : Fragment() {
     private var dialog: Dialog? = null
     val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
 
-    constructor(keys: String): this() {
+    constructor(keys: String) : this() {
         key = keys
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         scrollView = ScrollView(context).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
             isFillViewport = true
             addView(LinearLayout(context).apply { // 总布局
-                layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.FILL_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
+                layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 orientation = LinearLayout.VERTICAL
                 background = context.getDrawable(R.color.foreground)
                 itemView = this
@@ -132,33 +130,18 @@ class MIUIFragment() : Fragment() {
     fun addItem(item: BaseView) {
         handler.post {
             itemView.addView(LinearLayout(context).apply { // 控件布局
-                layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
+                layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 background = context.getDrawable(R.drawable.ic_click_check)
                 setPadding(dp2px(context, 25f), 0, dp2px(context, 25f), 0)
                 when (item) {
                     is SeekBarV -> { // 滑动条
                         addView(LinearLayout(context).apply {
                             setPadding(dp2px(activity, 12f), 0, dp2px(activity, 12f), 0)
-                            addView(
-                                item.create(context, callBacks),
-                                LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.MATCH_PARENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT
-                                )
-                            )
+                            addView(item.create(context, callBacks), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
                         })
                     }
                     is SeekBarWithTextV -> { // 滑动条 带文本
-                        addView(
-                            item.create(context, callBacks),
-                            LinearLayout.LayoutParams(
-                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT
-                            )
-                        )
+                        addView(item.create(context, callBacks), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
                     }
                     is TextV -> { // 文本
                         addView(item.create(context, callBacks))
@@ -174,8 +157,7 @@ class MIUIFragment() : Fragment() {
                         addView(item.create(context, callBacks)) // 带文本的开关
                         setOnTouchListener { _, motionEvent ->
                             when (motionEvent.action) {
-                                MotionEvent.ACTION_DOWN -> if (item.switchV.switch.isEnabled) background =
-                                    context.getDrawable(R.drawable.ic_main_down_bg)
+                                MotionEvent.ACTION_DOWN -> if (item.switchV.switch.isEnabled) background = context.getDrawable(R.drawable.ic_main_down_bg)
                                 MotionEvent.ACTION_UP -> {
                                     if (item.switchV.switch.isEnabled) {
                                         item.switchV.click()
@@ -217,17 +199,11 @@ class MIUIFragment() : Fragment() {
                         setOnClickListener {}
                         setOnTouchListener { view, motionEvent ->
                             if (motionEvent.action == MotionEvent.ACTION_UP) {
-                                val popup = MIUIPopup(
-                                    context,
-                                    view,
-                                    item.spinnerV.currentValue,
-                                    {
-                                        item.spinnerV.select.text = it
-                                        item.spinnerV.currentValue = it
-                                        callBacks?.let { it1 -> it1() }
-                                    },
-                                    SpinnerV.SpinnerData().apply(item.spinnerV.data).arrayList
-                                )
+                                val popup = MIUIPopup(context, view, item.spinnerV.currentValue, {
+                                    item.spinnerV.select.text = it
+                                    item.spinnerV.currentValue = it
+                                    callBacks?.let { it1 -> it1() }
+                                }, SpinnerV.SpinnerData().apply(item.spinnerV.data).arrayList)
                                 if (view.width / 2 >= motionEvent.x) {
                                     popup.apply {
                                         horizontalOffset = dp2px(context, 24F)
@@ -250,17 +226,11 @@ class MIUIFragment() : Fragment() {
                         setOnClickListener {}
                         setOnTouchListener { view, motionEvent ->
                             if (motionEvent.action == MotionEvent.ACTION_UP) {
-                                val popup = MIUIPopup(
-                                    context,
-                                    view,
-                                    item.spinnerV.currentValue,
-                                    {
-                                        item.spinnerV.select.text = it
-                                        item.spinnerV.currentValue = it
-                                        callBacks?.let { it1 -> it1() }
-                                    },
-                                    SpinnerV.SpinnerData().apply(item.spinnerV.data).arrayList
-                                )
+                                val popup = MIUIPopup(context, view, item.spinnerV.currentValue, {
+                                    item.spinnerV.select.text = it
+                                    item.spinnerV.currentValue = it
+                                    callBacks?.let { it1 -> it1() }
+                                }, SpinnerV.SpinnerData().apply(item.spinnerV.data).arrayList)
                                 if (view.width / 2 >= motionEvent.x) {
                                     popup.apply {
                                         horizontalOffset = dp2px(context, 24F)
