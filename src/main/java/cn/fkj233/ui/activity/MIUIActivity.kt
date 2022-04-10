@@ -238,8 +238,8 @@ open class MIUIActivity : Activity() {
             thisName.removeAt(thisName.lastSize())
             if (fragmentManager.backStackEntryCount <= 2) {
                 if (!viewData.mainShowBack) backButton.visibility = View.GONE
-                if (viewData.isMenu) menuButton.visibility = View.VISIBLE
             }
+            if (viewData.isMenu) menuButton.visibility = View.VISIBLE
             titleView.text = dataList[fragmentManager.getBackStackEntryAt(fragmentManager.backStackEntryCount - 2).name]?.title
             fragmentManager.popBackStack()
             titleView.setPadding(0, 0, 0, 0)

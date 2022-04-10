@@ -17,7 +17,7 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
         var bindingData = arrayListOf<DataBinding.BindingData>()
         var async: AsyncInit? = null
 
-        fun GetDataBinding(defValue: Any, recvCallbacks: (View, Int, Any) -> Unit): DataBinding.BindingData {
+        fun GetDataBinding(defValue: DefValue, recvCallbacks: (View, Int, Any) -> Unit): DataBinding.BindingData {
             return DataBinding.get(bindingData, defValue, recvCallbacks)
         }
 
