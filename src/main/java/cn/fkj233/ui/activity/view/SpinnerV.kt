@@ -37,6 +37,7 @@ import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.data.MIUIPopupData
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.isRtl
 
 class SpinnerV(var currentValue: String, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val data: SpinnerData.() -> Unit): BaseView() {
 
@@ -62,12 +63,15 @@ class SpinnerV(var currentValue: String, private val dataBindingRecv: DataBindin
                 LayoutPair(
                     TextView(context).also {
                         it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-                        it.gravity = Gravity.CENTER_VERTICAL + Gravity.RIGHT
+                        it.gravity = if (isRtl(context)) Gravity.LEFT else Gravity.RIGHT
                         it.text = currentValue
                         it.setTextColor(context.getColor(R.color.spinner))
                         select = it
                         it.width = dp2px(context, 150f)
-                        it.setPadding(dp2px(context, 30f), 0, dp2px(context, 5f), 0)
+                        if (isRtl(context))
+                            it.setPadding(dp2px(context, 5f), 0, dp2px(context, 30f), 0)
+                        else
+                            it.setPadding(dp2px(context, 30f), 0, dp2px(context, 5f), 0)
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                             it.paint.typeface = Typeface.create(null, 400, false)
                         } else {
@@ -75,9 +79,7 @@ class SpinnerV(var currentValue: String, private val dataBindingRecv: DataBindin
                         }
                         it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
                     },
-                    LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also {
-                        it.gravity = Gravity.CENTER_VERTICAL + Gravity.RIGHT
-                    }
+                    LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
                 ),
                 LayoutPair(
                     ImageView(context).also {

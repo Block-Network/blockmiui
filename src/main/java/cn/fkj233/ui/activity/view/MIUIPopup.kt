@@ -36,6 +36,7 @@ import android.widget.*
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.MIUIPopupData
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.isRtl
 
 
 class MIUIPopup(private val context: Context, view: View, private val currentValue: String, private val dataBacks: (String) -> Unit, private val arrayList: ArrayList<MIUIPopupData>): ListPopupWindow(context) {
@@ -129,7 +130,10 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
                         layoutParams = LinearLayout.LayoutParams(dp2px(context, 115f), LinearLayout.LayoutParams.WRAP_CONTENT)
                         descendantFocusability = LinearContainerV.FOCUS_BLOCK_DESCENDANTS
                         setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-                        setPadding(dp2px(context, 25f), dp2px(context, 25f), dp2px(context, 10f), dp2px(context, 25f))
+                        if (isRtl(context))
+                            setPadding(dp2px(context, 10f), dp2px(context, 25f), dp2px(context, 25f), dp2px(context, 25f))
+                        else
+                            setPadding(dp2px(context, 25f), dp2px(context, 25f), dp2px(context, 10f), dp2px(context, 25f))
                         width = dp2px(context, 105f)
                         isSingleLine = true
                         text = thisText
@@ -140,7 +144,10 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
                     addView(ImageView(context).apply {
                         layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                             it.gravity = Gravity.CENTER_VERTICAL
-                            it.setMargins(0, 0, dp2px(context, 25f), 0)
+                            if (isRtl(context))
+                                it.setMargins(dp2px(context, 25f), 0, 0, 0)
+                            else
+                                it.setMargins(0, 0, dp2px(context, 25f), 0)
                         }
                         background = context.getDrawable(R.drawable.ic_popup_select)
                         if (currentValue != thisText) visibility = View.GONE

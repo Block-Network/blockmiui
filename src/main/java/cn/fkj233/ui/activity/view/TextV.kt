@@ -27,6 +27,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -34,6 +35,7 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.Padding
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.isRtl
 
 class TextV(val text: String? = null, private val resId: Int? = null, val textSize: Float? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val padding: Padding? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val typeface: Typeface? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
 
@@ -43,6 +45,7 @@ class TextV(val text: String? = null, private val resId: Int? = null, val textSi
         return TextView(context).also { view ->
             view.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
             text?.let { view.text = it }
+            view.gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
             resId?.let { view.setText(it) }
             if (textSize == null)
                 view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
@@ -67,7 +70,12 @@ class TextV(val text: String? = null, private val resId: Int? = null, val textSi
                 }
             }
             view.setPadding(0, dp2px(context, 20f), dp2px(context, 5f), dp2px(context, 20f))
-            padding?.let { view.setPadding(it.left, it.top, it.right, it.bottom) }
+            padding?.let {
+                if (isRtl(context))
+                    view.setPadding(it.right, it.top, it.left, it.bottom)
+                else
+                    view.setPadding(it.left, it.top, it.right, it.bottom)
+            }
             dataBindingRecv?.setView(view)
         }
     }

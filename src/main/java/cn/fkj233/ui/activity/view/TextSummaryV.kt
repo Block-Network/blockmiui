@@ -26,6 +26,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -33,6 +34,7 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.isRtl
 
 class TextSummaryV(private val text: String? = null, private val textId: Int? = null, private val tips: String? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val tipsId: Int? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
 
@@ -51,6 +53,7 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
             LayoutPair(
                 TextView(context).also { view ->
                     view.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (text == null && textId == null) 15f else 18f)
+                    view.gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
                     colorInt?.let { view.setTextColor(colorInt) }
                     colorId?.let { view.setTextColor(context.getColor(colorId)) }
                     if (colorId == null && colorInt == null) {
@@ -71,6 +74,7 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
             ),
             LayoutPair(
                 TextView(context).also {
+                    it.gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
                     it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
                     it.setTextColor(context.getColor(R.color.author_tips))
                     if (tips == null && tipsId == null) {

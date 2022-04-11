@@ -70,7 +70,10 @@ open class MIUIActivity : Activity() {
         ImageView(activity).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                 it.gravity = Gravity.CENTER_VERTICAL
-                it.setMargins(0, 0, dp2px(activity, 5f),0)
+                if (isRtl(context))
+                    it.setMargins(dp2px(activity, 5f), 0, 0,0)
+                else
+                    it.setMargins(0, 0, dp2px(activity, 5f),0)
             }
             background = getDrawable(R.drawable.abc_ic_ab_back_material)
             visibility = View.GONE
@@ -84,7 +87,10 @@ open class MIUIActivity : Activity() {
         ImageView(activity).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL }
             background = getDrawable(R.drawable.abc_ic_menu_overflow_material)
-            setPadding(0, 0, dp2px(activity, 25f),0)
+            if (isRtl(context))
+                setPadding(dp2px(activity, 25f), 0, 0,0)
+            else
+                setPadding(0, 0, dp2px(activity, 25f),0)
             setOnClickListener {
                 showFragment("Menu")
             }
@@ -96,6 +102,7 @@ open class MIUIActivity : Activity() {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also {
                 it.gravity = Gravity.CENTER_VERTICAL
             }
+            gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
             setTextColor(getColor(R.color.whiteText))
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
             paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
@@ -195,12 +202,19 @@ open class MIUIActivity : Activity() {
         thisName.add(key)
         val frame = MIUIFragment(key)
         if (key != "Main" && fragmentManager.backStackEntryCount != 0) {
-            fragmentManager.beginTransaction().setCustomAnimations(
-                R.animator.slide_right_in,
-                R.animator.slide_left_out,
-                R.animator.slide_left_in,
-                R.animator.slide_right_out
-            ).replace(frameLayoutId, frame).addToBackStack(key).commit()
+            fragmentManager.beginTransaction().let {
+                if (isRtl(activity)) it.setCustomAnimations(
+                    R.animator.slide_left_in,
+                    R.animator.slide_right_out,
+                    R.animator.slide_right_in,
+                    R.animator.slide_left_out
+                ) else it.setCustomAnimations(
+                    R.animator.slide_right_in,
+                    R.animator.slide_left_out,
+                    R.animator.slide_left_in,
+                    R.animator.slide_right_out
+                )
+            }.replace(frameLayoutId, frame).addToBackStack(key).commit()
             backButton.visibility = View.VISIBLE
             if (dataList[key]?.hideMenu == true) menuButton.visibility = View.GONE
         } else {
@@ -242,8 +256,6 @@ open class MIUIActivity : Activity() {
             if (viewData.isMenu) menuButton.visibility = View.VISIBLE
             titleView.text = dataList[fragmentManager.getBackStackEntryAt(fragmentManager.backStackEntryCount - 2).name]?.title
             fragmentManager.popBackStack()
-            titleView.setPadding(0, 0, 0, 0)
-            titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
         }
     }
 

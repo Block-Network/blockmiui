@@ -35,6 +35,7 @@ import android.widget.*
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.getDisplay
+import cn.fkj233.ui.activity.isRtl
 
 class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
     private val title by lazy {
@@ -236,8 +237,13 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
         build()
         window!!.setWindowAnimations(R.style.DialogAnim)
         if (rButton.visibility == View.VISIBLE && lButton.visibility == View.VISIBLE) {
-            (rButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 5f), 0, dp2px(context, 20f), 0)
-            (lButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 20f), 0, dp2px(context, 5f), 0)
+            if (isRtl(context)) {
+                (rButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 20f), 0, dp2px(context, 5f), 0)
+                (lButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 5f), 0, dp2px(context, 20f), 0)
+            } else {
+                (rButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 5f), 0, dp2px(context, 20f), 0)
+                (lButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 20f), 0, dp2px(context, 5f), 0)
+            }
         }
         super.show()
         val layoutParams = window!!.attributes
