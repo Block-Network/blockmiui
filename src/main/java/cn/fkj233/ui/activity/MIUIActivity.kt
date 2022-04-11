@@ -203,17 +203,17 @@ open class MIUIActivity : Activity() {
         val frame = MIUIFragment(key)
         if (key != "Main" && fragmentManager.backStackEntryCount != 0) {
             fragmentManager.beginTransaction().let {
-                if (isRtl(activity)) it.setCustomAnimations(
-                    R.animator.slide_left_in,
-                    R.animator.slide_right_out,
-                    R.animator.slide_right_in,
-                    R.animator.slide_left_out
-                ) else it.setCustomAnimations(
-                    R.animator.slide_right_in,
-                    R.animator.slide_left_out,
-                    R.animator.slide_left_in,
-                    R.animator.slide_right_out
-                )
+                if (key != "Menu") {
+                    if (isRtl(activity))
+                        it.setCustomAnimations(R.animator.slide_left_in, R.animator.slide_right_out, R.animator.slide_right_in, R.animator.slide_left_out)
+                    else
+                        it.setCustomAnimations(R.animator.slide_right_in, R.animator.slide_left_out, R.animator.slide_left_in, R.animator.slide_right_out)
+                } else {
+                    if (isRtl(activity))
+                        it.setCustomAnimations(R.animator.slide_right_in, R.animator.slide_left_out, R.animator.slide_left_in, R.animator.slide_right_out)
+                    else
+                        it.setCustomAnimations(R.animator.slide_left_in, R.animator.slide_right_out, R.animator.slide_right_in, R.animator.slide_left_out)
+                }
             }.replace(frameLayoutId, frame).addToBackStack(key).commit()
             backButton.visibility = View.VISIBLE
             if (dataList[key]?.hideMenu == true) menuButton.visibility = View.GONE
