@@ -53,7 +53,7 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
     private val message by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
-                it.setMargins(dp2px(context, 10f), dp2px(context, 10f), dp2px(context, 10f), 0)
+                it.setMargins(dp2px(context, 10f), 0, dp2px(context, 10f), dp2px(context, 5f))
             }
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
             textView.setTextColor(context.getColor(R.color.whiteText))
