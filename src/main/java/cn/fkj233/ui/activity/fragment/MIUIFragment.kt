@@ -64,6 +64,7 @@ class MIUIFragment() : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         scrollView = ScrollView(context).apply {
+            isVerticalScrollBarEnabled = false
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
             isFillViewport = true
             addView(LinearLayout(context).apply { // 总布局

@@ -40,9 +40,6 @@ class SwitchV(private val key: String, private val defValue: Boolean = false, pr
         return MIUISwitch(context).also {
             switch = it
             dataBindingRecv?.setView(it)
-            it.background = null
-            it.setThumbResource(R.drawable.switch_thumb)
-            it.setTrackResource(R.drawable.switch_track)
             if (!OwnSP.ownSP.all.containsKey(key)) {
                 OwnSP.ownSP.edit().run {
                     putBoolean(key, defValue)

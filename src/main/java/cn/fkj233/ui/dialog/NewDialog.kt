@@ -36,11 +36,11 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.getDisplay
 
-class NewDialog(context: Context, val build: NewDialog.() -> Unit): Dialog(context, R.style.CustomDialog) {
+class NewDialog(context: Context, val build: NewDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
     private val title by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
-                it.setMargins(0, dp2px(context, 20f), 0, 0)
+                it.setMargins(0, dp2px(context, 20f), 0, dp2px(context, 10f))
             }
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
             textView.setTextColor(context.getColor(R.color.whiteText))
@@ -207,7 +207,7 @@ class NewDialog(context: Context, val build: NewDialog.() -> Unit): Dialog(conte
             this.hint = hint
             visibility = View.VISIBLE
             editCallBacks?.let {
-                addTextChangedListener(object: TextWatcher {
+                addTextChangedListener(object : TextWatcher {
                     override fun afterTextChanged(var1: Editable?) {
                         it(var1.toString())
                     }

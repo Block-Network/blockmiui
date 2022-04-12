@@ -250,11 +250,14 @@ open class MIUIActivity : Activity() {
             if (isExit) exitProcess(0)
         } else {
             thisName.removeAt(thisName.lastSize())
-            if (fragmentManager.backStackEntryCount <= 2) {
+            val name = fragmentManager.getBackStackEntryAt(fragmentManager.backStackEntryCount - 2).name
+            if (name == "Main") {
                 if (!viewData.mainShowBack) backButton.visibility = View.GONE
+                if (viewData.isMenu) menuButton.visibility = View.VISIBLE
+            } else {
+                menuButton.visibility = if (dataList[name]?.hideMenu == true) View.GONE else View.VISIBLE
             }
-            if (viewData.isMenu) menuButton.visibility = View.VISIBLE
-            titleView.text = dataList[fragmentManager.getBackStackEntryAt(fragmentManager.backStackEntryCount - 2).name]?.title
+            titleView.text = dataList[name]?.title
             fragmentManager.popBackStack()
         }
     }
