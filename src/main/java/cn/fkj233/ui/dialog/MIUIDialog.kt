@@ -24,6 +24,8 @@ package cn.fkj233.ui.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Typeface
+import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
@@ -41,9 +43,12 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
     private val title by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
-                it.setMargins(0, dp2px(context, 20f), 0, dp2px(context, 10f))
+                it.setMargins(0, dp2px(context, 20f), 0, dp2px(context, 20f))
             }
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 19f)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                textView.paint.typeface = Typeface.create(null, 500,false)
+            }
             textView.setTextColor(context.getColor(R.color.whiteText))
             textView.gravity = Gravity.CENTER
             textView.setPadding(0, dp2px(context, 10f), 0, 0)
@@ -55,7 +60,7 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                 it.setMargins(dp2px(context, 10f), 0, dp2px(context, 10f), dp2px(context, 5f))
             }
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
             textView.setTextColor(context.getColor(R.color.whiteText))
             textView.gravity = Gravity.CENTER
             textView.visibility = View.GONE
@@ -66,9 +71,9 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
     private val editText by lazy {
         EditText(context).also { editText ->
             editText.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 55f)).also {
-                it.setMargins(dp2px(context, 25f), dp2px(context, 10f), dp2px(context, 25f), 0)
+                it.setMargins(dp2px(context, 30f), dp2px(context, 10f), dp2px(context, 30f), 0)
             }
-            editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
+            editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
             editText.setTextColor(context.getColor(R.color.whiteText))
             editText.gravity = Gravity.CENTER
             editText.setPadding(dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 8f))
@@ -115,12 +120,12 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
 
     private val rButton by lazy {
         Button(context).also { buttonView ->
-            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 60f), 1f).also {
+            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 52.5f), 1f).also {
                 it.setMargins(dp2px(context, 25f), 0, dp2px(context, 25f), 0)
                 it.gravity = Gravity.CENTER
             }
             buttonView.setTextColor(context.getColor(R.color.white))
-            buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+            buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17.5f)
             buttonView.stateListAnimator = null
             buttonView.background = context.getDrawable(R.drawable.r_button_background)
             buttonView.visibility = View.GONE
@@ -129,12 +134,12 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
 
     private val lButton by lazy {
         Button(context).also { buttonView ->
-            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 60f), 1f).also {
+            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 52.5f), 1f).also {
                 it.setMargins(dp2px(context, 25f), 0, dp2px(context, 25f), 0)
                 it.gravity = Gravity.CENTER
             }
             buttonView.setTextColor(context.getColor(R.color.whiteText))
-            buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+            buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17.5f)
             buttonView.stateListAnimator = null
             buttonView.visibility = View.GONE
             buttonView.background = context.getDrawable(R.drawable.l_button_background)
@@ -238,11 +243,11 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
         window!!.setWindowAnimations(R.style.DialogAnim)
         if (rButton.visibility == View.VISIBLE && lButton.visibility == View.VISIBLE) {
             if (isRtl(context)) {
-                (rButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 20f), 0, dp2px(context, 5f), 0)
-                (lButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 5f), 0, dp2px(context, 20f), 0)
+                (rButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 30f), 0, dp2px(context, 5f), 0)
+                (lButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 5f), 0, dp2px(context, 30f), 0)
             } else {
-                (rButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 5f), 0, dp2px(context, 20f), 0)
-                (lButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 20f), 0, dp2px(context, 5f), 0)
+                (rButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 5f), 0, dp2px(context, 30f), 0)
+                (lButton.layoutParams as LinearLayout.LayoutParams).setMargins(dp2px(context, 30f), 0, dp2px(context, 5f), 0)
             }
         }
         super.show()

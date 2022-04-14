@@ -43,7 +43,7 @@ class TextSummaryWithSwitchV(private val textV: TextSummaryV, val switchV: Switc
                 LayoutPair(switchV.create(context, callBacks), LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL })
             ),
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT).also {
-                it.setMargins(0, dp2px(context, 15f),0, dp2px(context, 15f))
+                it.setMargins(0, dp2px(context, 17.75f),0, dp2px(context, 17.75f))
             }
         ).create(context, callBacks).also {
             dataBindingRecv?.setView(it)

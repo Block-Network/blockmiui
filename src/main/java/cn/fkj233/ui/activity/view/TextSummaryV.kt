@@ -52,7 +52,7 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
         return LinearContainerV(LinearContainerV.VERTICAL, arrayOf(
             LayoutPair(
                 TextView(context).also { view ->
-                    view.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (text == null && textId == null) 15f else 18f)
+                    view.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (text == null && textId == null) 15f else 19f)
                     view.gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
                     colorInt?.let { view.setTextColor(colorInt) }
                     colorId?.let { view.setTextColor(context.getColor(colorId)) }
@@ -75,8 +75,9 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
             LayoutPair(
                 TextView(context).also {
                     it.gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
-                    it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+                    it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.75f)
                     it.setTextColor(context.getColor(R.color.author_tips))
+                    it.setLineSpacing(0f,0.95f)
                     if (tips == null && tipsId == null) {
                         it.visibility = View.GONE
                     } else {
@@ -84,7 +85,7 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
                         tipsId?.let { it1 -> it.setText(it1) }
                     }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        it.paint.typeface = Typeface.create(null, 400,false)
+                        it.paint.typeface = Typeface.create(null, 350,false)
                     } else {
                         it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
                     }

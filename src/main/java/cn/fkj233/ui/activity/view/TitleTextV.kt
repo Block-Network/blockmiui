@@ -24,21 +24,53 @@ package cn.fkj233.ui.activity.view
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
+import android.os.Build
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import cn.fkj233.ui.activity.data.DataBinding
+import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.isRtl
 
-class TitleTextV(val text: String? = null, private val resId: Int? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val onClickListener: (() -> Unit)? = null): BaseView() {
+class TitleTextV(
+    val text: String? = null,
+    private val resId: Int? = null,
+    private val dataBindingRecv: DataBinding.Binding.Recv? = null,
+    private val onClickListener: (() -> Unit)? = null
+) : BaseView() {
 
     override fun getType(): BaseView {
         return this
     }
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
-        return TextV(text, resId, 12f, onClickListener = onClickListener).create(context, callBacks).also {
-            (it as TextView).setTextColor(Color.parseColor("#9399b3"))
-            dataBindingRecv?.setView(it)
+
+
+        return TextView(context).also { view ->
+            view.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1f
+            )
+            text?.let { view.text = it }
+            view.gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
+            resId?.let { view.setText(it) }
+            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+            view.setTextColor(Color.parseColor("#9399b3"))
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                view.paint.typeface = Typeface.create(null, 400, false)
+            } else {
+                view.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            }
+
+            view.setPadding(0, dp2px(context, 9.75f), dp2px(context, 5f), dp2px(context, 9.75f))
+            dataBindingRecv?.setView(view)
         }
+
     }
 
 }

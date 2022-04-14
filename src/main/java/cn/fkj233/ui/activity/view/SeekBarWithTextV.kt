@@ -49,8 +49,8 @@ class SeekBarWithTextV(val key: String = "", private val min: Int, private val m
         val seekBar = SeekBar(context).also { view ->
             view.thumb = null
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                view.maxHeight = dp2px(context, 35f)
-                view.minHeight = dp2px(context, 35f)
+                view.maxHeight = dp2px(context, 31f)
+                view.minHeight = dp2px(context, 31f)
             }
             view.isIndeterminate = false
             view.progressDrawable = context.getDrawable(R.drawable.seekbar_progress_drawable)
@@ -93,9 +93,9 @@ class SeekBarWithTextV(val key: String = "", private val min: Int, private val m
                 LayoutPair(LinearContainerV(
                     LinearContainerV.HORIZONTAL,
                     arrayOf(
-                        LayoutPair(minText.also { it.setPadding(0,  dp2px(context, 8f), 0, dp2px(context, 16f)) }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)),
-                        LayoutPair(mutableText.also { it.textAlignment = TextView.TEXT_ALIGNMENT_CENTER; it.setPadding(0,  dp2px(context, 8f), 0, dp2px(context, 16f)) }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)),
-                        LayoutPair(maxText.also { it.textAlignment = TextView.TEXT_ALIGNMENT_VIEW_END; it.setPadding(0,  dp2px(context, 8f), 0, dp2px(context, 16f)) }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)))).create(context, callBacks).also { it.setPadding(0, 0, 0, 0) },
+                        LayoutPair(minText.also { it.setPadding(0,  dp2px(context, 8f), 0, dp2px(context, 17.75f)) }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)),
+                        LayoutPair(mutableText.also { it.textAlignment = TextView.TEXT_ALIGNMENT_CENTER; it.setPadding(0,  dp2px(context, 8f), 0, dp2px(context, 17.75f)) }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)),
+                        LayoutPair(maxText.also { it.textAlignment = TextView.TEXT_ALIGNMENT_VIEW_END; it.setPadding(0,  dp2px(context, 8f), 0, dp2px(context, 17.75f)) }, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)))).create(context, callBacks).also { it.setPadding(0, 0, 0, 0) },
                     LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
             )
         ).create(context, callBacks).also {

@@ -133,7 +133,7 @@ class MIUIFragment() : Fragment() {
             itemView.addView(LinearLayout(context).apply { // 控件布局
                 layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 background = context.getDrawable(R.drawable.ic_click_check)
-                setPadding(dp2px(context, 25f), 0, dp2px(context, 25f), 0)
+                setPadding(dp2px(context, 30f), 0, dp2px(context, 30f), 0)
                 when (item) {
                     is SeekBarV -> { // 滑动条
                         addView(LinearLayout(context).apply {
