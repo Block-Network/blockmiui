@@ -43,7 +43,7 @@ class TextSummaryWithSpinnerV(private val textV: TextSummaryV, val spinnerV: Spi
             ),
             descendantFocusability = LinearContainerV.FOCUS_BLOCK_DESCENDANTS,
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT).also {
-                it.setMargins(0, dp2px(context, 15f),0, dp2px(context, 15f))
+                it.setMargins(0, dp2px(context, 17.75f),0, dp2px(context, 17.75f))
             }
         ).create(context, callBacks).also {
             dataBindingRecv?.setView(it)

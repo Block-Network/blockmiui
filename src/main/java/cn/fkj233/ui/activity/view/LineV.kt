@@ -37,8 +37,8 @@ class LineV(private val dataBindingRecv: DataBinding.Binding.Recv? = null): Base
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
         return View(context).also {
-            val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 0.8f))
-            layoutParams.setMargins(0, dp2px(context, 2f), 0, dp2px(context, 2f))
+            val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 0.9f))
+            layoutParams.setMargins(0, dp2px(context, 23f), 0, dp2px(context, 23f))
             it.layoutParams = layoutParams
             it.setBackgroundColor(context.resources.getColor(R.color.line, null))
             dataBindingRecv?.setView(it)
