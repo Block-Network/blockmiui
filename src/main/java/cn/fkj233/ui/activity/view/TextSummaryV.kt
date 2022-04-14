@@ -52,7 +52,7 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
         return LinearContainerV(LinearContainerV.VERTICAL, arrayOf(
             LayoutPair(
                 TextView(context).also { view ->
-                    view.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (text == null && textId == null) 15f else 19f)
+                    view.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (text == null && textId == null) 15f else 18.25f)
                     view.gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
                     colorInt?.let { view.setTextColor(colorInt) }
                     colorId?.let { view.setTextColor(context.getColor(colorId)) }
@@ -75,9 +75,8 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
             LayoutPair(
                 TextView(context).also {
                     it.gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
-                    it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.75f)
+                    it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13.75f)
                     it.setTextColor(context.getColor(R.color.author_tips))
-                    it.setLineSpacing(0f,0.95f)
                     if (tips == null && tipsId == null) {
                         it.visibility = View.GONE
                     } else {
