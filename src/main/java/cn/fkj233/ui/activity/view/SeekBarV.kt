@@ -29,11 +29,11 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.TextView
 import cn.fkj233.miui.R
-import cn.fkj233.ui.activity.OwnSP
+import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.dp2px
 
-class SeekBarV(val key: String = "", val min: Int, val max: Int, val divide: Int = 1, private val defaultProgress: Int, private val dataSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
+class SeekBarV(val key: String = "", val min: Int, val max: Int, private val defaultProgress: Int, private val dataSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
 
     override fun getType(): BaseView = this
 
@@ -50,25 +50,19 @@ class SeekBarV(val key: String = "", val min: Int, val max: Int, val divide: Int
             view.indeterminateDrawable = context.getDrawable(R.color.colorAccent)
             view.min = min
             view.max = max
-            if (OwnSP.ownSP.all.containsKey(key)) {
-                OwnSP.ownSP.getInt(key, defaultProgress).let {
+            if (MIUIActivity.mSP.containsKey(key)) {
+                MIUIActivity.mSP.getInt(key, defaultProgress).let {
                     view.progress = it
                 }
             } else {
                 view.progress = defaultProgress
-                    OwnSP.ownSP.edit().run {
-                    putInt(key, defaultProgress)
-                    apply()
-                }
+                MIUIActivity.mSP.putAny(key, defaultProgress)
             }
             view.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                     callBacks?.let { it() }
-                    dataSend?.send(p1 / divide)
-                    OwnSP.ownSP.edit().run {
-                        putInt(key, p1 / divide)
-                        apply()
-                    }
+                    dataSend?.send(p1)
+                    MIUIActivity.mSP.putAny(key, p1)
                 }
 
                 override fun onStartTrackingTouch(p0: SeekBar?) {}

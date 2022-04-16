@@ -25,8 +25,7 @@ package cn.fkj233.ui.activity.view
 
 import android.content.Context
 import android.view.View
-import cn.fkj233.miui.R
-import cn.fkj233.ui.activity.OwnSP
+import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.switch.MIUISwitch
 
@@ -40,23 +39,17 @@ class SwitchV(private val key: String, private val defValue: Boolean = false, pr
         return MIUISwitch(context).also {
             switch = it
             dataBindingRecv?.setView(it)
-            if (!OwnSP.ownSP.all.containsKey(key)) {
-                OwnSP.ownSP.edit().run {
-                    putBoolean(key, defValue)
-                    apply()
-                }
+            if (!MIUIActivity.mSP.containsKey(key)) {
+                MIUIActivity.mSP.putAny(key, defValue)
             }
-            it.isChecked = OwnSP.ownSP.getBoolean(key, defValue)
+            it.isChecked = MIUIActivity.mSP.getBoolean(key, defValue)
             it.setOnCheckedChangeListener { _, b ->
                 dataBindingSend?.let { send ->
                     send.send(b)
                 }
                 callBacks?.let { it1 -> it1() }
                 customOnCheckedChangeListener?.let { it(b) }
-                OwnSP.ownSP.edit().run {
-                    putBoolean(key, b)
-                    apply()
-                }
+                MIUIActivity.mSP.putAny(key, b)
             }
         }
     }
@@ -67,9 +60,6 @@ class SwitchV(private val key: String, private val defValue: Boolean = false, pr
             send.send(switch.isChecked)
         }
         customOnCheckedChangeListener?.let { it(switch.isChecked) }
-        OwnSP.ownSP.edit().run {
-            putBoolean(key, switch.isChecked)
-            apply()
-        }
+        MIUIActivity.mSP.putAny(key, switch.isChecked)
     }
 }

@@ -32,7 +32,7 @@ import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import cn.fkj233.miui.R
-import cn.fkj233.ui.activity.OwnSP
+import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
@@ -58,28 +58,22 @@ class SeekBarWithTextV(val key: String = "", private val min: Int, private val m
             view.min = min
             view.max = max
             view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            if (OwnSP.ownSP.all.containsKey(key)) {
-                OwnSP.ownSP.getInt(key, defaultProgress).let {
+            if (MIUIActivity.mSP.containsKey(key)) {
+                MIUIActivity.mSP.getInt(key, defaultProgress).let {
                     view.progress = it
                     (mutableText as TextView).text = it.toString()
                 }
             } else {
                 view.progress = defaultProgress
                 (mutableText as TextView).text = defaultProgress.toString()
-                OwnSP.ownSP.edit().run {
-                    putInt(key, defaultProgress)
-                    apply()
-                }
+                MIUIActivity.mSP.putAny(key, defaultProgress)
             }
             view.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                     callBacks?.let { it() }
                     dataBindingSend?.send(p1)
-                    OwnSP.ownSP.edit().run {
-                        (mutableText as TextView).text = p1.toString()
-                        putInt(key, p1)
-                        apply()
-                    }
+                    (mutableText as TextView).text = p1.toString()
+                    MIUIActivity.mSP.putAny(key, p1)
                 }
 
                 override fun onStartTrackingTouch(p0: SeekBar?) {}

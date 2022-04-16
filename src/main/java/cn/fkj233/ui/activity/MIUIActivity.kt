@@ -39,6 +39,7 @@ import android.widget.TextView
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.AsyncInit
 import cn.fkj233.ui.activity.data.InitView
+import cn.fkj233.ui.activity.data.SafeSharedPreferences
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.view.BaseView
 import kotlin.system.exitProcess
@@ -65,6 +66,10 @@ open class MIUIActivity : Activity() {
     private val dataList: HashMap<String, InitView.ItemData> = hashMapOf()
 
     private lateinit var initViewData: InitView.() -> Unit
+
+    companion object {
+        var mSP: SafeSharedPreferences = SafeSharedPreferences()
+    }
 
     private val backButton by lazy {
         ImageView(activity).apply {
@@ -181,7 +186,7 @@ open class MIUIActivity : Activity() {
      *  @param: SharedPreferences
      */
     fun setSP(sharedPreferences: SharedPreferences) {
-        OwnSP.ownSP = sharedPreferences
+        mSP.mSP = sharedPreferences
     }
 
     /**
@@ -189,8 +194,8 @@ open class MIUIActivity : Activity() {
      *  @return: SharedPreferences
      */
     @Suppress("unused")
-    fun getSP(): SharedPreferences {
-        return OwnSP.ownSP
+    fun getSP(): SharedPreferences? {
+        return mSP.mSP
     }
 
     /**
