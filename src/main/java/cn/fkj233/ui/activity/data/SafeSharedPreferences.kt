@@ -15,17 +15,18 @@ class SafeSharedPreferences {
 
     fun putAny(key: String, any: Any) {
         if (mSP == null) return
-        val edit = mSP!!.edit()
-        when (any) {
-            is Boolean -> edit.putBoolean(key, any)
-            is String -> edit.putString(key, any)
-            is Int -> edit.putInt(key, any)
-            is Float -> edit.putFloat(key, any)
-            is Long -> edit.putLong(key, any)
+        mSP!!.edit().apply {
+            when (any) {
+                is Boolean -> putBoolean(key, any)
+                is String ->  putString(key, any)
+                is Int -> putInt(key, any)
+                is Float -> putFloat(key, any)
+                is Long -> putLong(key, any)
+            }
+            apply()
         }
-        edit.apply()
     }
-
+    
     fun getBoolean(key: String, defValue: Boolean): Boolean {
         return if (mSP == null) {
             defValue
@@ -39,6 +40,22 @@ class SafeSharedPreferences {
             defValue
         } else {
             mSP!!.getInt(key, defValue)
+        }
+    }
+
+    fun getFloat(key: String, defValue: Float): Float {
+        return if (mSP == null) {
+            defValue
+        } else {
+            mSP!!.getFloat(key, defValue)
+        }
+    }
+
+    fun getLong(key: String, defValue: Long): Long {
+        return if (mSP == null) {
+            defValue
+        } else {
+            mSP!!.getLong(key, defValue)
         }
     }
 }
