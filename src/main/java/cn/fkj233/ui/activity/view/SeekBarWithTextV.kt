@@ -58,22 +58,22 @@ class SeekBarWithTextV(val key: String = "", private val min: Int, private val m
             view.min = min
             view.max = max
             view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            if (MIUIActivity.mSP.containsKey(key)) {
-                MIUIActivity.mSP.getInt(key, defaultProgress).let {
+            if (MIUIActivity.safeSP.containsKey(key)) {
+                MIUIActivity.safeSP.getInt(key, defaultProgress).let {
                     view.progress = it
                     (mutableText as TextView).text = it.toString()
                 }
             } else {
                 view.progress = defaultProgress
                 (mutableText as TextView).text = defaultProgress.toString()
-                MIUIActivity.mSP.putAny(key, defaultProgress)
+                MIUIActivity.safeSP.putAny(key, defaultProgress)
             }
             view.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                     callBacks?.let { it() }
                     dataBindingSend?.send(p1)
                     (mutableText as TextView).text = p1.toString()
-                    MIUIActivity.mSP.putAny(key, p1)
+                    MIUIActivity.safeSP.putAny(key, p1)
                 }
 
                 override fun onStartTrackingTouch(p0: SeekBar?) {}

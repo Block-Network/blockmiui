@@ -68,7 +68,7 @@ open class MIUIActivity : Activity() {
     private lateinit var initViewData: InitView.() -> Unit
 
     companion object {
-        var mSP: SafeSharedPreferences = SafeSharedPreferences()
+        var safeSP: SafeSharedPreferences = SafeSharedPreferences()
     }
 
     private val backButton by lazy {
@@ -186,7 +186,7 @@ open class MIUIActivity : Activity() {
      *  @param: SharedPreferences
      */
     fun setSP(sharedPreferences: SharedPreferences) {
-        mSP.mSP = sharedPreferences
+        safeSP.mSP = sharedPreferences
     }
 
     /**
@@ -195,7 +195,7 @@ open class MIUIActivity : Activity() {
      */
     @Suppress("unused")
     fun getSP(): SharedPreferences? {
-        return mSP.mSP
+        return safeSP.mSP
     }
 
     /**

@@ -39,17 +39,17 @@ class SwitchV(private val key: String, private val defValue: Boolean = false, pr
         return MIUISwitch(context).also {
             switch = it
             dataBindingRecv?.setView(it)
-            if (!MIUIActivity.mSP.containsKey(key)) {
-                MIUIActivity.mSP.putAny(key, defValue)
+            if (!MIUIActivity.safeSP.containsKey(key)) {
+                MIUIActivity.safeSP.putAny(key, defValue)
             }
-            it.isChecked = MIUIActivity.mSP.getBoolean(key, defValue)
+            it.isChecked = MIUIActivity.safeSP.getBoolean(key, defValue)
             it.setOnCheckedChangeListener { _, b ->
                 dataBindingSend?.let { send ->
                     send.send(b)
                 }
                 callBacks?.let { it1 -> it1() }
                 customOnCheckedChangeListener?.let { it(b) }
-                MIUIActivity.mSP.putAny(key, b)
+                MIUIActivity.safeSP.putAny(key, b)
             }
         }
     }
@@ -60,6 +60,6 @@ class SwitchV(private val key: String, private val defValue: Boolean = false, pr
             send.send(switch.isChecked)
         }
         customOnCheckedChangeListener?.let { it(switch.isChecked) }
-        MIUIActivity.mSP.putAny(key, switch.isChecked)
+        MIUIActivity.safeSP.putAny(key, switch.isChecked)
     }
 }
