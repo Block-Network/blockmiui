@@ -68,6 +68,10 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
         fun CustomView(view: View, dataBindingRecv: DataBinding.Binding.Recv? = null) {
             itemList.add(CustomViewV(view, dataBindingRecv))
         }
+
+        fun RadioView(key: String, dataBindingRecv: DataBinding.Binding.Recv? = null, data: RadioViewV.RadioData.() -> Unit) {
+            itemList.add(RadioViewV(key, dataBindingRecv, data))
+        }
     }
 
     fun registerMain(title: String, showBack: Boolean, itemData: ItemData.() -> Unit) {
@@ -80,7 +84,7 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
         isMenu = true
     }
 
-    fun register(key: String, title: String, hideMenu: Boolean, itemData: ItemData.() -> Unit){
+    fun register(key: String, title: String, hideMenu: Boolean, itemData: ItemData.() -> Unit) {
         if (key in arrayOf("Main", "Menu")) throw Throwable("[$key] This is reserved and cannot be used!")
         datalist[key] = ItemData(title, hideMenu).apply(itemData)
     }

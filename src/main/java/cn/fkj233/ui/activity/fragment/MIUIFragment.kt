@@ -195,43 +195,21 @@ class MIUIFragment() : Fragment() {
                     is SpinnerV -> { // 下拉选择框
                         addView(item.create(context, callBacks))
                     }
-                    is TextSummaryWithSpinnerV -> {
+                    is TextSummaryWithSpinnerV, is TextWithSpinnerV -> {
                         addView(item.create(context, callBacks))
                         setOnClickListener {}
-                        setOnTouchListener { view, motionEvent ->
-                            if (motionEvent.action == MotionEvent.ACTION_UP) {
-                                val popup = MIUIPopup(context, view, item.spinnerV.currentValue, {
-                                    item.spinnerV.select.text = it
-                                    item.spinnerV.currentValue = it
-                                    callBacks?.let { it1 -> it1() }
-                                }, SpinnerV.SpinnerData().apply(item.spinnerV.data).arrayList)
-                                if (view.width / 2 >= motionEvent.x) {
-                                    popup.apply {
-                                        horizontalOffset = dp2px(context, 24F)
-                                        setDropDownGravity(Gravity.LEFT)
-                                        show()
-                                    }
-                                } else {
-                                    popup.apply {
-                                        horizontalOffset = -dp2px(context, 24F)
-                                        setDropDownGravity(Gravity.RIGHT)
-                                        show()
-                                    }
-                                }
-                            }
-                            false
+                        val spinner = when (item) {
+                            is TextSummaryWithSpinnerV -> item.spinnerV
+                            is TextWithSpinnerV -> item.spinnerV
+                            else -> throw IllegalAccessException("Not is TextSummaryWithSpinnerV or TextWithSpinnerV")
                         }
-                    }
-                    is TextWithSpinnerV -> { // 带文本的下拉选择框
-                        addView(item.create(context, callBacks))
-                        setOnClickListener {}
                         setOnTouchListener { view, motionEvent ->
                             if (motionEvent.action == MotionEvent.ACTION_UP) {
-                                val popup = MIUIPopup(context, view, item.spinnerV.currentValue, {
-                                    item.spinnerV.select.text = it
-                                    item.spinnerV.currentValue = it
+                                val popup = MIUIPopup(context, view, spinner.currentValue, {
+                                    spinner.select.text = it
+                                    spinner.currentValue = it
                                     callBacks?.let { it1 -> it1() }
-                                }, SpinnerV.SpinnerData().apply(item.spinnerV.data).arrayList)
+                                }, SpinnerV.SpinnerData().apply(spinner.data).arrayList)
                                 if (view.width / 2 >= motionEvent.x) {
                                     popup.apply {
                                         horizontalOffset = dp2px(context, 24F)
@@ -266,6 +244,10 @@ class MIUIFragment() : Fragment() {
                         }
                     }
                     is CustomViewV -> {
+                        addView(item.create(context, callBacks))
+                    }
+                    is RadioViewV -> {
+                        setPadding(0, 0, 0, 0)
                         addView(item.create(context, callBacks))
                     }
                 }

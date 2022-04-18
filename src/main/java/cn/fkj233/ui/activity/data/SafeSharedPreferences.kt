@@ -58,4 +58,12 @@ class SafeSharedPreferences {
             mSP!!.getLong(key, defValue)
         }
     }
+
+    fun getString(key: String, defValue: String): String {
+        return if (mSP == null) {
+            defValue
+        } else {
+            mSP!!.getString(key, defValue) ?: defValue
+        }
+    }
 }

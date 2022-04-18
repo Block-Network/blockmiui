@@ -69,7 +69,10 @@ class TextV(val text: String? = null, private val resId: Int? = null, val textSi
                     view.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
                 }
             }
-            view.setPadding(0, dp2px(context, 20f), dp2px(context, 5f), dp2px(context, 20f))
+            if (isRtl(context))
+                view.setPadding(dp2px(context, 5f), dp2px(context, 20f), 0, dp2px(context, 20f))
+            else
+                view.setPadding(0, dp2px(context, 20f), dp2px(context, 5f), dp2px(context, 20f))
             padding?.let {
                 if (isRtl(context))
                     view.setPadding(it.right, it.top, it.left, it.bottom)
