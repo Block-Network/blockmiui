@@ -147,7 +147,7 @@ class NewDialog(context: Context, val build: NewDialog.() -> Unit) : Dialog(cont
                 it.setMargins(dp2px(context, 25f), dp2px(context, 10f), dp2px(context, 25f), 0)
                 it.gravity = Gravity.CENTER
             }
-            buttonView.setTextColor(context.getColor(R.color.white))
+            buttonView.setTextColor(context.getColor(if (cancelStyle) R.color.whiteText else R.color.white))
             buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
             buttonView.text = text
             buttonView.isEnabled = enable
