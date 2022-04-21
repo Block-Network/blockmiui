@@ -39,6 +39,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.ScrollView
+import androidx.annotation.Keep
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.AsyncInit
@@ -48,6 +49,7 @@ import cn.fkj233.ui.activity.view.*
 
 @Suppress("MemberVisibilityCanBePrivate")
 @SuppressLint("ValidFragment")
+@Keep
 class MIUIFragment() : Fragment() {
     private var key = ""
     private lateinit var scrollView: ScrollView
