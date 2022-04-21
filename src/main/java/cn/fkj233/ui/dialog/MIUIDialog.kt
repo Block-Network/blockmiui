@@ -80,6 +80,7 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
             editText.visibility = View.GONE
             editText.background = context.getDrawable(R.drawable.editview_background)
             val mHeight = dp2px(context, 55f)
+            @Suppress("DEPRECATION")
             val maxHeight = getDisplay(context).height / 2
             editText.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {

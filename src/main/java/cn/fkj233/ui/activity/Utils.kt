@@ -20,6 +20,8 @@
  * <https://github.com/577fkj/BlockMIUI/blob/main/LICENSE>.
  */
 
+@file:Suppress("DEPRECATION")
+
 package cn.fkj233.ui.activity
 
 import android.content.Context
