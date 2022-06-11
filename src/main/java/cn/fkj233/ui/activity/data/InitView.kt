@@ -72,6 +72,10 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
         fun RadioView(key: String, dataBindingRecv: DataBinding.Binding.Recv? = null, data: RadioViewV.RadioData.() -> Unit) {
             itemList.add(RadioViewV(key, dataBindingRecv, data))
         }
+
+        fun TextSummary(text: String? = null, textId: Int? = null, tips: String? = null, colorInt: Int? = null, colorId: Int? = null, tipsId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
+            itemList.add(TextSummaryV(text, textId, tips, colorInt, colorId, tipsId, dataBindingRecv, onClickListener))
+        }
     }
 
     fun registerMain(title: String, showBack: Boolean, itemData: ItemData.() -> Unit) {
