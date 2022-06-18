@@ -21,8 +21,8 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
             return DataBinding.get(bindingData, defValue, recvCallbacks)
         }
 
-        fun Author(authorHead: Drawable, authorName: String, authorTips: String? = null, round: Float = 30f, onClick: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-            itemList.add(AuthorV(authorHead, authorName, authorTips, round, onClick, dataBindingRecv))
+        fun Author(authorHead: Drawable, authorName: String, authorTips: String? = null, round: Float = 30f, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+            itemList.add(AuthorV(authorHead, authorName, authorTips, round, onClickListener, dataBindingRecv))
         }
 
         fun Line() {
@@ -37,8 +37,8 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
             itemList.add(TextSummaryWithSpinnerV(textV, spinnerV, dataBindingRecv))
         }
 
-        fun Text(text: String? = null, resId: Int? = null, textSize: Float? = null, colorInt: Int? = null, colorId: Int? = null, padding: Padding? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, typeface: Typeface? = null, onClickListener: (() -> Unit)? = null) {
-            itemList.add(TextV(text, resId, textSize, colorInt, colorId, padding, dataBindingRecv, typeface, onClickListener))
+        fun Text(text: String? = null, textId: Int? = null, textSize: Float? = null, colorInt: Int? = null, colorId: Int? = null, padding: Padding? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, typeface: Typeface? = null, onClickListener: (() -> Unit)? = null) {
+            itemList.add(TextV(text, textId, textSize, colorInt, colorId, padding, dataBindingRecv, typeface, onClickListener))
         }
 
         fun SeekBarWithText(key: String = "", min: Int, max: Int, defaultProgress: Int = 0, dataBindingRecv: DataBinding.Binding.Recv? = null, dataBindingSend: DataBinding.Binding.Send? = null, callBacks: ((Int, TextView) -> Unit)? = null) {
@@ -53,8 +53,8 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
             itemList.add(TextSummaryWithSwitchV(textSummaryV, switchV, dataBindingRecv))
         }
 
-        fun TitleText(text: String? = null, resId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
-            itemList.add(TitleTextV(text, resId, dataBindingRecv, onClickListener))
+        fun TitleText(text: String? = null, textId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
+            itemList.add(TitleTextV(text, textId, dataBindingRecv, onClickListener))
         }
 
         fun TextWithSwitch(textV: TextV, switchV: SwitchV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
