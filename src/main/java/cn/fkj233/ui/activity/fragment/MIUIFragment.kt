@@ -211,20 +211,20 @@ class MIUIFragment() : Fragment() {
                                     spinner.select.text = it
                                     spinner.currentValue = it
                                     callBacks?.let { it1 -> it1() }
+                                    spinner.dataBindingSend?.send(it)
                                 }, SpinnerV.SpinnerData().apply(spinner.data).arrayList)
                                 if (view.width / 2 >= motionEvent.x) {
                                     popup.apply {
                                         horizontalOffset = dp2px(context, 24F)
                                         setDropDownGravity(Gravity.LEFT)
-                                        show()
                                     }
                                 } else {
                                     popup.apply {
                                         horizontalOffset = -dp2px(context, 24F)
                                         setDropDownGravity(Gravity.RIGHT)
-                                        show()
                                     }
                                 }
+                                popup.show()
                             }
                             false
                         }

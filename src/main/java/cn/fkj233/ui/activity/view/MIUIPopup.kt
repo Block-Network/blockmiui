@@ -99,6 +99,7 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
 
             override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
                 val thisText = arrayList[p0].getName()
+                val dataBinding = arrayList[p0].getDataBindingSend()
                 return (p1 as? LinearLayout ?: LinearLayout(context)).apply {
                     var radius = floatArrayOf(0f, 0f, 0f, 0f)
                     val radiusFloat = dp2px(context, 20f).toFloat()
@@ -158,6 +159,7 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
                                 val mView = getChildAt(i)
                                 if (mView is TextView) {
                                     dataBacks(mView.text.toString())
+                                    dataBinding?.send(mView.text.toString())
                                     break
                                 }
                             }
