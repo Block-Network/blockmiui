@@ -37,7 +37,7 @@ import cn.fkj233.ui.activity.data.Padding
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.isRtl
 
-class TextV(val text: String? = null, private val resId: Int? = null, val textSize: Float? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val padding: Padding? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val typeface: Typeface? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
+class TextV(val text: String? = null, private val textId: Int? = null, val textSize: Float? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val padding: Padding? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val typeface: Typeface? = null, val onClickListener: (() -> Unit)? = null): BaseView() {
 
     override fun getType(): BaseView = this
 
@@ -46,7 +46,7 @@ class TextV(val text: String? = null, private val resId: Int? = null, val textSi
             view.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
             text?.let { view.text = it }
             view.gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
-            resId?.let { view.setText(it) }
+            textId?.let { view.setText(it) }
             if (textSize == null)
                 view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
             else

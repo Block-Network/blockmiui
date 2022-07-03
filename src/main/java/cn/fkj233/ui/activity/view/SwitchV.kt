@@ -29,7 +29,7 @@ import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.switch.MIUISwitch
 
-class SwitchV(private val key: String, private val defValue: Boolean = false, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, private val customOnCheckedChangeListener: ((Boolean) -> Unit)? = null): BaseView() {
+class SwitchV(private val key: String, private val defValue: Boolean = false, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, private val onClickListener: ((Boolean) -> Unit)? = null): BaseView() {
 
     lateinit var switch: MIUISwitch
 
@@ -48,7 +48,7 @@ class SwitchV(private val key: String, private val defValue: Boolean = false, pr
                     send.send(b)
                 }
                 callBacks?.let { it1 -> it1() }
-                customOnCheckedChangeListener?.let { it(b) }
+                onClickListener?.let { it(b) }
                 MIUIActivity.safeSP.putAny(key, b)
             }
         }
@@ -59,7 +59,7 @@ class SwitchV(private val key: String, private val defValue: Boolean = false, pr
         dataBindingSend?.let { send ->
             send.send(switch.isChecked)
         }
-        customOnCheckedChangeListener?.let { it(switch.isChecked) }
+        onClickListener?.let { it(switch.isChecked) }
         MIUIActivity.safeSP.putAny(key, switch.isChecked)
     }
 }

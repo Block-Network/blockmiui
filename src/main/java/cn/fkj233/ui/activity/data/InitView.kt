@@ -49,6 +49,10 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
             itemList.add(TextSummaryArrowV(textSummaryV, dataBindingRecv))
         }
 
+        fun TextA(text: String? = null, textId: Int? = null, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+            itemList.add(TextSummaryArrowV(TextSummaryV(text, textId, onClickListener = onClickListener), dataBindingRecv))
+        }
+
         fun TextSummaryWithSwitch(textSummaryV: TextSummaryV, switchV: SwitchV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
             itemList.add(TextSummaryWithSwitchV(textSummaryV, switchV, dataBindingRecv))
         }
@@ -59,6 +63,10 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
 
         fun TextWithSwitch(textV: TextV, switchV: SwitchV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
             itemList.add(TextWithSwitchV(textV, switchV, dataBindingRecv))
+        }
+
+        fun TextS(text: String? = null, textId: Int? = null, key: String, onClickListener: ((Boolean) -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+            itemList.add(TextWithSwitchV(TextV(text, textId), SwitchV(key, onClickListener = onClickListener), dataBindingRecv))
         }
 
         fun TextWithSpinner(textV: TextV, spinnerV: SpinnerV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
