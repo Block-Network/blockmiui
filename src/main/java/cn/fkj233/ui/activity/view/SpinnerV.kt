@@ -39,13 +39,20 @@ import cn.fkj233.ui.activity.data.MIUIPopupData
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.isRtl
 
-class SpinnerV(var currentValue: String, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val data: SpinnerData.() -> Unit): BaseView() {
+/**
+ * Spinner / 下拉框
+ * @param currentValue current select value / 当前选中的值 (name)
+ * @param dataBindingSend Data binding send / 数据绑定发送 (name)
+ * @param dataBindingRecv Data binding recv / 数据绑定接收
+ * @param data Spinner data / 下拉框数据
+ */
+class SpinnerV(var currentValue: String, val dataBindingSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val data: SpinnerData.() -> Unit): BaseView() {
 
     class SpinnerData {
         val arrayList: ArrayList<MIUIPopupData> = arrayListOf()
 
-        fun add(name: String,  callBacks: () -> Unit) {
-            arrayList.add(MIUIPopupData(name, callBacks))
+        fun add(name: String, dataBindingSend: DataBinding.Binding.Send? = null,  callBacks: () -> Unit) {
+            arrayList.add(MIUIPopupData(name, dataBindingSend, callBacks))
         }
     }
 
