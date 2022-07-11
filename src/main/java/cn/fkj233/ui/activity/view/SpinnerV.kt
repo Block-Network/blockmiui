@@ -42,11 +42,12 @@ import cn.fkj233.ui.activity.isRtl
 /**
  * Spinner / 下拉框
  * @param currentValue current select value / 当前选中的值 (name)
+ * @param dropDownWidth Spinner width / 下拉框宽度
  * @param dataBindingSend Data binding send / 数据绑定发送 (name)
  * @param dataBindingRecv Data binding recv / 数据绑定接收
  * @param data Spinner data / 下拉框数据
  */
-class SpinnerV(var currentValue: String, val dataBindingSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val data: SpinnerData.() -> Unit): BaseView() {
+class SpinnerV(var currentValue: String, val dropDownWidth: Float = 150F, val dataBindingSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val data: SpinnerData.() -> Unit): BaseView() {
 
     class SpinnerData {
         val arrayList: ArrayList<MIUIPopupData> = arrayListOf()
@@ -74,7 +75,7 @@ class SpinnerV(var currentValue: String, val dataBindingSend: DataBinding.Bindin
                         it.text = currentValue
                         it.setTextColor(context.getColor(R.color.spinner))
                         select = it
-                        it.width = dp2px(context, 150f)
+                        it.width = dp2px(context, dropDownWidth)
                         if (isRtl(context))
                             it.setPadding(dp2px(context, 5f), 0, dp2px(context, 30f), 0)
                         else

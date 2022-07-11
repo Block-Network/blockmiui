@@ -207,7 +207,7 @@ class MIUIFragment() : Fragment() {
                         }
                         setOnTouchListener { view, motionEvent ->
                             if (motionEvent.action == MotionEvent.ACTION_UP) {
-                                val popup = MIUIPopup(context, view, spinner.currentValue, {
+                                val popup = MIUIPopup(context, view, spinner.currentValue, spinner.dropDownWidth, {
                                     spinner.select.text = it
                                     spinner.currentValue = it
                                     callBacks?.let { it1 -> it1() }

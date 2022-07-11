@@ -39,7 +39,7 @@ import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.isRtl
 
 
-class MIUIPopup(private val context: Context, view: View, private val currentValue: String, private val dataBacks: (String) -> Unit, private val arrayList: ArrayList<MIUIPopupData>): ListPopupWindow(context) {
+class MIUIPopup(private val context: Context, view: View, private val currentValue: String, private val dropDownWidth: Float, private val dataBacks: (String) -> Unit, private val arrayList: ArrayList<MIUIPopupData>): ListPopupWindow(context) {
 
     /**
      * 创建背景颜色
@@ -85,7 +85,7 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
 
     init {
         setBackgroundDrawable(context.getDrawable(R.drawable.miui_rounded_corners_pop))
-        width = dp2px(context, 150F)
+        width = dp2px(context, dropDownWidth)
         height = ViewGroup.LayoutParams.WRAP_CONTENT
         isModal = true
         anchorView = view
@@ -128,7 +128,7 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
                             super.onFocusChanged(focused, direction, previouslyFocusedRect)
                         }
                     }).apply {
-                        layoutParams = LinearLayout.LayoutParams(dp2px(context, 115f), LinearLayout.LayoutParams.WRAP_CONTENT)
+                        layoutParams = LinearLayout.LayoutParams(dp2px(context, dropDownWidth - 35), LinearLayout.LayoutParams.WRAP_CONTENT)
                         descendantFocusability = LinearContainerV.FOCUS_BLOCK_DESCENDANTS
                         setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
                         if (isRtl(context))
@@ -146,9 +146,9 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
                         layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                             it.gravity = Gravity.CENTER_VERTICAL
                             if (isRtl(context))
-                                it.setMargins(dp2px(context, 25f), 0, 0, 0)
+                                it.setMargins(dp2px(context, 20f), 0, 0, 0)
                             else
-                                it.setMargins(0, 0, dp2px(context, 25f), 0)
+                                it.setMargins(0, 0, dp2px(context, 20f), 0)
                         }
                         background = context.getDrawable(R.drawable.ic_popup_select)
                         if (currentValue != thisText) visibility = View.GONE
