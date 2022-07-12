@@ -37,7 +37,7 @@ import cn.fkj233.ui.activity.isRtl
 
 class TitleTextV(
     val text: String? = null,
-    private val resId: Int? = null,
+    private val textId: Int? = null,
     private val dataBindingRecv: DataBinding.Binding.Recv? = null,
     private val onClickListener: (() -> Unit)? = null
 ) : BaseView() {
@@ -57,7 +57,7 @@ class TitleTextV(
             )
             text?.let { view.text = it }
             view.gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
-            resId?.let { view.setText(it) }
+            textId?.let { view.setText(it) }
             view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
             view.setTextColor(Color.parseColor("#9399b3"))
 
