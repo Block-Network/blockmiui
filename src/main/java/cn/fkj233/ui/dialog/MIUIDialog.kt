@@ -25,6 +25,7 @@ package cn.fkj233.ui.dialog
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
@@ -178,6 +179,15 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
     init {
         window?.setGravity(Gravity.BOTTOM)
         setContentView(root)
+        window?.setBackgroundDrawable(GradientDrawable().apply {
+            if (newStyle) {
+                cornerRadius = dp2px(context, 30f).toFloat()
+            } else {
+                val dp30 = dp2px(context, 30f).toFloat()
+                cornerRadii = floatArrayOf(dp30, dp30, dp30, dp30, 0f, 0f, 0f, 0f)
+            }
+            setColor(context.getColor(R.color.dialog_background))
+        })
     }
 
     fun addView(mView: View) {

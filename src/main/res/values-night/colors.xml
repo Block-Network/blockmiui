@@ -18,4 +18,6 @@
     <color name="popup_select_click">#404E67</color>
 
     <color name="spinner">#666666</color>
+
+    <color name="dialog_background">#242424</color>
 </resources>

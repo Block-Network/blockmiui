@@ -6,8 +6,6 @@
     </style>
     <!-- 定义dialog的样式-->
     <style name="CustomDialog" parent="android:style/Theme.Dialog">
-        <!--背景颜色及和透明程度-->
-        <item name="android:windowBackground">@drawable/dialog_background</item>
         <!--是否去除标题 -->
         <item name="android:windowNoTitle">true</item>
         <!--是否去除边框-->
