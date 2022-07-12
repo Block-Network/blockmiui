@@ -28,6 +28,7 @@ import android.graphics.Typeface
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -38,8 +39,9 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.getDisplay
 import cn.fkj233.ui.activity.isRtl
+import kotlin.math.roundToInt
 
-class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
+class MIUIDialog(context: Context, private val newStyle: Boolean = true, val build: MIUIDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
     private val title by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
@@ -47,7 +49,7 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
             }
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 19f)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                textView.paint.typeface = Typeface.create(null, 500,false)
+                textView.paint.typeface = Typeface.create(null, 500, false)
             }
             textView.setTextColor(context.getColor(R.color.whiteText))
             textView.gravity = Gravity.CENTER
@@ -80,7 +82,6 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
             editText.visibility = View.GONE
             editText.background = context.getDrawable(R.drawable.editview_background)
             val mHeight = dp2px(context, 55f)
-            @Suppress("DEPRECATION")
             val maxHeight = getDisplay(context).height / 2
             editText.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
@@ -253,8 +254,17 @@ class MIUIDialog(context: Context, val build: MIUIDialog.() -> Unit) : Dialog(co
         }
         super.show()
         val layoutParams = window!!.attributes
-        layoutParams.dimAmount = 0.3F
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+
+        layoutParams.dimAmount = 0.5F
+        if (newStyle) {
+            val resources = context.resources
+            val dm: DisplayMetrics = resources.displayMetrics
+            val width = dm.widthPixels
+            layoutParams.width = (width * 0.92f).roundToInt()
+            layoutParams.y = (width * 0.045f).roundToInt()
+        } else {
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+        }
         layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
         window!!.attributes = layoutParams
     }

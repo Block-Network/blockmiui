@@ -26,6 +26,7 @@ import android.app.Dialog
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -35,8 +36,9 @@ import android.widget.*
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.getDisplay
+import kotlin.math.roundToInt
 
-class NewDialog(context: Context, val build: NewDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
+class NewDialog(context: Context, private val newStyle: Boolean = true, val build: NewDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
     private val title by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
@@ -182,7 +184,15 @@ class NewDialog(context: Context, val build: NewDialog.() -> Unit) : Dialog(cont
         super.show()
         val layoutParams = window!!.attributes
         layoutParams.dimAmount = 0.3F
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+        if (newStyle) {
+            val resources = context.resources
+            val dm: DisplayMetrics = resources.displayMetrics
+            val width = dm.widthPixels
+            layoutParams.width = (width * 0.92f).roundToInt()
+            layoutParams.y = (width * 0.045f).roundToInt()
+        } else {
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+        }
         layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
         window!!.attributes = layoutParams
     }
