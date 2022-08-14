@@ -24,8 +24,9 @@ package cn.fkj233.ui.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
@@ -44,9 +45,12 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
     private val title by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
-                it.setMargins(0, dp2px(context, 20f), 0, dp2px(context, 10f))
+                it.setMargins(0, dp2px(context, 20f), 0, dp2px(context, 20f))
             }
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 19f)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                textView.paint.typeface = Typeface.create(null, 500, false)
+            }
             textView.setTextColor(context.getColor(R.color.whiteText))
             textView.gravity = Gravity.CENTER
             textView.setPadding(0, dp2px(context, 10f), 0, 0)
@@ -58,7 +62,7 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                 it.setMargins(dp2px(context, 10f), 0, dp2px(context, 10f), dp2px(context, 5f))
             }
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
             textView.setTextColor(context.getColor(R.color.whiteText))
             textView.gravity = Gravity.CENTER
             textView.visibility = View.GONE
@@ -69,9 +73,9 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
     private val editText by lazy {
         EditText(context).also { editText ->
             editText.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 55f)).also {
-                it.setMargins(dp2px(context, 25f), dp2px(context, 10f), dp2px(context, 25f), 0)
+                it.setMargins(dp2px(context, 30f), dp2px(context, 10f), dp2px(context, 30f), 0)
             }
-            editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
+            editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
             editText.setTextColor(context.getColor(R.color.whiteText))
             editText.gravity = Gravity.CENTER
             editText.setPadding(dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 8f))
@@ -147,12 +151,12 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
 
     fun Button(text: CharSequence?, enable: Boolean = true, cancelStyle: Boolean = false, callBacks: (View) -> Unit) {
         bView.addView(Button(context).also { buttonView ->
-            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 60f), 1f).also {
+            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 52.5f), 1f).also {
                 it.setMargins(dp2px(context, 25f), dp2px(context, 10f), dp2px(context, 25f), 0)
                 it.gravity = Gravity.CENTER
             }
             buttonView.setTextColor(context.getColor(if (cancelStyle) R.color.whiteText else R.color.white))
-            buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+            buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17.5f)
             buttonView.text = text
             buttonView.isEnabled = enable
             buttonView.stateListAnimator = null
