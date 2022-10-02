@@ -45,6 +45,7 @@ import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.AsyncInit
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.view.*
+import java.lang.IllegalArgumentException
 
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -156,14 +157,19 @@ class MIUIFragment() : Fragment() {
                         }
                     }
                     is SwitchV -> addView(item.create(context, callBacks)) // 开关
-                    is TextWithSwitchV -> {
+                    is TextWithSwitchV, is TextSummaryWithSwitchV -> {
+                        val switch: SwitchV = when (item) {
+                            is TextWithSwitchV -> item.switchV
+                            is TextSummaryWithSwitchV -> item.switchV
+                            else -> throw IllegalArgumentException("item not is TextWithSwitchV or TextSummaryWithSwitchV")
+                        }
                         addView(item.create(context, callBacks)) // 带文本的开关
                         setOnTouchListener { _, motionEvent ->
                             when (motionEvent.action) {
-                                MotionEvent.ACTION_DOWN -> if (item.switchV.switch.isEnabled) background = context.getDrawable(R.drawable.ic_main_down_bg)
+                                MotionEvent.ACTION_DOWN -> if (switch.switch.isEnabled) background = context.getDrawable(R.drawable.ic_main_down_bg)
                                 MotionEvent.ACTION_UP -> {
-                                    if (item.switchV.switch.isEnabled) {
-                                        item.switchV.click()
+                                    if (switch.switch.isEnabled) {
+                                        switch.click()
                                         callBacks?.let { it1 -> it1() }
                                         background = context.getDrawable(R.drawable.ic_main_bg)
                                     }
@@ -236,13 +242,6 @@ class MIUIFragment() : Fragment() {
                                 unit()
                                 callBacks?.let { it1 -> it1() }
                             }
-                        }
-                    }
-                    is TextSummaryWithSwitchV -> {
-                        addView(item.create(context, callBacks))
-                        setOnClickListener {
-                            item.switchV.click()
-                            callBacks?.let { it1 -> it1() }
                         }
                     }
                     is CustomViewV -> {
