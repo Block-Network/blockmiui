@@ -131,9 +131,10 @@ open class MIUIActivity : Activity() {
     var isLoad = true
 
     /**
-     *  返回到最后一页直接退出(不保留后台) / Return to the last page and exit directly (without retaining the background)
+     *  退出时是否保留后台 / Retaining the background
      */
-    private var isExit = false
+    @Suppress("MemberVisibilityCanBePrivate")
+    var isExit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -251,8 +252,11 @@ open class MIUIActivity : Activity() {
 
     override fun onBackPressed() {
         if (fragmentManager.backStackEntryCount <= 1) {
-            finish()
-            if (isExit) exitProcess(0)
+            if (isExit) {
+                finishAndRemoveTask()
+            } else {
+                finish()
+            }
         } else {
             thisName.removeAt(thisName.lastSize())
             val name = fragmentManager.getBackStackEntryAt(fragmentManager.backStackEntryCount - 2).name
