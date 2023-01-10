@@ -26,14 +26,17 @@ import android.content.Context
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-class SeekBarV(val key: String = "", val min: Int, val max: Int, private val defaultProgress: Int, private val dataSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
+@BMView
+class SeekBarV(val key: String = "", val min: Int, val max: Int, private val defaultProgress: Int, private val dataSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView {
 
     override fun getType(): BaseView = this
 
@@ -69,6 +72,17 @@ class SeekBarV(val key: String = "", val min: Int, val max: Int, private val def
                 override fun onStopTrackingTouch(p0: SeekBar?) {}
             })
             dataBindingRecv?.setView(view)
+        }
+    }
+
+    override fun onDraw(thiz: MIUIFragment, group: LinearLayout, view: View) {
+        thiz.apply {
+            group.apply {
+                addView(LinearLayout(context).apply {
+                    setPadding(dp2px(activity, 12f), 0, dp2px(activity, 12f), 0)
+                    addView(view, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+                })
+            }
         }
     }
 }

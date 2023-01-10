@@ -12,9 +12,11 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.isRtl
 
-class RadioViewV(private val key: String, val dataBindingRecv: DataBinding.Binding.Recv? = null, val data: RadioData.() -> Unit) : BaseView() {
+@BMView
+class RadioViewV(private val key: String, val dataBindingRecv: DataBinding.Binding.Recv? = null, val data: RadioData.() -> Unit) : BaseView {
     data class RadioDataValue(val value: String, val name: String, val dataBindingRecv: DataBinding.Binding.Recv?, val dataBindingSend: DataBinding.Binding.Send?, val callBacks: ((View, Any) -> Unit)?)
 
     class RadioData {
@@ -67,6 +69,15 @@ class RadioViewV(private val key: String, val dataBindingRecv: DataBinding.Bindi
             }
             viewId[MIUIActivity.safeSP.getString(key, "")]?.let { check(it) }
             dataBindingRecv?.setView(this)
+        }
+    }
+
+    override fun onDraw(thiz: MIUIFragment, group: LinearLayout, view: View) {
+        thiz.apply {
+            group.apply {
+                setPadding(0, 0, 0, 0)
+                addView(view)
+            }
         }
     }
 }

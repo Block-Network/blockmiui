@@ -22,15 +22,20 @@
 
 package cn.fkj233.ui.activity.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
+import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-class TextSummaryWithSwitchV(private val textV: TextSummaryV, val switchV: SwitchV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView() {
+@BMView
+class TextSummaryWithSwitchV(private val textV: TextSummaryV, val switchV: SwitchV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView = this
 
@@ -47,6 +52,29 @@ class TextSummaryWithSwitchV(private val textV: TextSummaryV, val switchV: Switc
             }
         ).create(context, callBacks).also {
             dataBindingRecv?.setView(it)
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onDraw(thiz: MIUIFragment, group: LinearLayout, view: View) {
+        thiz.apply {
+            group.apply {
+                addView(view) // 带文本的开关
+                setOnTouchListener { _, motionEvent ->
+                    when (motionEvent.action) {
+                        MotionEvent.ACTION_DOWN -> if (switchV.switch.isEnabled) background = context.getDrawable(R.drawable.ic_main_down_bg)
+                        MotionEvent.ACTION_UP -> {
+                            if (switchV.switch.isEnabled) {
+                                switchV.click()
+                                callBacks?.let { it1 -> it1() }
+                                background = context.getDrawable(R.drawable.ic_main_bg)
+                            }
+                        }
+                        else -> background = context.getDrawable(R.drawable.ic_main_bg)
+                    }
+                    true
+                }
+            }
         }
     }
 }

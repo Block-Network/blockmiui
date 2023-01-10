@@ -35,12 +35,13 @@ import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.isRtl
 
+@BMView
 class TitleTextV(
     val text: String? = null,
     private val textId: Int? = null,
     private val dataBindingRecv: DataBinding.Binding.Recv? = null,
     private val onClickListener: (() -> Unit)? = null
-) : BaseView() {
+) : BaseView {
 
     override fun getType(): BaseView {
         return this

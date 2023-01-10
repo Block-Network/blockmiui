@@ -28,8 +28,10 @@ import android.widget.LinearLayout
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-class LineV(private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView() {
+@BMView
+class LineV(private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView {
         return this

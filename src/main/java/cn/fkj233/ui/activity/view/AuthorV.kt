@@ -36,9 +36,11 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.isRtl
 
-class AuthorV(private val authorHead: Drawable, private val authorName: String, private val authorTips: String? = null, private val round: Float = 30f, val onClick: (() -> Unit)? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView() {
+@BMView
+class AuthorV(private val authorHead: Drawable, private val authorName: String, private val authorTips: String? = null, private val round: Float = 30f, val onClick: (() -> Unit)? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView {
         return this
@@ -126,6 +128,20 @@ class AuthorV(private val authorHead: Drawable, private val authorName: String, 
                it.setMargins(0, dp2px(context, 10f), 0, dp2px(context, 10f))
         }).create(context, callBacks).also {
             dataBindingRecv?.setView(it)
+        }
+    }
+
+    override fun onDraw(thiz: MIUIFragment, group: LinearLayout, view: View) {
+        thiz.apply {
+            group.apply {
+                addView(view)
+                onClick?.let { unit ->
+                    setOnClickListener {
+                        unit()
+                        callBacks?.let { it1 -> it1() }
+                    }
+                }
+            }
         }
     }
 }

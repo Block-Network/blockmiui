@@ -24,11 +24,17 @@ package cn.fkj233.ui.activity.view
 
 import android.content.Context
 import android.view.View
+import android.widget.LinearLayout
+import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-abstract class BaseView {
+interface BaseView {
 
-    abstract fun getType(): BaseView
+    fun getType(): BaseView
 
-    abstract fun create(context: Context, callBacks: (() -> Unit)?): View
+    fun create(context: Context, callBacks: (() -> Unit)?): View
+
+    fun onDraw(thiz: MIUIFragment, group: LinearLayout, view: View) {
+        group.addView(view)
+    }
 
 }

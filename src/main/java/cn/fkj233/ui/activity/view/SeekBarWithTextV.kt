@@ -36,8 +36,10 @@ import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-class SeekBarWithTextV(val key: String = "", private val min: Int, private val max: Int, private val defaultProgress: Int = 0, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView() {
+@BMView
+class SeekBarWithTextV(val key: String = "", private val min: Int, private val max: Int, private val defaultProgress: Int = 0, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val dataBindingSend: DataBinding.Binding.Send? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView {
 
     override fun getType(): BaseView = this
 
@@ -94,6 +96,14 @@ class SeekBarWithTextV(val key: String = "", private val min: Int, private val m
             )
         ).create(context, callBacks).also {
             dataBindingRecv?.setView(it)
+        }
+    }
+
+    override fun onDraw(thiz: MIUIFragment, group: LinearLayout, view: View) {
+        thiz.apply {
+            group.apply {
+                addView(view, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+            }
         }
     }
 }

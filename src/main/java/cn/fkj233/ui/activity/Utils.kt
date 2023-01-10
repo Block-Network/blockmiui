@@ -26,10 +26,15 @@ package cn.fkj233.ui.activity
 
 import android.content.Context
 import android.text.TextUtils
+import android.util.Log
 import android.util.TypedValue
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
+import dalvik.system.BaseDexClassLoader
+import dalvik.system.DexFile
+import java.util.*
+import kotlin.collections.HashMap
 
 fun dp2px(context: Context, dpValue: Float): Int =
     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.resources.displayMetrics).toInt()
@@ -40,4 +45,75 @@ fun getDisplay(context: Context): Display {
 
 fun isRtl(context: Context): Boolean {
     return TextUtils.getLayoutDirectionFromLocale(context.resources.configuration.locale) == View.LAYOUT_DIRECTION_RTL
+}
+
+fun Any.getObjectField(field: String): Any? {
+    runCatching {
+        return this.javaClass.getDeclaredField(field).get(this)
+    }
+    return null
+}
+
+@Suppress("UNCHECKED_CAST")
+fun <T> Any.getObjectFieldAs(field: String): T? {
+    runCatching {
+        return this.javaClass.getDeclaredField(field).get(this) as T
+    }
+    return null
+}
+
+@Suppress("UNCHECKED_CAST")
+fun <T> Any.callMethodAs(methodName: String, vararg args: Any?): T? {
+    runCatching {
+        return this.javaClass.getDeclaredMethod(methodName).invoke(this, *args) as T
+    }
+    return null
+}
+
+fun ClassLoader.allClassesList(): List<String> {
+    var classLoader = this
+    while (classLoader !is BaseDexClassLoader) {
+        if (classLoader.parent != null) classLoader = classLoader.parent
+        else return emptyList()
+    }
+    return classLoader.getObjectField("pathList")
+        ?.getObjectFieldAs<Array<Any>>("dexElements")
+        ?.flatMap {
+            it.getObjectField("dexFile")?.callMethodAs<Enumeration<String>>("entries")?.toList()
+                .orEmpty()
+        }.orEmpty()
+}
+
+val classCache: HashMap<Class<out Annotation>, List<Class<*>>> = HashMap()
+
+@Suppress("UNCHECKED_CAST")
+fun <T> findAnnotation(annotations: Class<out Annotation>, context: Context): List<Class<T>> {
+    if (classCache.containsKey(annotations)) {
+        return classCache[annotations] as List<Class<T>>
+    }
+    val result = arrayListOf<Class<T>>()
+    context.javaClass.classLoader?.allClassesList()?.forEach {
+        try {
+            val clazz = Class.forName(it, false, context.javaClass.classLoader)
+            if (clazz.isAnnotationPresent(annotations)) {
+                result.add(Class.forName(it) as Class<T>)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+    if (result.size == 0) {
+        DexFile(context.packageCodePath).entries().asSequence().forEach {
+            try {
+                val clazz = Class.forName(it, false, context.javaClass.classLoader)
+                if (clazz.isAnnotationPresent(annotations)) {
+                    result.add(clazz as Class<T>)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    classCache[annotations] = result
+    return result
 }

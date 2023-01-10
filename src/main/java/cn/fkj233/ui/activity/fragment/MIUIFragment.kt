@@ -31,7 +31,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationSet
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
@@ -44,8 +46,9 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.AsyncInit
 import cn.fkj233.ui.activity.dp2px
-import cn.fkj233.ui.activity.view.*
-import java.lang.IllegalArgumentException
+import cn.fkj233.ui.activity.findAnnotation
+import cn.fkj233.ui.activity.view.BMView
+import cn.fkj233.ui.activity.view.BaseView
 
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -59,6 +62,7 @@ class MIUIFragment() : Fragment() {
     private val async: AsyncInit? by lazy { (activity as MIUIActivity).getThisAsync(key) }
     private var dialog: Dialog? = null
     val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
+    private lateinit var viewList: List<Class<BaseView>>
 
     constructor(keys: String) : this() {
         key = keys
@@ -66,6 +70,9 @@ class MIUIFragment() : Fragment() {
 
     @Deprecated("Deprecated in Java")
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        if (!this::viewList.isInitialized) {
+            viewList = findAnnotation(BMView::class.java, context)
+        }
         scrollView = ScrollView(context).apply {
             isVerticalScrollBarEnabled = false
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
@@ -137,120 +144,10 @@ class MIUIFragment() : Fragment() {
                 layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 background = context.getDrawable(R.drawable.ic_click_check)
                 setPadding(dp2px(context, 30f), 0, dp2px(context, 30f), 0)
-                when (item) {
-                    is SeekBarV -> { // 滑动条
-                        addView(LinearLayout(context).apply {
-                            setPadding(dp2px(activity, 12f), 0, dp2px(activity, 12f), 0)
-                            addView(item.create(context, callBacks), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
-                        })
-                    }
-                    is SeekBarWithTextV -> { // 滑动条 带文本
-                        addView(item.create(context, callBacks), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
-                    }
-                    is TextV -> { // 文本
-                        addView(item.create(context, callBacks))
-                        item.onClickListener?.let { unit ->
-                            setOnClickListener {
-                                unit()
-                                callBacks?.let { it1 -> it1() }
-                            }
-                        }
-                    }
-                    is SwitchV -> addView(item.create(context, callBacks)) // 开关
-                    is TextWithSwitchV, is TextSummaryWithSwitchV -> {
-                        val switch: SwitchV = when (item) {
-                            is TextWithSwitchV -> item.switchV
-                            is TextSummaryWithSwitchV -> item.switchV
-                            else -> throw IllegalArgumentException("item not is TextWithSwitchV or TextSummaryWithSwitchV")
-                        }
-                        addView(item.create(context, callBacks)) // 带文本的开关
-                        setOnTouchListener { _, motionEvent ->
-                            when (motionEvent.action) {
-                                MotionEvent.ACTION_DOWN -> if (switch.switch.isEnabled) background = context.getDrawable(R.drawable.ic_main_down_bg)
-                                MotionEvent.ACTION_UP -> {
-                                    if (switch.switch.isEnabled) {
-                                        switch.click()
-                                        callBacks?.let { it1 -> it1() }
-                                        background = context.getDrawable(R.drawable.ic_main_bg)
-                                    }
-                                }
-                                else -> background = context.getDrawable(R.drawable.ic_main_bg)
-                            }
-                            true
-                        }
-                    }
-                    is TitleTextV -> addView(item.create(context, callBacks)) // 标题文字
-                    is LineV -> addView(item.create(context, callBacks)) // 分割线
-                    is LinearContainerV -> addView(item.create(context, callBacks)) // 布局创建
-                    is AuthorV -> { // 作者框
-                        addView(item.create(context, callBacks))
-                        item.onClick?.let { unit ->
-                            setOnClickListener {
-                                unit()
-                                callBacks?.let { it1 -> it1() }
-                            }
-                        }
-                    }
-                    is TextSummaryV -> { // 带箭头和提示的文本框
-                        addView(item.create(context, callBacks))
-                        item.onClickListener?.let { unit ->
-                            setOnClickListener {
-                                unit()
-                                callBacks?.let { it1 -> it1() }
-                            }
-                        }
-                    }
-                    is SpinnerV -> { // 下拉选择框
-                        addView(item.create(context, callBacks))
-                    }
-                    is TextSummaryWithSpinnerV, is TextWithSpinnerV -> {
-                        addView(item.create(context, callBacks))
-                        setOnClickListener {}
-                        val spinner = when (item) {
-                            is TextSummaryWithSpinnerV -> item.spinnerV
-                            is TextWithSpinnerV -> item.spinnerV
-                            else -> throw IllegalAccessException("Not is TextSummaryWithSpinnerV or TextWithSpinnerV")
-                        }
-                        setOnTouchListener { view, motionEvent ->
-                            if (motionEvent.action == MotionEvent.ACTION_UP) {
-                                val popup = MIUIPopup(context, view, spinner.currentValue, spinner.dropDownWidth, {
-                                    spinner.select.text = it
-                                    spinner.currentValue = it
-                                    callBacks?.let { it1 -> it1() }
-                                    spinner.dataBindingSend?.send(it)
-                                }, SpinnerV.SpinnerData().apply(spinner.data).arrayList)
-                                if (view.width / 2 >= motionEvent.x) {
-                                    popup.apply {
-                                        horizontalOffset = dp2px(context, 24F)
-                                        setDropDownGravity(Gravity.LEFT)
-                                    }
-                                } else {
-                                    popup.apply {
-                                        horizontalOffset = -dp2px(context, 24F)
-                                        setDropDownGravity(Gravity.RIGHT)
-                                    }
-                                }
-                                popup.show()
-                            }
-                            false
-                        }
-                    }
-                    is TextSummaryArrowV -> {
-                        addView(item.create(context, callBacks))
-                        item.textSummaryV.onClickListener?.let { unit ->
-                            setOnClickListener {
-                                unit()
-                                callBacks?.let { it1 -> it1() }
-                            }
-                        }
-                    }
-                    is CustomViewV -> {
-                        addView(item.create(context, callBacks))
-                    }
-                    is RadioViewV -> {
-                        setPadding(0, 0, 0, 0)
-                        addView(item.create(context, callBacks))
-                    }
+                if (item.javaClass in viewList) {
+                    item.onDraw(this@MIUIFragment, this, item.create(context, callBacks))
+                } else {
+                    throw IllegalArgumentException("The view ${item.javaClass.simpleName} is not registered.")
                 }
             })
         }

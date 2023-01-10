@@ -31,9 +31,11 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
+import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.isRtl
 
-class TextSummaryArrowV(val textSummaryV: TextSummaryV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView() {
+@BMView
+class TextSummaryArrowV(val textSummaryV: TextSummaryV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView {
         return this
@@ -63,6 +65,20 @@ class TextSummaryArrowV(val textSummaryV: TextSummaryV, private val dataBindingR
             it.setMargins(0, dp2px(context, 17.75f),0, dp2px(context, 17.75f))
         }).create(context, callBacks).also {
             dataBindingRecv?.setView(it)
+        }
+    }
+
+    override fun onDraw(thiz: MIUIFragment, group: LinearLayout, view: View) {
+        thiz.apply {
+            group.apply {
+                addView(view)
+                textSummaryV.onClickListener?.let { unit ->
+                    setOnClickListener {
+                        unit()
+                        callBacks?.let { it1 -> it1() }
+                    }
+                }
+            }
         }
     }
 }
