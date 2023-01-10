@@ -332,24 +332,27 @@ open class MIUIActivity : Activity() {
         if (this::initViewData.isInitialized) {
             return dataList[key]?.itemList ?: arrayListOf()
         }
-        return pageInfo[key]?.itemList ?: arrayListOf()
+        val currentPage = pageInfo[key]!!
+        if (currentPage.itemList.size == 0) {
+            currentPage.onCreate()
+        }
+        return currentPage.itemList
     }
 
     fun getThisAsync(key: String): AsyncInit? {
         if (this::initViewData.isInitialized) {
             return dataList[key]?.async
         }
-
-        Log.d("BlockMIUI", "getThisAsync: $key data = $pageInfo")
-        if (pageInfo[key]!!.itemList.size == 0) {
-            pageInfo[key]!!.onCreate()
+        val currentPage = pageInfo[key]!!
+        if (currentPage.itemList.size == 0) {
+            currentPage.onCreate()
         }
         return object : AsyncInit {
             override val skipLoadItem: Boolean
-                get() = pageInfo[key]!!.skipLoadItem
+                get() = currentPage.skipLoadItem
 
             override fun onInit(fragment: MIUIFragment) {
-                pageInfo[key]!!.asyncInit(fragment)
+                currentPage.asyncInit(fragment)
             }
         }
     }
