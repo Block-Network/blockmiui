@@ -34,6 +34,7 @@ import android.view.WindowManager
 import dalvik.system.BaseDexClassLoader
 import dalvik.system.DexFile
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 fun dp2px(context: Context, dpValue: Float): Int =
@@ -84,36 +85,51 @@ fun ClassLoader.allClassesList(): List<String> {
         }.orEmpty()
 }
 
-val classCache: HashMap<Class<out Annotation>, List<Class<*>>> = HashMap()
+val classCache: HashMap<Class<out Annotation>, List<Class<*>>> = hashMapOf()
+val allClassCache: ArrayList<Class<*>> = ArrayList()
 
 @Suppress("UNCHECKED_CAST")
-fun <T> findAnnotation(annotations: Class<out Annotation>, context: Context): List<Class<T>> {
+fun <T> findAnnotation(annotations: Class<out Annotation>, context: Context, classMaxLength: Int = 0): List<Class<T>> {
     if (classCache.containsKey(annotations)) {
         return classCache[annotations] as List<Class<T>>
     }
     val result = arrayListOf<Class<T>>()
-    context.javaClass.classLoader?.allClassesList()?.forEach {
-        try {
-            val clazz = Class.forName(it, false, context.javaClass.classLoader)
+    if (allClassCache.size != 0) {
+        for (clazz in allClassCache) {
             if (clazz.isAnnotationPresent(annotations)) {
-                result.add(Class.forName(it) as Class<T>)
+                result.add(clazz as Class<T>)
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
-    }
-    if (result.size == 0) {
-        DexFile(context.packageCodePath).entries().asSequence().forEach {
+    } else {
+        context.javaClass.classLoader?.allClassesList()?.forEach {
             try {
                 val clazz = Class.forName(it, false, context.javaClass.classLoader)
+                allClassCache.add(clazz)
                 if (clazz.isAnnotationPresent(annotations)) {
-                    result.add(clazz as Class<T>)
+                    result.add(Class.forName(it) as Class<T>)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+        if (result.size == 0) {
+            DexFile(context.packageCodePath).entries().asSequence().forEach {
+                try {
+                    val clazz = Class.forName(it, false, context.javaClass.classLoader)
+                    allClassCache.add(clazz)
+                    if (clazz.isAnnotationPresent(annotations)) {
+                        result.add(clazz as Class<T>)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
     classCache[annotations] = result
+    if (classMaxLength != 0 && result.size > classMaxLength) {
+        throw Exception("Only $classMaxLength '${annotations.simpleName}' are allowed")
+    }
+    Log.d("BlockMIUI", "findAnnotation: ${annotations.simpleName} ${result.size} $result")
     return result
 }

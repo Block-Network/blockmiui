@@ -47,7 +47,7 @@ import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.AsyncInit
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.findAnnotation
-import cn.fkj233.ui.activity.view.BMView
+import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.view.BaseView
 
 
@@ -58,8 +58,8 @@ class MIUIFragment() : Fragment() {
     private var key = ""
     private lateinit var scrollView: ScrollView
     private lateinit var itemView: LinearLayout
-    val callBacks: (() -> Unit)? by lazy { (activity as MIUIActivity).getAllCallBacks() }
-    private val async: AsyncInit? by lazy { (activity as MIUIActivity).getThisAsync(key) }
+    val callBacks: (() -> Unit)? by lazy { MIUIActivity.activity.getAllCallBacks() }
+    private val async: AsyncInit? by lazy { MIUIActivity.activity.getThisAsync(key.ifEmpty { MIUIActivity.activity.getTopPage() }) }
     private var dialog: Dialog? = null
     val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private lateinit var viewList: List<Class<BaseView>>
@@ -94,7 +94,7 @@ class MIUIFragment() : Fragment() {
      */
     @Suppress("MemberVisibilityCanBePrivate")
     fun initData() {
-        for (item: BaseView in (activity as MIUIActivity).getThisItems(key)) {
+        for (item: BaseView in MIUIActivity.activity.getThisItems(key)) {
             addItem(item)
         }
     }
@@ -103,9 +103,8 @@ class MIUIFragment() : Fragment() {
      *  Show loading dialog / 显示加载 Dialog
      */
     fun showLoading() {
-        Log.e("showLoading", "show")
         handler.post {
-            dialog = Dialog(activity, R.style.Translucent_NoTitle).apply {
+            dialog = Dialog(MIUIActivity.context, R.style.Translucent_NoTitle).apply {
                 setCancelable(false)
                 setContentView(LinearLayout(context).apply {
                     layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
@@ -140,7 +139,7 @@ class MIUIFragment() : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     fun addItem(item: BaseView) {
         handler.post {
-            itemView.addView(LinearLayout(context).apply { // 控件布局
+            itemView.addView(LinearLayout(MIUIActivity.context).apply { // 控件布局
                 layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 background = context.getDrawable(R.drawable.ic_click_check)
                 setPadding(dp2px(context, 30f), 0, dp2px(context, 30f), 0)

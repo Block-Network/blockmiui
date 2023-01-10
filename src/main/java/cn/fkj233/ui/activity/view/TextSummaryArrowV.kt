@@ -28,11 +28,11 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import cn.fkj233.miui.R
+import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
-import cn.fkj233.ui.activity.isRtl
 
 @BMView
 class TextSummaryArrowV(val textSummaryV: TextSummaryV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {

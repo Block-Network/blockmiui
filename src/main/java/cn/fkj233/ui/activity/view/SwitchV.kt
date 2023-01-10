@@ -25,10 +25,9 @@ package cn.fkj233.ui.activity.view
 
 import android.content.Context
 import android.view.View
-import android.widget.LinearLayout
 import cn.fkj233.ui.activity.MIUIActivity
+import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.data.DataBinding
-import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.switch.MIUISwitch
 
 @BMView

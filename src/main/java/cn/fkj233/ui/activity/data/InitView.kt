@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.TextView
 import cn.fkj233.ui.activity.view.*
 
+@Deprecated("Use BMMainPage/BMMenuPage/BMPage instead")
 class InitView(private val datalist: HashMap<String, ItemData>) {
     var isMenu = false
     var mainShowBack = false

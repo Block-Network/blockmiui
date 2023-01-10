@@ -3,9 +3,8 @@ package cn.fkj233.ui.activity.view
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.data.DataBinding
-import cn.fkj233.ui.activity.fragment.MIUIFragment
 
 @BMView
 class CustomViewV(val view: View, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
