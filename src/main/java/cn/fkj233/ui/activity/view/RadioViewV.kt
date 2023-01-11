@@ -10,13 +10,11 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.MIUIActivity
-import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.isRtl
 
-@BMView
 class RadioViewV(private val key: String, val dataBindingRecv: DataBinding.Binding.Recv? = null, val data: RadioData.() -> Unit) : BaseView {
     data class RadioDataValue(val value: String, val name: String, val dataBindingRecv: DataBinding.Binding.Recv?, val dataBindingSend: DataBinding.Binding.Send?, val callBacks: ((View, Any) -> Unit)?)
 

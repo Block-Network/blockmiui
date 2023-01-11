@@ -33,14 +33,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import cn.fkj233.miui.R
-import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.isRtl
 
-@BMView
 class AuthorV(private val authorHead: Drawable, private val authorName: String, private val authorTips: String? = null, private val round: Float = 30f, val onClick: (() -> Unit)? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView {

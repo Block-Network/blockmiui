@@ -26,11 +26,9 @@ import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
 import cn.fkj233.miui.R
-import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.dp2px
 
-@BMView
 class LineV(private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView {

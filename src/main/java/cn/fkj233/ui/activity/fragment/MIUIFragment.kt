@@ -30,7 +30,6 @@ import android.app.Fragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,8 +45,6 @@ import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.AsyncInit
 import cn.fkj233.ui.activity.dp2px
-import cn.fkj233.ui.activity.findAnnotation
-import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.view.BaseView
 
 
@@ -62,7 +59,6 @@ class MIUIFragment() : Fragment() {
     private val async: AsyncInit? by lazy { MIUIActivity.activity.getThisAsync(key.ifEmpty { MIUIActivity.activity.getTopPage() }) }
     private var dialog: Dialog? = null
     val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
-    private lateinit var viewList: List<Class<BaseView>>
 
     constructor(keys: String) : this() {
         key = keys
@@ -70,9 +66,6 @@ class MIUIFragment() : Fragment() {
 
     @Deprecated("Deprecated in Java")
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        if (!this::viewList.isInitialized) {
-            viewList = findAnnotation(BMView::class.java, context)
-        }
         scrollView = ScrollView(context).apply {
             isVerticalScrollBarEnabled = false
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
@@ -94,7 +87,7 @@ class MIUIFragment() : Fragment() {
      */
     @Suppress("MemberVisibilityCanBePrivate")
     fun initData() {
-        for (item: BaseView in MIUIActivity.activity.getThisItems(key)) {
+        for (item: BaseView in MIUIActivity.activity.getThisItems(key.ifEmpty { MIUIActivity.activity.getTopPage() })) {
             addItem(item)
         }
     }
@@ -143,11 +136,7 @@ class MIUIFragment() : Fragment() {
                 layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 background = context.getDrawable(R.drawable.ic_click_check)
                 setPadding(dp2px(context, 30f), 0, dp2px(context, 30f), 0)
-                if (item.javaClass in viewList) {
-                    item.onDraw(this@MIUIFragment, this, item.create(context, callBacks))
-                } else {
-                    throw IllegalArgumentException("The view ${item.javaClass.simpleName} is not registered.")
-                }
+                item.onDraw(this@MIUIFragment, this, item.create(context, callBacks))
             })
         }
     }

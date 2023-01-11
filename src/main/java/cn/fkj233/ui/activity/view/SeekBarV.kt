@@ -31,12 +31,10 @@ import android.widget.SeekBar
 import android.widget.TextView
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.MIUIActivity
-import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-@BMView
 class SeekBarV(val key: String = "", val min: Int, val max: Int, private val defaultProgress: Int, private val dataSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView {
 
     override fun getType(): BaseView = this

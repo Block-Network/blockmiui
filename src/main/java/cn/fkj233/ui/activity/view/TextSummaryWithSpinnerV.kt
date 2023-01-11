@@ -28,13 +28,11 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
-import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-@BMView
 class TextSummaryWithSpinnerV(private val textV: TextSummaryV, val spinnerV: SpinnerV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView = this

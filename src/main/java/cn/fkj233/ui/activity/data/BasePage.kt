@@ -22,6 +22,12 @@ abstract class BasePage {
         activity.showFragment(key)
     }
 
+    fun setTitle(title: String) {
+        activity.title = title
+    }
+
+    open fun getTitle(): String = ""
+
     fun GetDataBinding(defValue: () -> Any, recvCallbacks: (View, Int, Any) -> Unit): DataBinding.BindingData {
         return DataBinding.get(bindingData, defValue, recvCallbacks)
     }

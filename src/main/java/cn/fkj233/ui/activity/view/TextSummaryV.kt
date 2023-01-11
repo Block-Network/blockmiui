@@ -31,14 +31,12 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import cn.fkj233.miui.R
-import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.isRtl
 
-@BMView
 class TextSummaryV(private val text: String? = null, private val textId: Int? = null, private val tips: String? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val tipsId: Int? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView {
 
     var showMargins = false

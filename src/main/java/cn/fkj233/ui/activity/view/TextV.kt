@@ -32,14 +32,12 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import cn.fkj233.miui.R
-import cn.fkj233.ui.activity.annotation.BMView
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.Padding
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.isRtl
 
-@BMView
 class TextV(val text: String? = null, private val textId: Int? = null, val textSize: Float? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val padding: Padding? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, private val typeface: Typeface? = null, val onClickListener: (() -> Unit)? = null): BaseView {
 
     override fun getType(): BaseView = this
