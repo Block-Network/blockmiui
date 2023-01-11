@@ -413,9 +413,9 @@ open class MIUIActivity : Activity() {
                     if (this::initViewData.isInitialized) {
                         setMenuShow(dataList[name]?.hideMenu == false)
                     } else {
-                        setMenuShow(getPageHideMenu(pageInfo[name]!!))
+                        setMenuShow(!getPageHideMenu(pageInfo[name]!!))
                     }
-                }
+                }+
             }
             title = if (this::initViewData.isInitialized) {
                 dataList[name]?.title
