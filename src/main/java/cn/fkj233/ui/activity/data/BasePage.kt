@@ -65,10 +65,13 @@ abstract class BasePage {
         itemList.add(TextSummaryArrowV(textSummaryV, dataBindingRecv))
     }
 
-    fun TextA(text: String? = null, textId: Int? = null, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+    fun TextSA(text: String? = null, textId: Int? = null, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
         itemList.add(TextSummaryArrowV(TextSummaryV(text, textId, onClickListener = onClickListener), dataBindingRecv))
     }
 
+    fun TextSummary(text: String? = null, textId: Int? = null, tips: String? = null, colorInt: Int? = null, colorId: Int? = null, tipsId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
+        itemList.add(TextSummaryV(text, textId, tips, colorInt, colorId, tipsId, dataBindingRecv, onClickListener))
+    }
     fun TextSummaryWithSwitch(textSummaryV: TextSummaryV, switchV: SwitchV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
         itemList.add(TextSummaryWithSwitchV(textSummaryV, switchV, dataBindingRecv))
     }
@@ -81,12 +84,16 @@ abstract class BasePage {
         itemList.add(TextWithSwitchV(textV, switchV, dataBindingRecv))
     }
 
-    fun TextS(text: String? = null, textId: Int? = null, key: String, defValue: Boolean=false, onClickListener: ((Boolean) -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+    fun TextSW(text: String? = null, textId: Int? = null, key: String, defValue: Boolean = false, onClickListener: ((Boolean) -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
         itemList.add(TextWithSwitchV(TextV(text, textId), SwitchV(key, defValue, onClickListener = onClickListener), dataBindingRecv))
     }
 
     fun TextWithSpinner(textV: TextV, spinnerV: SpinnerV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
         itemList.add(TextWithSpinnerV(textV, spinnerV, dataBindingRecv))
+    }
+
+    fun TextSP(text: String? = null, textId: Int? = null, currentValue: String, data: SpinnerV.SpinnerData.() -> Unit, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextWithSpinnerV(TextV(text, textId), SpinnerV(currentValue, data = data), dataBindingRecv))
     }
 
     fun CustomView(view: View, dataBindingRecv: DataBinding.Binding.Recv? = null) {
@@ -97,7 +104,4 @@ abstract class BasePage {
         itemList.add(RadioViewV(key, dataBindingRecv, data))
     }
 
-    fun TextSummary(text: String? = null, textId: Int? = null, tips: String? = null, colorInt: Int? = null, colorId: Int? = null, tipsId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
-        itemList.add(TextSummaryV(text, textId, tips, colorInt, colorId, tipsId, dataBindingRecv, onClickListener))
-    }
 }
