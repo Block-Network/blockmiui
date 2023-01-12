@@ -22,6 +22,7 @@
 
 package cn.fkj233.ui.dialog
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Typeface
@@ -30,19 +31,28 @@ import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowManager
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.getDisplay
 import cn.fkj233.ui.activity.isRtl
 import kotlin.math.roundToInt
 
+
+@SuppressLint("ClickableViewAccessibility")
 class MIUIDialog(context: Context, private val newStyle: Boolean = true, val build: MIUIDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
+    private val isSingleLine: Boolean = true
     private val title by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
@@ -78,10 +88,12 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
             }
             editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
             editText.setTextColor(context.getColor(R.color.whiteText))
-            editText.gravity = Gravity.CENTER
-            editText.setPadding(dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 8f))
+            editText.gravity = Gravity.CENTER_VERTICAL
+            editText.setPadding(dp2px(context, 20f), dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 10f))
             editText.visibility = View.GONE
             editText.background = context.getDrawable(R.drawable.editview_background)
+            editText.isSingleLine = isSingleLine
+            editText.setHintTextColor(context.getColor(R.color.hintText))
             val mHeight = dp2px(context, 55f)
             val maxHeight = getDisplay(context).height / 2
             editText.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -293,10 +305,11 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
         }
     }
 
-    fun setEditText(text: String, hint: String, editCallBacks: ((String) -> Unit)? = null) {
+    fun setEditText(text: String, hint: String, isSingleLine: Boolean = true, editCallBacks: ((String) -> Unit)? = null) {
         editText.apply {
             setText(text.toCharArray(), 0, text.length)
             this.hint = hint
+            this.isSingleLine = isSingleLine
             visibility = View.VISIBLE
             editCallBacks?.let {
                 addTextChangedListener(object : TextWatcher {
