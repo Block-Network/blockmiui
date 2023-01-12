@@ -333,13 +333,13 @@ open class MIUIActivity : Activity() {
 
     private fun getPageTitle(basePage: BasePage): String {
         basePage.javaClass.getAnnotation(BMPage::class.java)?.let {
-            return it.title.ifEmpty { basePage.getTitle() }
+            return it.title.ifEmpty { if (it.titleId != 0) activity.getString(it.titleId) else basePage.getTitle() }
         }
         basePage.javaClass.getAnnotation(BMMainPage::class.java)?.let {
-            return it.title.ifEmpty { basePage.getTitle() }
+            return it.title.ifEmpty { if (it.titleId != 0) activity.getString(it.titleId) else basePage.getTitle() }
         }
         basePage.javaClass.getAnnotation(BMMenuPage::class.java)?.let {
-            return it.title.ifEmpty { basePage.getTitle() }
+            return it.title.ifEmpty { if (it.titleId != 0) activity.getString(it.titleId) else basePage.getTitle() }
         }
         throw Exception("No title found")
     }

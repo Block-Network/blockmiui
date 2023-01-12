@@ -28,6 +28,11 @@ abstract class BasePage {
 
     open fun getTitle(): String = ""
 
+    fun getString(id: Int): String = activity.getString(id)
+    fun getDrawable(id: Int): Drawable = activity.getDrawable(id)!!
+    fun getColor(id: Int): Int = activity.getColor(id)
+
+
     fun GetDataBinding(defValue: () -> Any, recvCallbacks: (View, Int, Any) -> Unit): DataBinding.BindingData {
         return DataBinding.get(bindingData, defValue, recvCallbacks)
     }
