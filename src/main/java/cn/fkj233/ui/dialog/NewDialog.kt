@@ -33,12 +33,10 @@ import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.*
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
-import cn.fkj233.ui.activity.getDisplay
 import kotlin.math.roundToInt
 
 class NewDialog(context: Context, private val newStyle: Boolean = true, val build: NewDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
