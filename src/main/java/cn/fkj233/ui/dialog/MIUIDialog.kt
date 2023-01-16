@@ -52,7 +52,6 @@ import kotlin.math.roundToInt
 
 @SuppressLint("ClickableViewAccessibility")
 class MIUIDialog(context: Context, private val newStyle: Boolean = true, val build: MIUIDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
-    private val isSingleLine: Boolean = true
     private val title by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
@@ -71,7 +70,7 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
     private val message by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
-                it.setMargins(dp2px(context, 10f), 0, dp2px(context, 10f), dp2px(context, 5f))
+                it.setMargins(dp2px(context, 20f), 0, dp2px(context, 20f), dp2px(context, 5f))
             }
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
             textView.setTextColor(context.getColor(R.color.whiteText))
@@ -83,53 +82,17 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
 
     private val editText by lazy {
         EditText(context).also { editText ->
-            editText.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 55f)).also {
+            editText.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                 it.setMargins(dp2px(context, 30f), dp2px(context, 10f), dp2px(context, 30f), 0)
             }
             editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
             editText.setTextColor(context.getColor(R.color.whiteText))
             editText.gravity = Gravity.CENTER_VERTICAL
-            editText.setPadding(dp2px(context, 20f), dp2px(context, 8f), dp2px(context, 8f), dp2px(context, 10f))
+            editText.setPadding(dp2px(context, 20f), dp2px(context, 15f), dp2px(context, 20f), dp2px(context, 15f))
             editText.visibility = View.GONE
             editText.background = context.getDrawable(R.drawable.editview_background)
-            editText.isSingleLine = isSingleLine
+            editText.isSingleLine = true
             editText.setHintTextColor(context.getColor(R.color.hintText))
-            val mHeight = dp2px(context, 55f)
-            val maxHeight = getDisplay(context).height / 2
-            editText.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    editText.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    val params = editText.layoutParams as LinearLayout.LayoutParams
-                    if (editText.lineCount <= 1) {
-                        params.height = mHeight
-                    } else {
-                        var tempHeight = mHeight
-                        for (i in 0..editText.lineCount) {
-                            tempHeight += mHeight / 2 - 20
-                        }
-                        params.height = if (tempHeight >= maxHeight) maxHeight else tempHeight
-                    }
-                    editText.layoutParams = params
-                }
-            })
-            editText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                override fun afterTextChanged(p0: Editable?) {}
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    val params = editText.layoutParams as LinearLayout.LayoutParams
-                    if (editText.lineCount <= 1) {
-                        params.height = mHeight
-                    } else {
-                        var tempHeight = mHeight
-                        for (i in 0..editText.lineCount) {
-                            tempHeight += mHeight / 2 - 20
-                        }
-                        params.height = if (tempHeight >= maxHeight) maxHeight else tempHeight
-                    }
-                    editText.layoutParams = params
-                }
-            })
         }
     }
 
@@ -298,7 +261,12 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
         }
     }
 
-    fun setMessage(text: CharSequence?) {
+    fun setMessage(text: CharSequence?, isCenter: Boolean = true) {
+        if (isCenter) {
+            message.gravity = Gravity.CENTER
+        } else {
+            message.gravity = Gravity.START
+        }
         message.apply {
             this.text = text
             visibility = View.VISIBLE
