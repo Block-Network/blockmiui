@@ -58,8 +58,8 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
             itemList.add(TextSummaryWithSwitchV(textSummaryV, switchV, dataBindingRecv))
         }
 
-        fun TitleText(text: String? = null, textId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
-            itemList.add(TitleTextV(text, textId, dataBindingRecv, onClickListener))
+        fun TitleText(text: String? = null, textId: Int? = null,colorInt: Int? = null, colorId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
+            itemList.add(TitleTextV(text, textId,colorInt, colorId,dataBindingRecv, onClickListener))
         }
 
         fun TextWithSwitch(textV: TextV, switchV: SwitchV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
