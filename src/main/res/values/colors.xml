@@ -11,6 +11,7 @@
     <color name="line">#E6E6E6</color>
     <color name="colorAccent">#0374A7</color>
     <color name="white">#FFFFFF</color>
+    <color name="disable_button_text">#000000</color>
     <color name="RButtonDisable">#F0F0F0</color>
     <color name="LButtonDisable">#F0F0F0</color>
     <color name="dialog_edit_background">#f4f4f4</color>

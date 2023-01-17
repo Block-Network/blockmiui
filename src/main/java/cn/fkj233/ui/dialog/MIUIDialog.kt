@@ -98,6 +98,7 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
                 it.setMargins(dp2px(context, 25f), 0, dp2px(context, 25f), 0)
                 it.gravity = Gravity.CENTER
             }
+            buttonView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
             buttonView.setTextColor(context.getColor(R.color.white))
             buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17.5f)
             buttonView.stateListAnimator = null
@@ -112,6 +113,7 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
                 it.setMargins(dp2px(context, 25f), 0, dp2px(context, 25f), 0)
                 it.gravity = Gravity.CENTER
             }
+            buttonView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
             buttonView.setTextColor(context.getColor(R.color.whiteText))
             buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17.5f)
             buttonView.stateListAnimator = null
@@ -235,7 +237,6 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
         }
         super.show()
         val layoutParams = window!!.attributes
-
         layoutParams.dimAmount = 0.5F
         if (newStyle) {
             val resources = context.resources

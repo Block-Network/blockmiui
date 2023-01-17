@@ -10,6 +10,7 @@
     <color name="hintText">#5C5C5C</color>
     <color name="line">#2D2D2D</color>
     <color name="colorAccent">#0374A7</color>
+    <color name="disable_button_text">#FFFFFF</color>
     <color name="RButtonDisable">#343434</color>
     <color name="LButtonDisable">#222222</color>
     <color name="dialog_edit_background">#343434</color>
