@@ -94,7 +94,7 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
         }
     }
 
-    var bView: LinearLayout
+    private var bView: LinearLayout
 
     private val root = RelativeLayout(context).also { viewRoot ->
         viewRoot.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
@@ -108,7 +108,7 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
                     it.gravity = Gravity.CENTER_HORIZONTAL
                 }
                 linearLayout.orientation = LinearLayout.VERTICAL
-                linearLayout.setPadding(0, dp2px(context, 16f), 0, dp2px(context, 35f))
+                linearLayout.setPadding(0, 0, 0, dp2px(context, 35f))
                 bView = linearLayout
             })
         })
@@ -117,10 +117,14 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
     fun Button(text: CharSequence?, enable: Boolean = true, cancelStyle: Boolean = false, callBacks: (View) -> Unit) {
         bView.addView(Button(context).also { buttonView ->
             buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 52.5f), 1f).also {
-                it.setMargins(dp2px(context, 25f), dp2px(context, 10f), dp2px(context, 25f), 0)
+                it.setMargins(dp2px(context, 30f), dp2px(context, 10f), dp2px(context, 30f), 0)
                 it.gravity = Gravity.CENTER
             }
+            buttonView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
             buttonView.setTextColor(context.getColor(if (cancelStyle) R.color.whiteText else R.color.white))
+            if (!enable) {
+                buttonView.setTextColor(context.getColor(R.color.disable_button_text))
+            }
             buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17.5f)
             buttonView.text = text
             buttonView.isEnabled = enable
@@ -163,7 +167,7 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
         window!!.setWindowAnimations(R.style.DialogAnim)
         super.show()
         val layoutParams = window!!.attributes
-        layoutParams.dimAmount = 0.3F
+        layoutParams.dimAmount = 0.5F
         if (newStyle) {
             val resources = context.resources
             val dm: DisplayMetrics = resources.displayMetrics
