@@ -33,7 +33,7 @@ import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-class TextSummaryArrowV(val textSummaryV: TextSummaryV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
+class TextSummaryArrowV(private val textSummaryV: TextSummaryV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView {
         return this

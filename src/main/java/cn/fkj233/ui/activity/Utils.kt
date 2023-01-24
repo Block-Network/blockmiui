@@ -26,16 +26,11 @@ package cn.fkj233.ui.activity
 
 import android.content.Context
 import android.text.TextUtils
-import android.util.Log
 import android.util.TypedValue
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
-import dalvik.system.BaseDexClassLoader
-import dalvik.system.DexFile
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 fun dp2px(context: Context, dpValue: Float): Int =
     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.resources.displayMetrics).toInt()

@@ -23,7 +23,6 @@
 package cn.fkj233.ui.activity.view
 
 import android.content.Context
-import android.graphics.Rect
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
@@ -126,9 +125,6 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
                             return true
                         }
 
-                        override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
-                            super.onFocusChanged(focused, direction, previouslyFocusedRect)
-                        }
                     }).apply {
                         layoutParams = LinearLayout.LayoutParams(dp2px(context, dropDownWidth - 35), LinearLayout.LayoutParams.WRAP_CONTENT)
                         descendantFocusability = LinearContainerV.FOCUS_BLOCK_DESCENDANTS

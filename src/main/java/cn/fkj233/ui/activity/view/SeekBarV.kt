@@ -35,7 +35,7 @@ import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-class SeekBarV(val key: String = "", val min: Int, val max: Int, private val defaultProgress: Int, private val dataSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView {
+class SeekBarV(val key: String = "", private val min: Int, val max: Int, private val defaultProgress: Int, private val dataSend: DataBinding.Binding.Send? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val callBacks: ((Int, TextView) -> Unit)? = null): BaseView {
 
     override fun getType(): BaseView = this
 

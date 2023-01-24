@@ -34,7 +34,7 @@ import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-class TextSummaryWithSwitchV(private val textV: TextSummaryV, val switchV: SwitchV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
+class TextSummaryWithSwitchV(private val textV: TextSummaryV, private val switchV: SwitchV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView = this
 

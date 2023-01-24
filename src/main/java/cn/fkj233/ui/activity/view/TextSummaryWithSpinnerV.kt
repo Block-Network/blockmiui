@@ -33,7 +33,7 @@ import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-class TextSummaryWithSpinnerV(private val textV: TextSummaryV, val spinnerV: SpinnerV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
+class TextSummaryWithSpinnerV(private val textV: TextSummaryV, private val spinnerV: SpinnerV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView = this
 

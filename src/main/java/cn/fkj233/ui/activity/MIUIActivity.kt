@@ -31,7 +31,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -49,7 +48,6 @@ import cn.fkj233.ui.activity.data.InitView
 import cn.fkj233.ui.activity.data.SafeSharedPreferences
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.view.BaseView
-import kotlin.system.exitProcess
 
 /**
  * @version: V1.0

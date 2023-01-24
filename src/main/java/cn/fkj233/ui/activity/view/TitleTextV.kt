@@ -60,6 +60,7 @@ class TitleTextV(val text: String? = null, private val textId: Int? = null, priv
             }
 
             view.setPadding(0, dp2px(context, 9.75f), dp2px(context, 5f), dp2px(context, 9.75f))
+            onClickListener?.let { view.setOnClickListener { it() } }
             dataBindingRecv?.setView(view)
         }
 
