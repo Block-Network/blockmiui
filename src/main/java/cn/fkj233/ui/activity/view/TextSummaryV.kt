@@ -39,7 +39,7 @@ import cn.fkj233.ui.activity.isRtl
 
 class TextSummaryV(private val text: String? = null, private val textId: Int? = null, private val tips: String? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val tipsId: Int? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView {
 
-    var showMargins = false
+    private var showMargins = false
 
     override fun getType(): BaseView {
         return this
