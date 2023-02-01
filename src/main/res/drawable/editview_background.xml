@@ -7,7 +7,7 @@
     <!--描边-->
     <stroke
         android:width="2dp"
-        android:color="#0c84FF" />
+        android:color="@color/RButtonNoPressed" />
     <solid android:color="@color/dialog_edit_background" />
 
 </shape>

@@ -18,7 +18,7 @@
         <clip>
             <shape>
                 <corners android:radius="50dp"/>
-                <solid android:color="#0d7AEC"/>
+                <solid android:color="@color/RButtonNoPressed"/>
             </shape>
         </clip>
     </item>
