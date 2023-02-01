@@ -4,7 +4,7 @@
     android:viewportWidth="1024"
     android:width="15dp">
     <path
-        android:fillColor="#1385FF"
+        android:fillColor="@color/popup_select_text"
         android:pathData="M1002.8,144.4a64,64 0,0 0,-90.4 4.8L381.6,739l-272.3,-272.3a64,64 0,0 0,-90.5 90.5l320,320A64,64 0,0 0,384 896h1.7a64,64 0,0 0,45.9 -21.2l576,-640a64,64 0,0 0,-4.8 -90.4z" />
 </vector>
 
