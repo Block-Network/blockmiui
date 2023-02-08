@@ -33,7 +33,7 @@ import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 
-class TextSummaryArrowV(private val textSummaryV: TextSummaryV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
+class TextSummaryWithArrowV(private val textSummaryV: TextSummaryV, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView {
         return this
@@ -42,20 +42,8 @@ class TextSummaryArrowV(private val textSummaryV: TextSummaryV, private val data
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
         textSummaryV.notShowMargins(true)
         return LinearContainerV(LinearContainerV.HORIZONTAL, arrayOf(
-            LayoutPair(
-                textSummaryV.create(context, callBacks),
-                LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    1f
-                )
-            ),
-            LayoutPair(
-                ImageView(context).also {
-                    it.background = context.getDrawable(R.drawable.ic_right_arrow)
-                },
-                LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL }
-            )
+            LayoutPair(textSummaryV.create(context, callBacks), LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)),
+            LayoutPair(ImageView(context).also { it.background = context.getDrawable(R.drawable.ic_right_arrow) }, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL })
         ), layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
