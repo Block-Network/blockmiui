@@ -47,11 +47,11 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
         }
 
         fun TextSummaryArrow(textSummaryV: TextSummaryV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-            itemList.add(TextSummaryArrowV(textSummaryV, dataBindingRecv))
+            itemList.add(TextSummaryWithArrowV(textSummaryV, dataBindingRecv))
         }
 
         fun TextA(text: String? = null, textId: Int? = null, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-            itemList.add(TextSummaryArrowV(TextSummaryV(text, textId, onClickListener = onClickListener), dataBindingRecv))
+            itemList.add(TextSummaryWithArrowV(TextSummaryV(text, textId, onClickListener = onClickListener), dataBindingRecv))
         }
 
         fun TextSummaryWithSwitch(textSummaryV: TextSummaryV, switchV: SwitchV, dataBindingRecv: DataBinding.Binding.Recv? = null) {

@@ -39,14 +39,14 @@ import cn.fkj233.ui.activity.isRtl
 
 class TextSummaryV(private val text: String? = null, private val textId: Int? = null, private val tips: String? = null, private val colorInt: Int? = null, private val colorId: Int? = null, private val tipsId: Int? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null, val onClickListener: (() -> Unit)? = null): BaseView {
 
-    private var showMargins = false
+    private var notShowMargins = false
 
     override fun getType(): BaseView {
         return this
     }
 
     fun notShowMargins(boolean: Boolean) {
-        showMargins = boolean
+        notShowMargins = boolean
     }
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
@@ -99,7 +99,7 @@ class TextSummaryV(private val text: String? = null, private val textId: Int? = 
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         ).also {
-            if (!showMargins) it.setMargins(0, dp2px(context, 15f),0, dp2px(context, 15f))
+            if (!notShowMargins) it.setMargins(0, dp2px(context, 15f),0, dp2px(context, 15f))
         }).create(context, callBacks).also {
             dataBindingRecv?.setView(it)
         }

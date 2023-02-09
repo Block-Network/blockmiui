@@ -49,35 +49,12 @@ abstract class BasePage {
         itemList.add(SeekBarV(key, min, max, defaultProgress, dataSend, dataBindingRecv, callBacks))
     }
 
-    fun TextSummaryWithSpinner(textV: TextSummaryV, spinnerV: SpinnerV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-        itemList.add(TextSummaryWithSpinnerV(textV, spinnerV, dataBindingRecv))
-    }
-
-    fun Text(text: String? = null, textId: Int? = null, textSize: Float? = null, colorInt: Int? = null, colorId: Int? = null, padding: Padding? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, typeface: Typeface? = null, onClickListener: (() -> Unit)? = null) {
-        itemList.add(TextV(text, textId, textSize, colorInt, colorId, padding, dataBindingRecv, typeface, onClickListener))
-    }
-
     fun SeekBarWithText(key: String = "", min: Int, max: Int, defaultProgress: Int = 0, dataBindingRecv: DataBinding.Binding.Recv? = null, dataBindingSend: DataBinding.Binding.Send? = null, callBacks: ((Int, TextView) -> Unit)? = null) {
         itemList.add(SeekBarWithTextV(key, min, max, defaultProgress, dataBindingRecv, dataBindingSend, callBacks))
     }
 
-    fun TextSummaryArrow(textSummaryV: TextSummaryV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-        itemList.add(TextSummaryArrowV(textSummaryV, dataBindingRecv))
-    }
-
-    fun TextSA(text: String? = null, textId: Int? = null, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-        itemList.add(TextSummaryArrowV(TextSummaryV(text, textId, onClickListener = onClickListener), dataBindingRecv))
-    }
-
-    fun TextSummary(text: String? = null, textId: Int? = null, tips: String? = null, colorInt: Int? = null, colorId: Int? = null, tipsId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
-        itemList.add(TextSummaryV(text, textId, tips, colorInt, colorId, tipsId, dataBindingRecv, onClickListener))
-    }
-    fun TextSummaryWithSwitch(textSummaryV: TextSummaryV, switchV: SwitchV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-        itemList.add(TextSummaryWithSwitchV(textSummaryV, switchV, dataBindingRecv))
-    }
-
-    fun TitleText(text: String? = null, textId: Int? = null,colorInt: Int? = null, colorId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
-        itemList.add(TitleTextV(text, textId,colorInt, colorId,dataBindingRecv, onClickListener))
+    fun Text(text: String? = null, textId: Int? = null, textSize: Float? = null, colorInt: Int? = null, colorId: Int? = null, padding: Padding? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, typeface: Typeface? = null, onClickListener: (() -> Unit)? = null) {
+        itemList.add(TextV(text, textId, textSize, colorInt, colorId, padding, dataBindingRecv, typeface, onClickListener))
     }
 
     fun TextWithSwitch(textV: TextV, switchV: SwitchV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
@@ -94,6 +71,42 @@ abstract class BasePage {
 
     fun TextSP(text: String? = null, textId: Int? = null, currentValue: String, data: SpinnerV.SpinnerData.() -> Unit, dataBindingRecv: DataBinding.Binding.Recv? = null) {
         itemList.add(TextWithSpinnerV(TextV(text, textId), SpinnerV(currentValue, data = data), dataBindingRecv))
+    }
+
+    fun TextWithArrow(textV: TextV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextWithArrowV(textV, dataBindingRecv))
+    }
+
+    fun TextSA(text: String? = null, textId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextWithArrowV(TextV(text, textId), dataBindingRecv))
+    }
+
+    fun TextWithSeekBar(textV: TextV, seekBarWithTextV: SeekBarWithTextV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextWithSeekBarV(textV, seekBarWithTextV, dataBindingRecv))
+    }
+
+    fun TextSummary(text: String? = null, textId: Int? = null, tips: String? = null, colorInt: Int? = null, colorId: Int? = null, tipsId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
+        itemList.add(TextSummaryV(text, textId, tips, colorInt, colorId, tipsId, dataBindingRecv, onClickListener))
+    }
+
+    fun TextSummaryWithSwitch(textSummaryV: TextSummaryV, switchV: SwitchV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextSummaryWithSwitchV(textSummaryV, switchV, dataBindingRecv))
+    }
+
+    fun TextSummaryWithSpinner(textSummaryV: TextSummaryV, spinnerV: SpinnerV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextSummaryWithSpinnerV(textSummaryV, spinnerV, dataBindingRecv))
+    }
+
+    fun TextSummaryWithArrow(textSummaryV: TextSummaryV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextSummaryWithArrowV(textSummaryV, dataBindingRecv))
+    }
+
+    fun TextSummaryWithSeekBar(textSummaryV: TextSummaryV, seekBarWithTextV: SeekBarWithTextV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextSummaryWithSeekBarV(textSummaryV, seekBarWithTextV, dataBindingRecv))
+    }
+
+    fun TitleText(text: String? = null, textId: Int? = null,colorInt: Int? = null, colorId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
+        itemList.add(TitleTextV(text, textId,colorInt, colorId,dataBindingRecv, onClickListener))
     }
 
     fun CustomView(view: View, dataBindingRecv: DataBinding.Binding.Recv? = null) {
