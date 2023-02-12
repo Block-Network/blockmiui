@@ -61,7 +61,7 @@ abstract class BasePage {
         itemList.add(TextWithSwitchV(textV, switchV, dataBindingRecv))
     }
 
-    fun TextSW(text: String? = null, textId: Int? = null, key: String, defValue: Boolean = false, onClickListener: ((Boolean) -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+    fun TextSw(text: String? = null, textId: Int? = null, key: String, defValue: Boolean = false, onClickListener: ((Boolean) -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
         itemList.add(TextWithSwitchV(TextV(text, textId), SwitchV(key, defValue, onClickListener = onClickListener), dataBindingRecv))
     }
 
@@ -69,7 +69,7 @@ abstract class BasePage {
         itemList.add(TextWithSpinnerV(textV, spinnerV, dataBindingRecv))
     }
 
-    fun TextSP(text: String? = null, textId: Int? = null, currentValue: String, data: SpinnerV.SpinnerData.() -> Unit, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+    fun TextSp(text: String? = null, textId: Int? = null, currentValue: String, data: SpinnerV.SpinnerData.() -> Unit, dataBindingRecv: DataBinding.Binding.Recv? = null) {
         itemList.add(TextWithSpinnerV(TextV(text, textId), SpinnerV(currentValue, data = data), dataBindingRecv))
     }
 
@@ -77,8 +77,8 @@ abstract class BasePage {
         itemList.add(TextWithArrowV(textV, dataBindingRecv))
     }
 
-    fun TextSA(text: String? = null, textId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-        itemList.add(TextWithArrowV(TextV(text, textId), dataBindingRecv))
+    fun TextA(text: String? = null, textId: Int? = null, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextWithArrowV(TextV(text, textId, onClickListener = onClickListener), dataBindingRecv))
     }
 
     fun TextWithSeekBar(textV: TextV, seekBarWithTextV: SeekBarWithTextV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
@@ -89,16 +89,32 @@ abstract class BasePage {
         itemList.add(TextSummaryV(text, textId, tips, colorInt, colorId, tipsId, dataBindingRecv, onClickListener))
     }
 
+    fun TextS(text: String? = null, textId: Int? = null, tips: String? = null, colorInt: Int? = null, colorId: Int? = null, tipsId: Int? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, onClickListener: (() -> Unit)? = null) {
+        itemList.add(TextSummaryV(text, textId, tips, colorInt, colorId, tipsId, dataBindingRecv, onClickListener))
+    }
+
     fun TextSummaryWithSwitch(textSummaryV: TextSummaryV, switchV: SwitchV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
         itemList.add(TextSummaryWithSwitchV(textSummaryV, switchV, dataBindingRecv))
+    }
+
+    fun TextSSw(text: String? = null, textId: Int? = null, tips: String? = null, tipsId: Int? = null, key: String, defValue: Boolean = false, onClickListener: ((Boolean) -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextSummaryWithSwitchV(TextSummaryV(text, textId, tips, tipsId), SwitchV(key, defValue, onClickListener = onClickListener), dataBindingRecv))
     }
 
     fun TextSummaryWithSpinner(textSummaryV: TextSummaryV, spinnerV: SpinnerV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
         itemList.add(TextSummaryWithSpinnerV(textSummaryV, spinnerV, dataBindingRecv))
     }
 
+    fun TextSSp(text: String? = null, textId: Int? = null, tips: String? = null, tipsId: Int? = null, currentValue: String, data: SpinnerV.SpinnerData.() -> Unit, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextSummaryWithSpinnerV(TextSummaryV(text, textId, tips, tipsId), SpinnerV(currentValue, data = data), dataBindingRecv))
+    }
+
     fun TextSummaryWithArrow(textSummaryV: TextSummaryV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
         itemList.add(TextSummaryWithArrowV(textSummaryV, dataBindingRecv))
+    }
+
+    fun TextSA(text: String? = null, textId: Int? = null, tips: String? = null, tipsId: Int? = null, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(TextSummaryWithArrowV(TextSummaryV(text, textId, tips, tipsId, onClickListener = onClickListener), dataBindingRecv))
     }
 
     fun TextSummaryWithSeekBar(textSummaryV: TextSummaryV, seekBarWithTextV: SeekBarWithTextV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
