@@ -120,6 +120,7 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
                 it.setMargins(dp2px(context, 30f), dp2px(context, 10f), dp2px(context, 30f), 0)
                 it.gravity = Gravity.CENTER
             }
+            buttonView.setPadding(0,0,0,0)
             buttonView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
             buttonView.setTextColor(context.getColor(if (cancelStyle) R.color.whiteText else R.color.white))
             if (!enable) {
