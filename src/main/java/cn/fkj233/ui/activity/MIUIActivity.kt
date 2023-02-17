@@ -70,8 +70,10 @@ open class MIUIActivity : Activity() {
 
     companion object {
         var safeSP: SafeSharedPreferences = SafeSharedPreferences()
+
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
+
         @SuppressLint("StaticFieldLeak")
         lateinit var activity: MIUIActivity
     }
@@ -81,9 +83,9 @@ open class MIUIActivity : Activity() {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                 it.gravity = Gravity.CENTER_VERTICAL
                 if (isRtl(context))
-                    it.setMargins(dp2px(activity, 5f), 0, 0,0)
+                    it.setMargins(dp2px(activity, 5f), 0, 0, 0)
                 else
-                    it.setMargins(0, 0, dp2px(activity, 5f),0)
+                    it.setMargins(0, 0, dp2px(activity, 5f), 0)
             }
             background = getDrawable(R.drawable.abc_ic_ab_back_material)
             visibility = View.GONE
@@ -99,9 +101,9 @@ open class MIUIActivity : Activity() {
             background = getDrawable(R.drawable.abc_ic_menu_overflow_material)
             visibility = View.GONE
             if (isRtl(context))
-                setPadding(dp2px(activity, 25f), 0, 0,0)
+                setPadding(dp2px(activity, 25f), 0, 0, 0)
             else
-                setPadding(0, 0, dp2px(activity, 25f),0)
+                setPadding(0, 0, dp2px(activity, 25f), 0)
             setOnClickListener {
                 showFragment(if (this@MIUIActivity::initViewData.isInitialized) "Menu" else "__menu__")
             }
@@ -193,6 +195,13 @@ open class MIUIActivity : Activity() {
                 }
                 initAllPage()
                 showFragment("__main__")
+            }
+        }
+        val showFragmentName = intent.getStringExtra("showFragment")
+        if (!showFragmentName.isNullOrEmpty()) {
+            if (pageInfo.containsKey(showFragmentName)) {
+                showFragment(showFragmentName)
+                return
             }
         }
     }
@@ -403,10 +412,12 @@ open class MIUIActivity : Activity() {
                     if (!viewData.mainShowBack) backButton.visibility = View.GONE
                     if (viewData.isMenu) menuButton.visibility = View.VISIBLE
                 }
+
                 "__main__" -> {
                     if (!pageInfo[name]!!.javaClass.getAnnotation(BMMainPage::class.java)!!.showBack) backButton.visibility = View.GONE
                     setMenuShow(pageInfo.containsKey("__menu__"))
                 }
+
                 else -> {
                     if (this::initViewData.isInitialized) {
                         setMenuShow(dataList[name]?.hideMenu == false)
