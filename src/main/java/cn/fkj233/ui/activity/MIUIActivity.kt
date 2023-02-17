@@ -197,8 +197,8 @@ open class MIUIActivity : Activity() {
                 showFragment("__main__")
             }
         }
-        val showFragmentName = intent.getStringExtra("showFragment")
-        if (!showFragmentName.isNullOrEmpty()) {
+        val showFragmentName = intent.getStringExtra("showFragment").toString()
+        if (showFragmentName != "null" && showFragmentName.isNotEmpty()) {
             if (pageInfo.containsKey(showFragmentName)) {
                 showFragment(showFragmentName)
                 return
