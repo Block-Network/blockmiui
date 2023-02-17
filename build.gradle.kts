@@ -4,11 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 26
-        targetSdk = 32
+        targetSdk = 33
+        buildToolsVersion = "33.0.2"
     }
 
     buildTypes {
@@ -16,8 +17,7 @@ android {
             isMinifyEnabled = false
             setProguardFiles(
                 listOf(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
                 )
             )
         }
