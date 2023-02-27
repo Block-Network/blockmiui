@@ -40,9 +40,17 @@ class TextWithArrowV(private val textV: TextV, private val dataBindingRecv: Data
     }
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
+        textV.notShowMargins(true)
         return LinearContainerV(LinearContainerV.HORIZONTAL, arrayOf(
-            LayoutPair(textV.create(context, callBacks), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)),
-            LayoutPair(ImageView(context).also { it.background = context.getDrawable(R.drawable.ic_right_arrow) }, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL })), layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.setMargins(0, dp2px(context, 17.75f), 0, dp2px(context, 17.75f))
+            LayoutPair(textV.create(context, callBacks), LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)),
+            LayoutPair(
+                ImageView(context).also { it.background = context.getDrawable(R.drawable.ic_right_arrow) },
+                LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL })
+        ), layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).also {
+            it.setMargins(0, dp2px(context, 17.75f),0, dp2px(context, 17.75f))
         }).create(context, callBacks).also {
             dataBindingRecv?.setView(it)
         }

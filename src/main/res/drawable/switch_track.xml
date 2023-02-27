@@ -2,9 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <shape>
-            <solid android:color="@color/RButtonNoPressed" />
+            <solid android:color="@color/switchOn" />
             <corners android:radius="25dp" />
-            <size android:height="15dp" android:width="25dp" />
+            <size android:height="22dp" android:width="26dp" />
         </shape>
     </item>
 
@@ -12,7 +12,7 @@
         <shape>
             <solid android:color="@color/colorTrack" />
             <corners android:radius="25dp" />
-            <size android:height="15dp" android:width="25dp" />
+            <size android:height="22dp" android:width="26dp" />
         </shape>
     </item>
 </selector>

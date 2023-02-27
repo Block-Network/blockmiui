@@ -94,12 +94,12 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
 
     private val rButton by lazy {
         Button(context).also { buttonView ->
-            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 52.5f), 1f).also {
+            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 48f), 1f).also {
                 it.setMargins(dp2px(context, 25f), 0, dp2px(context, 25f), 0)
                 it.gravity = Gravity.CENTER
             }
             buttonView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-            buttonView.setTextColor(context.getColor(R.color.white))
+            buttonView.setTextColor(context.getColor(R.color.RButtonText))
             buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17.5f)
             buttonView.stateListAnimator = null
             buttonView.background = context.getDrawable(R.drawable.r_button_background)
@@ -109,12 +109,12 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
 
     private val lButton by lazy {
         Button(context).also { buttonView ->
-            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 52.5f), 1f).also {
+            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 48f), 1f).also {
                 it.setMargins(dp2px(context, 25f), 0, dp2px(context, 25f), 0)
                 it.gravity = Gravity.CENTER
             }
             buttonView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-            buttonView.setTextColor(context.getColor(R.color.whiteText))
+            buttonView.setTextColor(context.getColor(R.color.LButtonText))
             buttonView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17.5f)
             buttonView.stateListAnimator = null
             buttonView.visibility = View.GONE

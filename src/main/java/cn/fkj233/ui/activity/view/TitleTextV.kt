@@ -43,7 +43,6 @@ class TitleTextV(val text: String? = null, private val textId: Int? = null, priv
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
 
-
         return TextView(context).also { view ->
             view.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
             text?.let { view.text = it }

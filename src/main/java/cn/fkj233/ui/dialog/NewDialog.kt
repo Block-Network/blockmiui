@@ -34,7 +34,11 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
 import kotlin.math.roundToInt
@@ -116,13 +120,13 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
 
     fun Button(text: CharSequence?, enable: Boolean = true, cancelStyle: Boolean = false, callBacks: (View) -> Unit) {
         bView.addView(Button(context).also { buttonView ->
-            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 52.5f), 1f).also {
+            buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 48f), 1f).also {
                 it.setMargins(dp2px(context, 30f), dp2px(context, 10f), dp2px(context, 30f), 0)
                 it.gravity = Gravity.CENTER
             }
-            buttonView.setPadding(0,0,0,0)
+            buttonView.setPadding(0, 0, 0, 0)
             buttonView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-            buttonView.setTextColor(context.getColor(if (cancelStyle) R.color.whiteText else R.color.white))
+            buttonView.setTextColor(context.getColor(if (cancelStyle) R.color.LButtonText else R.color.RButtonText))
             if (!enable) {
                 buttonView.setTextColor(context.getColor(R.color.disable_button_text))
             }

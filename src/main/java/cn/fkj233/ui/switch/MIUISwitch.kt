@@ -18,8 +18,8 @@ class MIUISwitch(context: Context) : Switch(context) {
     @SuppressLint("DiscouragedPrivateApi", "DrawAllocation")
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val switchWidth: Field = Switch::class.java.getDeclaredField("mSwitchWidth")
-        switchWidth.isAccessible = true
-        switchWidth.setInt(this, dp2px(context, 48f))
+        val mSwitchWidth: Field = Switch::class.java.getDeclaredField("mSwitchWidth")
+        mSwitchWidth.isAccessible = true
+        mSwitchWidth.setInt(this, dp2px(context, 51f))
     }
 }
