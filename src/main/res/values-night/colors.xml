@@ -11,15 +11,19 @@
     <color name="line">#2D2D2D</color>
     <color name="colorAccent">#0374A7</color>
     <color name="disable_button_text">#FFFFFF</color>
-    <color name="RButtonDisable">#343434</color>
+    <color name="RButtonDisable">#353535</color>
     <color name="LButtonDisable">#222222</color>
+    <color name="LButtonText">#c3c3c3</color>
+    <color name="LButtonPressed">#373737</color>
+    <color name="LButtonNoPressed">#353535</color>
+    <color name="RButtonNoPressed">#0073dd</color>
+    <color name="RButtonPressed">#2688e2</color>
     <color name="dialog_edit_background">#343434</color>
     <color name="popup_background">#242424</color>
     <color name="popup_background_click">#454545</color>
     <color name="popup_select">#1F2F4C</color>
     <color name="popup_select_click">#404E67</color>
-
     <color name="spinner">#666666</color>
-
     <color name="dialog_background">#242424</color>
+    <color name="switchOn">#0073dd</color>
 </resources>

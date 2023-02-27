@@ -41,6 +41,10 @@ abstract class BasePage {
         itemList.add(AuthorV(authorHead, authorName, authorTips, round, onClickListener, dataBindingRecv))
     }
 
+    fun Page(pageHead: Drawable, pageName: String? = null, pageNameId: Int? = null, round: Float = 0f, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(PageV(pageHead, pageName, pageNameId, round, onClickListener, dataBindingRecv))
+    }
+
     fun Line() {
         itemList.add(LineV())
     }
