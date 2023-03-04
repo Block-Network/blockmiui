@@ -38,6 +38,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.Keep
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.annotation.BMMainPage
 import cn.fkj233.ui.activity.annotation.BMMenuPage
@@ -57,6 +58,7 @@ import cn.fkj233.ui.activity.view.BaseView
  * @description: BaseActivity / 基本Activity
  * @data: 2022-02-05 18:30
  **/
+@Keep
 open class MIUIActivity : Activity() {
     private var callbacks: (() -> Unit)? = null
 
