@@ -23,7 +23,7 @@ class InitView(private val datalist: HashMap<String, ItemData>) {
         }
 
         fun Author(authorHead: Drawable, authorName: String, authorTips: String? = null, round: Float = 30f, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-            itemList.add(AuthorV(authorHead, authorName, authorTips, round, onClickListener, dataBindingRecv))
+            itemList.add(ImageTextV(authorHead, authorName, authorTips, round, onClickListener, dataBindingRecv))
         }
 
         fun Page(pageHead: Drawable, pageName: String?, pageNameId: Int?, round: Float = 0f, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {

@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package cn.fkj233.ui.activity.data
 
 import android.graphics.Typeface
@@ -37,8 +39,8 @@ abstract class BasePage {
         return DataBinding.get(bindingData, defValue, recvCallbacks)
     }
 
-    fun Author(authorHead: Drawable, authorName: String, authorTips: String? = null, round: Float = 30f, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-        itemList.add(AuthorV(authorHead, authorName, authorTips, round, onClickListener, dataBindingRecv))
+    fun ImageWithText(authorHead: Drawable, authorName: String, authorTips: String? = null, round: Float = 30f, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(ImageTextV(authorHead, authorName, authorTips, round, onClickListener, dataBindingRecv))
     }
 
     fun Page(pageHead: Drawable, pageName: String? = null, pageNameId: Int? = null, round: Float = 0f, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
