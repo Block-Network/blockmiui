@@ -211,24 +211,32 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
         }
     }
 
-    fun setRButton(text: CharSequence?, enable: Boolean = true, callBacks: (View) -> Unit) {
+    fun setRButton(text: CharSequence?, enable: Boolean = true) {
+        setRButton(text, enable, null)
+    }
+
+    fun setRButton(text: CharSequence?, enable: Boolean = true, callBacks: ((View) -> Unit)?) {
         rButton.apply {
             setText(text)
             this.isEnabled = enable
             setOnClickListener {
-                callBacks(it)
+                callBacks?.invoke(it)
                 finallyCallBacks?.invoke(it)
             }
             visibility = View.VISIBLE
         }
     }
 
-    fun setRButton(textId: Int, enable: Boolean = true, callBacks: (View) -> Unit) {
+    fun setRButton(textId: Int, enable: Boolean = true) {
+        setRButton(textId, enable, null)
+    }
+
+    fun setRButton(textId: Int, enable: Boolean = true, callBacks: ((View) -> Unit)?) {
         rButton.apply {
             setText(textId)
             this.isEnabled = enable
             setOnClickListener {
-                callBacks(it)
+                callBacks?.invoke(it)
                 finallyCallBacks?.invoke(it)
             }
             visibility = View.VISIBLE
