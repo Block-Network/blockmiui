@@ -47,7 +47,11 @@ import kotlin.math.roundToInt
 
 
 @SuppressLint("ClickableViewAccessibility")
-class MIUIDialog(context: Context, private val newStyle: Boolean = true, val build: MIUIDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
+class MIUIDialog(context: Context, private val newStyle: Boolean = true, val build: MIUIDialog.() -> Unit) :
+    Dialog(context, R.style.CustomDialog) {
+
+    private var finallyCallBacks: ((View) -> Unit)? = null
+
     private val title by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
@@ -175,24 +179,34 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
         this.title.setText(titleId)
     }
 
-    fun setLButton(text: CharSequence?, enable: Boolean = true, callBacks: (View) -> Unit) {
+    fun setLButton(text: CharSequence?, enable: Boolean = true) {
+        setLButton(text, enable, null)
+    }
+
+    fun setLButton(text: CharSequence?, enable: Boolean = true, callBacks: ((View) -> Unit)?) {
         lButton.apply {
             this.isEnabled = enable
             visibility = View.VISIBLE
             setText(text)
             setOnClickListener {
-                callBacks(it)
+                callBacks?.invoke(it)
+                finallyCallBacks?.invoke(it)
             }
         }
     }
 
-    fun setLButton(textId: Int, enable: Boolean = true, callBacks: (View) -> Unit) {
+    fun setLButton(textId: Int, enable: Boolean = true) {
+        setLButton(textId, enable, null)
+    }
+
+    fun setLButton(textId: Int, enable: Boolean = true, callBacks: ((View) -> Unit)?) {
         lButton.apply {
             this.isEnabled = enable
             visibility = View.VISIBLE
             setText(textId)
             setOnClickListener {
-                callBacks(it)
+                callBacks?.invoke(it)
+                finallyCallBacks?.invoke(it)
             }
         }
     }
@@ -203,6 +217,7 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
             this.isEnabled = enable
             setOnClickListener {
                 callBacks(it)
+                finallyCallBacks?.invoke(it)
             }
             visibility = View.VISIBLE
         }
@@ -214,6 +229,7 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
             this.isEnabled = enable
             setOnClickListener {
                 callBacks(it)
+                finallyCallBacks?.invoke(it)
             }
             visibility = View.VISIBLE
         }
@@ -251,14 +267,19 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
         window!!.attributes = layoutParams
     }
 
-    fun setMessage(textId: Int) {
+    fun setMessage(textId: Int, isCenter: Boolean = true) {
+        if (isCenter) {
+            message.gravity = Gravity.CENTER
+        } else {
+            message.gravity = Gravity.START
+        }
         message.apply {
             setText(textId)
             visibility = View.VISIBLE
         }
     }
 
-    fun setMessage(text: CharSequence?, isCenter: Boolean = true) {
+    fun setMessage(text: CharSequence, isCenter: Boolean = true) {
         if (isCenter) {
             message.gravity = Gravity.CENTER
         } else {
@@ -287,6 +308,10 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
                 })
             }
         }
+    }
+
+    fun finally(callBacks: (View) -> Unit) {
+        finallyCallBacks = callBacks
     }
 
     fun getEditText(): String = editText.text.toString()

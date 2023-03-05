@@ -20,6 +20,8 @@
  * <https://github.com/577fkj/BlockMIUI/blob/main/LICENSE>.
  */
 
+@file:Suppress("FunctionName")
+
 package cn.fkj233.ui.dialog
 
 import android.app.Dialog
@@ -44,6 +46,9 @@ import cn.fkj233.ui.activity.dp2px
 import kotlin.math.roundToInt
 
 class NewDialog(context: Context, private val newStyle: Boolean = true, val build: NewDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
+
+    private var finallyCallBacks: ((View) -> Unit)? = null
+
     private val title by lazy {
         TextView(context).also { textView ->
             textView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
@@ -118,7 +123,11 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
         })
     }
 
-    fun Button(text: CharSequence?, enable: Boolean = true, cancelStyle: Boolean = false, callBacks: (View) -> Unit) {
+    fun Button(text: CharSequence?, enable: Boolean = true, cancelStyle: Boolean = false) {
+        Button(text, enable, cancelStyle, null)
+    }
+
+    fun Button(text: CharSequence?, enable: Boolean = true, cancelStyle: Boolean = false, callBacks: ((View) -> Unit)?) {
         bView.addView(Button(context).also { buttonView ->
             buttonView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(context, 48f), 1f).also {
                 it.setMargins(dp2px(context, 30f), dp2px(context, 10f), dp2px(context, 30f), 0)
@@ -136,7 +145,8 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
             buttonView.stateListAnimator = null
             buttonView.background = context.getDrawable(if (cancelStyle) R.drawable.l_button_background else R.drawable.r_button_background)
             buttonView.setOnClickListener {
-                callBacks(it)
+                callBacks?.invoke(it)
+                finallyCallBacks?.invoke(it)
             }
         })
     }
@@ -222,6 +232,10 @@ class NewDialog(context: Context, private val newStyle: Boolean = true, val buil
                 })
             }
         }
+    }
+
+    fun Finally(callBacks: (View) -> Unit) {
+        finallyCallBacks = callBacks
     }
 
     fun getEditText(): String = editText.text.toString()

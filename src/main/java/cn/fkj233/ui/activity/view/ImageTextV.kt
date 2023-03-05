@@ -39,7 +39,7 @@ import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
 import cn.fkj233.ui.activity.isRtl
 
-class AuthorV(private val authorHead: Drawable, private val authorName: String, private val authorTips: String? = null, private val round: Float = 30f, private val onClick: (() -> Unit)? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
+class ImageTextV(private val authorHead: Drawable, private val authorName: String, private val authorTips: String? = null, private val round: Float = 30f, private val onClick: (() -> Unit)? = null, private val dataBindingRecv: DataBinding.Binding.Recv? = null): BaseView {
 
     override fun getType(): BaseView {
         return this
