@@ -8,8 +8,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-        targetSdk = 33
-        buildToolsVersion = "33.0.2"
     }
 
     buildTypes {
@@ -32,5 +30,5 @@ android {
 }
 
 dependencies {
-    implementation("androidx.annotation:annotation:1.5.0")
+    implementation("androidx.annotation:annotation:1.6.0")
 }
