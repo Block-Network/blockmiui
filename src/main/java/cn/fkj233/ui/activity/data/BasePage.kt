@@ -120,7 +120,7 @@ abstract class BasePage {
     }
 
     fun TextSA(text: String? = null, textId: Int? = null, tips: String? = null, tipsId: Int? = null, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-        itemList.add(TextSummaryWithArrowV(TextSummaryV(text, textId, tips, tipsId, onClickListener = onClickListener), dataBindingRecv))
+        itemList.add(TextSummaryWithArrowV(TextSummaryV(text = text, textId = textId, tips = tips, tipsId = tipsId, onClickListener = onClickListener), dataBindingRecv))
     }
 
     fun TextSummaryWithSeekBar(textSummaryV: TextSummaryV, seekBarWithTextV: SeekBarWithTextV, dataBindingRecv: DataBinding.Binding.Recv? = null) {
