@@ -3,6 +3,7 @@ package cn.fkj233.ui.activity.view
 import android.content.Context
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import cn.fkj233.miui.R
@@ -20,5 +21,6 @@ class MIUIEditText(context: Context) : EditText(context) {
         this.background = context.getDrawable(R.drawable.editview_background)
         this.isSingleLine = true
         this.setHintTextColor(context.getColor(R.color.hintText))
+        this.visibility = View.GONE
     }
 }
