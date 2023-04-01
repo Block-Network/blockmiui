@@ -36,13 +36,13 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import cn.fkj233.miui.R
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.isRtl
+import cn.fkj233.ui.activity.view.MIUIEditText
 import kotlin.math.roundToInt
 
 
@@ -80,21 +80,7 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
         }
     }
 
-    private val editText by lazy {
-        EditText(context).also { editText ->
-            editText.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
-                it.setMargins(dp2px(context, 30f), dp2px(context, 10f), dp2px(context, 30f), 0)
-            }
-            editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-            editText.setTextColor(context.getColor(R.color.whiteText))
-            editText.gravity = Gravity.CENTER_VERTICAL
-            editText.setPadding(dp2px(context, 20f), dp2px(context, 15f), dp2px(context, 20f), dp2px(context, 15f))
-            editText.visibility = View.GONE
-            editText.background = context.getDrawable(R.drawable.editview_background)
-            editText.isSingleLine = true
-            editText.setHintTextColor(context.getColor(R.color.hintText))
-        }
-    }
+    private val editText by lazy { MIUIEditText(context) }
 
     private val rButton by lazy {
         Button(context).also { buttonView ->
