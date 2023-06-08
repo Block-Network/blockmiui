@@ -5,7 +5,7 @@ plugins {
 
 android {
     compileSdk = 33
-
+    namespace="cn.fkj233.ui"
     defaultConfig {
         minSdk = 26
     }
