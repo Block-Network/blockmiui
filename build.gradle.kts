@@ -5,7 +5,7 @@ plugins {
 
 android {
     compileSdk = 33
-    namespace="cn.fkj233.ui"
+    namespace = "cn.fkj233.ui"
     defaultConfig {
         minSdk = 26
     }
@@ -27,7 +27,6 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.majorVersion
     }
-    namespace = "cn.fkj233.miui"
 }
 
 dependencies {
