@@ -25,7 +25,7 @@ package cn.fkj233.ui.activity.view
 import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
-import cn.fkj233.miui.R
+import cn.fkj233.ui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.dp2px
 

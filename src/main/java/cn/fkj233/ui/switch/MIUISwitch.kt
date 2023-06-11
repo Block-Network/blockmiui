@@ -3,7 +3,7 @@ package cn.fkj233.ui.switch
 import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Switch
-import cn.fkj233.miui.R
+import cn.fkj233.ui.R
 import cn.fkj233.ui.activity.dp2px
 import java.lang.reflect.Field
 
