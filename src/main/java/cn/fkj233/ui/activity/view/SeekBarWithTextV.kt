@@ -31,7 +31,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
-import cn.fkj233.miui.R
+import cn.fkj233.ui.R
 import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair

@@ -32,7 +32,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import cn.fkj233.miui.R
+import cn.fkj233.ui.R
 import cn.fkj233.ui.activity.data.MIUIPopupData
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.isRtl

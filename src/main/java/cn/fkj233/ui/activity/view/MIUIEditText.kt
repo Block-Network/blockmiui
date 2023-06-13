@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
-import cn.fkj233.miui.R
+import cn.fkj233.ui.R
 import cn.fkj233.ui.activity.dp2px
 
 class MIUIEditText(context: Context) : EditText(context) {
