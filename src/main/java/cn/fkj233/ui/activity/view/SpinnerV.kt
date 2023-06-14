@@ -33,6 +33,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import cn.fkj233.ui.R
+import cn.fkj233.ui.activity.MIUIActivity.Companion.context
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.data.MIUIPopupData
@@ -54,6 +55,10 @@ class SpinnerV(var currentValue: String, val dropDownWidth: Float = 150F, val da
 
         fun add(name: String, dataBindingSend: DataBinding.Binding.Send? = null,  callBacks: () -> Unit) {
             arrayList.add(MIUIPopupData(name, dataBindingSend, callBacks))
+        }
+        
+        fun add(resId: Int, dataBindingSend: DataBinding.Binding.Send? = null,  callBacks: () -> Unit) {
+            arrayList.add(MIUIPopupData(context.getString(resId), dataBindingSend, callBacks))
         }
     }
 
