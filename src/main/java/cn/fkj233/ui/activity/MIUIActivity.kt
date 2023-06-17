@@ -84,10 +84,8 @@ open class MIUIActivity : Activity() {
         ImageView(activity).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also {
                 it.gravity = Gravity.CENTER_VERTICAL
-                if (isRtl(context))
-                    it.setMargins(dp2px(activity, 5f), 0, 0, 0)
-                else
-                    it.setMargins(0, 0, dp2px(activity, 5f), 0)
+                if (isRtl(context)) it.setMargins(dp2px(activity, 5f), 0, 0, 0)
+                else it.setMargins(0, 0, dp2px(activity, 5f), 0)
             }
             background = getDrawable(R.drawable.abc_ic_ab_back_material)
             visibility = View.GONE
@@ -102,10 +100,8 @@ open class MIUIActivity : Activity() {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL }
             background = getDrawable(R.drawable.abc_ic_menu_overflow_material)
             visibility = View.GONE
-            if (isRtl(context))
-                setPadding(dp2px(activity, 25f), 0, 0, 0)
-            else
-                setPadding(0, 0, dp2px(activity, 25f), 0)
+            if (isRtl(context)) setPadding(dp2px(activity, 25f), 0, 0, 0)
+            else setPadding(0, 0, dp2px(activity, 25f), 0)
             setOnClickListener {
                 showFragment(if (this@MIUIActivity::initViewData.isInitialized) "Menu" else "__menu__")
             }
@@ -209,27 +205,23 @@ open class MIUIActivity : Activity() {
     }
 
     private val pageInfo: HashMap<String, BasePage> = hashMapOf()
-    private val pageList: ArrayList<Class<out BasePage>> = arrayListOf()
+    private val pageList: HashMap<Class<out BasePage>, String> = HashMap()
 
-    fun registerPage(basePage: Class<out BasePage>) {
-        pageList.add(basePage)
+    fun registerPage(basePage: Class<out BasePage>, title: String) {
+        pageList[basePage] = title
     }
 
     fun initAllPage() {
-        pageList.forEach { basePage ->
+        pageList.forEach { (basePage, _) ->
+            val mainPage = basePage.newInstance()
+            mainPage.activity = this
             if (basePage.getAnnotation(BMMainPage::class.java) != null) {
-                val mainPage = basePage.newInstance()
-                mainPage.activity = this
                 pageInfo["__main__"] = mainPage
             } else if (basePage.getAnnotation(BMMenuPage::class.java) != null) {
-                val menuPage = basePage.newInstance()
-                menuPage.activity = this
                 menuButton.visibility = View.VISIBLE
-                pageInfo["__menu__"] = menuPage
+                pageInfo["__menu__"] = mainPage
             } else if (basePage.getAnnotation(BMPage::class.java) != null) {
-                val menuPage = basePage.newInstance()
-                menuPage.activity = this
-                pageInfo[basePage.getAnnotation(BMPage::class.java)!!.key] = menuPage
+                pageInfo[basePage.getAnnotation(BMPage::class.java)!!.key] = mainPage
             } else {
                 throw Exception("Page must be annotated with BMMainPage or BMMenuPage or BMPage")
             }
@@ -293,7 +285,7 @@ open class MIUIActivity : Activity() {
             throw Exception("No page found")
         }
         val thisPage = pageInfo[key]!!
-        title = getPageTitle(thisPage)
+        title = getPageTitle(thisPage::class.java)
         thisName.add(key)
         val frame = MIUIFragment(key)
         if (key != "__main__" && fragmentManager.backStackEntryCount != 0) {
@@ -340,17 +332,8 @@ open class MIUIActivity : Activity() {
         return basePage.javaClass.getAnnotation(BMPage::class.java)?.hideMenu == true
     }
 
-    private fun getPageTitle(basePage: BasePage): String {
-        basePage.javaClass.getAnnotation(BMPage::class.java)?.let {
-            return it.title.ifEmpty { if (it.titleId != 0) activity.getString(it.titleId) else basePage.getTitle() }
-        }
-        basePage.javaClass.getAnnotation(BMMainPage::class.java)?.let {
-            return it.title.ifEmpty { if (it.titleId != 0) activity.getString(it.titleId) else basePage.getTitle() }
-        }
-        basePage.javaClass.getAnnotation(BMMenuPage::class.java)?.let {
-            return it.title.ifEmpty { if (it.titleId != 0) activity.getString(it.titleId) else basePage.getTitle() }
-        }
-        throw Exception("No title found")
+    private fun getPageTitle(basePage: Class<out BasePage>): String {
+        return pageList[basePage].toString()
     }
 
     fun getTopPage(): String {
@@ -431,7 +414,7 @@ open class MIUIActivity : Activity() {
             title = if (this::initViewData.isInitialized) {
                 dataList[name]?.title
             } else {
-                getPageTitle(pageInfo[name]!!)
+                getPageTitle(pageInfo[name]!!::class.java)
             }
             fragmentManager.popBackStack()
         }

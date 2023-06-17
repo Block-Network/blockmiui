@@ -39,8 +39,8 @@ abstract class BasePage {
         return DataBinding.get(bindingData, defValue, recvCallbacks)
     }
 
-    fun ImageWithText(authorHead: Drawable, authorName: String, authorTips: String? = null, round: Float = 30f, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
-        itemList.add(ImageTextV(authorHead, authorName, authorTips, round, onClickListener, dataBindingRecv))
+    fun ImageWithText(head: Drawable, name: String, tips: String? = null, round: Float = 30f, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
+        itemList.add(ImageTextV(head, name, tips, round, onClickListener, dataBindingRecv))
     }
 
     fun Page(pageHead: Drawable, pageName: String? = null, pageNameId: Int? = null, round: Float = 0f, onClickListener: (() -> Unit)? = null, dataBindingRecv: DataBinding.Binding.Recv? = null) {
