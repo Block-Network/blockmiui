@@ -66,7 +66,7 @@ class ImageTextV(private val authorHead: Drawable, private val authorName: Strin
                                 it.setPadding(0, dp2px(context, if (authorTips == null) 17f else 5f), dp2px(context, 15f), 0)
                             else
                                 it.setPadding(dp2px(context, 15f), dp2px(context, if (authorTips == null) 17f else 5f), 0, 0)
-                            it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+                            it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.25f)
                             it.setTextColor(context.getColor(R.color.whiteText))
                             it.text = authorName
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
