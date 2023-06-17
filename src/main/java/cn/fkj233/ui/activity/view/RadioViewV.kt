@@ -41,7 +41,7 @@ class RadioViewV(private val key: String, val dataBindingRecv: DataBinding.Bindi
                     layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
                     text = radioData.name
                     setTextColor(context.getColor(R.color.whiteText))
-                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.25f)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                         paint.typeface = Typeface.create(null, 500, false)
                     } else {

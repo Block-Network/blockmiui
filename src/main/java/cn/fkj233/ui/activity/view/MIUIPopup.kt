@@ -128,7 +128,7 @@ class MIUIPopup(private val context: Context, view: View, private val currentVal
                     }).apply {
                         layoutParams = LinearLayout.LayoutParams(dp2px(context, dropDownWidth - 35), LinearLayout.LayoutParams.WRAP_CONTENT)
                         descendantFocusability = LinearContainerV.FOCUS_BLOCK_DESCENDANTS
-                        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+                        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.25f)
                         if (isRtl(context))
                             setPadding(dp2px(context, 10f), dp2px(context, 25f), dp2px(context, 25f), dp2px(context, 25f))
                         else

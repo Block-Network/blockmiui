@@ -23,26 +23,20 @@
 package cn.fkj233.ui.activity.view
 
 import android.content.Context
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.os.Build
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import cn.fkj233.ui.R
 import cn.fkj233.ui.activity.data.DataBinding
 import cn.fkj233.ui.activity.data.LayoutPair
 import cn.fkj233.ui.activity.dp2px
 import cn.fkj233.ui.activity.fragment.MIUIFragment
-import cn.fkj233.ui.activity.isRtl
 
 class PageV(
     private val pageHead: Drawable,
-    private val pageName: String?,
-    private val pageNameId: Int?,
+    private val textSummaryV: TextSummaryV,
     private val round: Float = 0f,
     private val onClick: (() -> Unit)? = null,
     private val dataBindingRecv: DataBinding.Binding.Recv? = null
@@ -53,43 +47,24 @@ class PageV(
     }
 
     override fun create(context: Context, callBacks: (() -> Unit)?): View {
+        textSummaryV.notShowMargins(true)
         return LinearContainerV(LinearContainerV.HORIZONTAL, arrayOf(
             LayoutPair(
-                RoundCornerImageView(context, dp2px(context, round), dp2px(context, round)).also {
-                    it.background = pageHead
-                },
-                LinearLayout.LayoutParams(
-                    dp2px(context, 30f),
-                    dp2px(context, 30f)
-                )
+                RoundCornerImageView(context, dp2px(context, round), dp2px(context, round)).also { it.background = pageHead },
+                LinearLayout.LayoutParams(dp2px(context, 30f), dp2px(context, 30f)).also { it.gravity = Gravity.CENTER_VERTICAL }
             ),
             LayoutPair(
-                TextView(context).also {
-                    if (isRtl(context))
-                        it.setPadding(0, 0, dp2px(context, 16f), 0)
-                    else
-                        it.setPadding(dp2px(context, 16f), 0, 0, 0)
-                    it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-                    it.setTextColor(context.getColor(R.color.whiteText))
-                    pageName?.let { it1 -> it.text = it1 }
-                    pageNameId?.let { it1 -> it.setText(it1) }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        it.paint.typeface = Typeface.create(null, 500, false)
-                    } else {
-                        it.paint.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-                    }
-                },
-                LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also { it.gravity = Gravity.CENTER_VERTICAL }
-            ),
+                textSummaryV.create(context, callBacks),
+                LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also {
+                    it.marginStart = dp2px(context, 15f)
+                    it.gravity = Gravity.CENTER_VERTICAL
+                }),
             LayoutPair(
                 ImageView(context).also { it.background = context.getDrawable(R.drawable.ic_right_arrow) },
                 LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).also { it.gravity = Gravity.CENTER_VERTICAL })
-        ), layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        ).also {
-            it.setMargins(0, dp2px(context, 14.8f), 0, dp2px(context, 14.8f))
-        }).create(context, callBacks).also {
+        ),
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                .also { it.setMargins(0, dp2px(context, 14.8f), 0, dp2px(context, 14.8f)) }).create(context, callBacks).also {
             dataBindingRecv?.setView(it)
         }
     }

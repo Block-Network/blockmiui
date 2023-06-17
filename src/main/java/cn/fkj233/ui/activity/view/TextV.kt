@@ -55,7 +55,7 @@ class TextV(val text: String? = null, private val textId: Int? = null, val textS
             view.gravity = if (isRtl(context)) Gravity.RIGHT else Gravity.LEFT
             textId?.let { view.setText(it) }
             if (textSize == null)
-                view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+                view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.25f)
             else
                 view.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
             colorInt?.let { view.setTextColor(colorInt) }
