@@ -20,9 +20,10 @@ abstract class BasePage {
 
     open fun asyncInit(fragment: MIUIFragment) {}
 
-    fun showFragment(key: String) {
-        activity.showFragment(key)
+    fun showPage(page: BasePage) {
+        activity.showFragment(page::class.java.simpleName)
     }
+
 
     fun setTitle(title: String) {
         activity.title = title

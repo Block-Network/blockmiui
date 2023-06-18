@@ -30,6 +30,7 @@ import android.util.TypedValue
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
+import java.lang.annotation.Inherited
 import java.util.*
 
 fun dp2px(context: Context, dpValue: Float): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.resources.displayMetrics).toInt()

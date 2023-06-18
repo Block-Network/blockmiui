@@ -207,8 +207,13 @@ open class MIUIActivity : Activity() {
     private val pageInfo: HashMap<String, BasePage> = hashMapOf()
     private val pageList: HashMap<Class<out BasePage>, String> = HashMap()
 
-    fun registerPage(basePage: Class<out BasePage>, title: String) {
-        pageList[basePage] = title
+    fun registerPage(basePage: Class<out BasePage>, title: String? = null) {
+        if (title == null) {
+            pageList[basePage] = basePage.simpleName
+        } else {
+            pageList[basePage] = title
+        }
+
     }
 
     fun initAllPage() {
@@ -221,14 +226,13 @@ open class MIUIActivity : Activity() {
                 menuButton.visibility = View.VISIBLE
                 pageInfo["__menu__"] = mainPage
             } else if (basePage.getAnnotation(BMPage::class.java) != null) {
-                pageInfo[basePage.getAnnotation(BMPage::class.java)!!.key] = mainPage
+                pageInfo[basePage.simpleName] = mainPage
             } else {
                 throw Exception("Page must be annotated with BMMainPage or BMMenuPage or BMPage")
             }
         }
     }
 
-    @Deprecated("This method is obsolete")
     fun initView(iView: InitView.() -> Unit) {
         initViewData = iView
     }
@@ -249,7 +253,6 @@ open class MIUIActivity : Activity() {
      *  获取 SharedPreferences / Get SharedPreferences
      *  @return: SharedPreferences
      */
-    @Suppress("unused")
     fun getSP(): SharedPreferences? {
         return safeSP.mSP
     }
@@ -377,7 +380,6 @@ open class MIUIActivity : Activity() {
      * 设置全局返回调用 / Set global return call methods
      * @param: Unit
      */
-    @Suppress("unused")
     fun setAllCallBacks(callbacks: () -> Unit) {
         this.callbacks = callbacks
     }
