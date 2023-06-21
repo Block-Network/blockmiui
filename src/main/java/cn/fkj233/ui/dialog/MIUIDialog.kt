@@ -29,6 +29,9 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.text.Editable
+import android.text.InputFilter
+import android.text.InputType
+import android.text.Spanned
 import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.util.TypedValue
@@ -36,6 +39,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -47,8 +51,7 @@ import kotlin.math.roundToInt
 
 
 @SuppressLint("ClickableViewAccessibility")
-class MIUIDialog(context: Context, private val newStyle: Boolean = true, val build: MIUIDialog.() -> Unit) :
-    Dialog(context, R.style.CustomDialog) {
+class MIUIDialog(context: Context, private val newStyle: Boolean = true, val build: MIUIDialog.() -> Unit) : Dialog(context, R.style.CustomDialog) {
 
     private var finallyCallBacks: ((View) -> Unit)? = null
 
@@ -285,7 +288,7 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
         }
     }
 
-    fun setEditText(text: String, hint: String, isSingleLine: Boolean = true, editCallBacks: ((String) -> Unit)? = null) {
+    fun setEditText(text: String, hint: String, isSingleLine: Boolean = true, config: ((EditText) -> Unit)? = null, editCallBacks: ((String) -> Unit)? = null) {
         editText.apply {
             setText(text.toCharArray(), 0, text.length)
             this.hint = hint
@@ -301,6 +304,7 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
                     override fun onTextChanged(var1: CharSequence?, var2: Int, var3: Int, var4: Int) {}
                 })
             }
+            config?.invoke(this)
         }
     }
 
