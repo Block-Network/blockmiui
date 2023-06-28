@@ -29,9 +29,6 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.text.Editable
-import android.text.InputFilter
-import android.text.InputType
-import android.text.Spanned
 import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.util.TypedValue
