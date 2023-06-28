@@ -146,6 +146,7 @@ open class MIUIActivity : Activity() {
         super.onCreate(savedInstanceState)
         context = this
         activity = this
+        register()
         actionBar?.hide()
         setContentView(LinearLayout(activity).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
@@ -213,8 +214,9 @@ open class MIUIActivity : Activity() {
         } else {
             pageList[basePage] = title
         }
-
     }
+
+   open fun register(){}
 
     fun initAllPage() {
         pageList.forEach { (basePage, _) ->
