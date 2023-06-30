@@ -290,6 +290,7 @@ class MIUIDialog(context: Context, private val newStyle: Boolean = true, val bui
             setText(text.toCharArray(), 0, text.length)
             this.hint = hint
             this.isSingleLine = isSingleLine
+            this.maxLines = 5
             visibility = View.VISIBLE
             editCallBacks?.let {
                 addTextChangedListener(object : TextWatcher {
