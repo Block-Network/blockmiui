@@ -47,8 +47,8 @@ abstract class BasePage {
         itemList.add(PageV(pageHead, pageName, pageNameId, round, onClickListener, dataBindingRecv))
     }
 
-    fun Line() {
-        itemList.add(LineV())
+    fun Line(dataBindingRecv: DataBinding.Binding.Recv? = null,) {
+        itemList.add(LineV(dataBindingRecv))
     }
 
     fun SeekBar(key: String, min: Int, max: Int, defaultProgress: Int, dataSend: DataBinding.Binding.Send? = null, dataBindingRecv: DataBinding.Binding.Recv? = null, callBacks: ((Int, TextView) -> Unit)? = null) {
