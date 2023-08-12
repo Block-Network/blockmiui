@@ -140,4 +140,13 @@ class MIUIFragment() : Fragment() {
             })
         }
     }
+
+    /**
+     * Clear all view / 清除所有控件
+     */
+    fun clearAll() {
+        handler.post {
+            itemView.removeAllViews()
+        }
+    }
 }
