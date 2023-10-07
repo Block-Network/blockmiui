@@ -63,6 +63,14 @@ class TextSummaryWithSwitchV(private val textSummaryV: TextSummaryV, private val
                     when (motionEvent.action) {
                         MotionEvent.ACTION_DOWN -> if (switchV.switch.isEnabled) background = context.getDrawable(R.drawable.ic_main_down_bg)
                         MotionEvent.ACTION_UP -> {
+                            val touchX: Float = motionEvent.x
+                            val touchY: Float = motionEvent.y
+                            val maxX = width.toFloat()
+                            val maxY = height.toFloat()
+                            if (touchX < 0 || touchX > maxX || touchY < 0 || touchY > maxY) {
+                                setPressed(false)
+                                return@setOnTouchListener false
+                            }
                             if (switchV.switch.isEnabled) {
                                 switchV.click()
                                 callBacks?.let { it1 -> it1() }
